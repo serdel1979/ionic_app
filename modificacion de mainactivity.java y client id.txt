@@ -1,0 +1,21 @@
+keytool -keystore path-to-debug-or-production-keystore -list -v
+
+import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
+import android.os.Bundle;
+
+public void onCreate(Bundle savedInstanceState){
+	super.onCreate(savedInstanceState);
+	registerPlugin(GoogleAuth.class);
+}
+
+agregar <string name="server_client_id">402562450789-0aau8bfeu40ef95tg4c1c8trnrjoblo5.apps.googleusercontent.com</string>
+
+al archivo en /android/app/src/main/res/values/strings.xml
+
+
+keytool -keystore "C:\Users\sergio\.android\debug.keystore" -list -v
+
+BA:3F:E3:BA:CF:F2:BA:E5:64:6A:BC:6F:EC:40:97:E8:A3:AB:4F:81
+
+
+idcliente: 402562450789-69arnbrvh5laddd9qqophkks7kic4o1n.apps.googleusercontent.com

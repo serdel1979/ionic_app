@@ -1,0 +1,63 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Información de clima</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+   <!--<ion-button *ngIf="loadCoords" (click)="consultaClima()">Consultar</ion-button>--> 
+    <ion-card>
+      <ion-item lines="none">
+        <p>Datos de hoy</p>
+        <ion-label slot="end">
+          {{ todayDate | date: "EEE dd MMM"  }}
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="loadDescripcion" lines="none">
+        <span>
+          {{ (climaActual.main.temp - 273.15).toFixed(0) }}°
+        </span>
+        <span>
+          <ion-img slot="end" [src]="urlIconClima"/>
+        </span>
+      </ion-item>
+      <ion-item *ngIf="loadDescripcion">
+        <span>{{ descripcionActual }}</span>
+      </ion-item>
+
+      <ion-item *ngIf="loadClimaActual" lines="none">
+        <ion-icon name="location"></ion-icon>
+        <span>{{ climaActual.name }}</span>
+      </ion-item>
+
+    </ion-card>
+    <ion-card *ngIf="loadClimaActual">
+      <ion-item>
+        <span>Máxima </span>
+        <span slot="end">{{ (climaActual.main.temp_max - 273.15).toFixed(0) }}°</span>
+      </ion-item>
+      <ion-item>
+        <span>Mínima </span>
+        <span slot="end">{{ (climaActual.main.temp_min - 273.15).toFixed(0) }}°</span>
+      </ion-item>
+      <ion-item>
+        <span>Humedad</span>
+        <span slot="end">{{ climaActual.main.humidity }}%</span>
+      </ion-item>
+      <ion-item>
+        <span slot="end">
+          <ion-button>
+            Próximos días
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-button>
+        </span>
+      </ion-item>
+    </ion-card>
+
+    
+  </ion-content>
+</div>

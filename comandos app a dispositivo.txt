@@ -1,0 +1,329 @@
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[error] android platform has not been added yet.
+        See the docs for adding the android platform: https://capacitorjs.com/docs/android#adding-the-android-platform
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npm install @capacitor/android
+
+added 1 package, removed 1 package, and audited 1135 packages in 9s
+
+159 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android           
+[error] android platform has not been added yet.
+        See the docs for adding the android platform: https://capacitorjs.com/docs/android#adding-the-android-platform
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[error] android platform has not been added yet.
+        See the docs for adding the android platform: https://capacitorjs.com/docs/android#adding-the-android-platform
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npm install @capacitor/android
+
+up to date, audited 1135 packages in 4s
+
+159 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[error] android platform has not been added yet.
+        See the docs for adding the android platform: https://capacitorjs.com/docs/android#adding-the-android-platform
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npm run build
+
+> apptosi@0.0.1 build
+> ng build
+
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supportedgular CLI.
+Ignored browsers: chrome 60
+⠋ Generating browser application bundles (phase: setup)...    TypeScript compiler options "target" and "useDefineForClassFields" areS2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browerslist configuration. For moreon, see https://angular.io/guide/build#configuring-browser-compatibility
+✔ Browser application bundle generation complete.
+✔ Copying assets complete.
+⠋ Generating index html...10 rules skipped due to selector errors:
+  :host-context([dir=rtl]) .ion-float-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-sm-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-sm-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-md-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-md-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-lg-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-lg-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-xl-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-xl-end -> subselects_1.subselects[name] is not a function
+✔ Index html generation complete.
+
+Initial Chunk Files                   | Names                     |   Raw Size | Estimated Transfer Size
+main.7d2e70017f116316.js              | main                      |  340.20 kB |                92.17 kB
+polyfills.f946d3779880c5da.js         | polyfills                 |   33.07 kB |                10.67 kB
+styles.bac947a5496135b1.css           | styles                    |   27.16 kB |                 4.16 kB
+runtime.ab54623f4fa32638.js           | runtime                   |    4.52 kB |                 2.18 kB
+
+                                      | Initial Total             |  404.95 kB |               109.19 kB
+
+Lazy Chunk Files                      | Names                     |   Raw Size | Estimated Transfer Size
+2698.118cf490b992512b.js              | swiper-bundle-28080340-js |   97.16 kB |                23.39 kB
+polyfills-core-js.47d80097a3c81db0.js | polyfills-core-js         |   91.90 kB |                27.87 kB
+4711.456fd15fa41ae736.js              | -                         |   81.63 kB |                 8.47 kB
+4959.81a256a9acd1d244.js              | -                         |   67.96 kB |                11.68 kB
+1650.86a51fc754eca05d.js              | -                         |   48.23 kB |                 4.64 kB
+3236.ffab92742b383784.js              | -                         |   43.21 kB |                 9.37 kB
+1118.e54ee18fa435ea1b.js              | -                         |   34.17 kB |                 5.62 kB
+9325.3a522adebef9c6d9.js              | -                         |   28.43 kB |                 4.92 kB
+2349.22797302a251481e.js              | -                         |   28.12 kB |                 6.87 kB
+5652.e559dd309308bdde.js              | -                         |   25.47 kB |                 4.94 kB
+8628.805f79bfbbb45b3a.js              | -                         |   24.20 kB |                 3.79 kB
+2175.cbe8295e2edf5ba0.js              | -                         |   23.80 kB |                 4.69 kB
+3804.d3aee9ca8c3451d7.js              | -                         |   22.61 kB |                 5.68 kB
+1709.95d5510938ea0eb3.js              | -                         |   22.16 kB |                 4.61 kB
+5836.24ecd3c6784eb295.js              | -                         |   21.70 kB |                 3.42 kB
+3648.1664e5f57c21adff.js              | -                         |   21.47 kB |                 3.57 kB
+4651.409f305671c4c8ec.js              | -                         |   21.45 kB |                 3.76 kB
+8136.36a56015f918b565.js              | -                         |   20.41 kB |                 4.65 kB
+438.0c894ccae61e4cf3.js               | -                         |   20.36 kB |                 3.12 kB
+4174.d9562d521e0fd60f.js              | -                         |   19.09 kB |                 1.86 kB
+polyfills-dom.3a5e3168052f1fc5.js     | polyfills-dom             |   18.05 kB |                 5.04 kB
+common.a2ab21dd3d3ac9bd.js            | common                    |   16.49 kB |                 4.69 kB
+2773.d9d670eae40d9376.js              | -                         |   16.30 kB |                 4.23 kB
+1217.fde4baeafa591ca6.js              | -                         |   15.70 kB |                 2.85 kB
+5168.242c1277cd268ded.js              | -                         |   15.29 kB |                 2.96 kB
+7544.7dd9d67b2bf3923f.js              | -                         |   15.03 kB |                 2.73 kB
+6120.dbc1661e51c68aae.js              | -                         |   14.76 kB |                 3.05 kB
+6560.dca4e61506703928.js              | -                         |   14.54 kB |                 2.52 kB
+2073.e7628dddf8fcbd06.js              | -                         |   13.55 kB |                 2.32 kB
+1435.5a82c0508bab6916.js              | -                         |   12.29 kB |                 4.08 kB
+4144.bf02aed420f52004.js              | home-home-module          |   11.82 kB |                 4.06 kB
+388.89f033c1fd2b5a81.js               | -                         |   11.58 kB |                 2.10 kB
+9654.a8a96452ebbd497d.js              | -                         |   11.39 kB |                 2.61 kB
+5349.d5f5d10931029b55.js              | -                         |   11.34 kB |                 3.59 kB
+4330.314a046862ebb4fe.js              | -                         |   11.15 kB |                 3.80 kB
+9824.c512b904cf4c8833.js              | -                         |   11.15 kB |                 1.37 kB
+4432.6dc66e8f15ecd26e.js              | -                         |   10.62 kB |                 2.54 kB
+9016.c5274acf0968a2f2.js              | -                         |    9.40 kB |                 2.05 kB
+9434.8fec9c83f43bd654.js              | -                         |    8.66 kB |                 2.05 kB
+9922.8b663be220748549.js              | -                         |    8.44 kB |                 1.96 kB
+2289.98c6b790fbef4cc5.js              | -                         |    7.54 kB |                 2.65 kB
+7602.4bf1ab506dce2268.js              | -                         |    7.30 kB |                 2.07 kB
+9230.6d87c5f2ad9133dc.js              | -                         |    6.52 kB |                 1.80 kB
+9536.028c5277bf88eea1.js              | -                         |    6.36 kB |                 1.29 kB
+5817.fab2f0c037a74769.js              | -                         |    5.99 kB |                 1.42 kB
+4908.4f4abb698b29a051.js              | -                         |    5.97 kB |                 1.50 kB
+1186.cbfde2de12c286ce.js              | -                         |    5.49 kB |                 1.92 kB
+657.32281aecfea48d93.js               | -                         |    5.05 kB |                 1.25 kB
+3446.e6b5c0bb1a22789d.js              | input-shims-f2e11980-js   |    4.57 kB |                 1.78 kB
+4753.8ce67b175f1f0d7e.js              | -                         |    4.17 kB |              1011 bytes
+1536.b2f069ab89df5283.js              | -                         |    3.76 kB |                 1.27 kB
+9958.89200c852754de38.js              | -                         |    3.05 kB |               932 bytes
+7733.dba20ed35155a88a.js              | web                       |    2.54 kB |               967 bytes
+2531.2654ccaae225543c.js              | index-2dbe065f-js         |    1.83 kB |               817 bytes
+1033.0d4c404c719a46a0.js              | -                         |    1.64 kB |               666 bytes
+8939.4734c10cd219622c.js              | -                         |    1.50 kB |               517 bytes
+4376.a43b60102550c4e3.js              | -                         | 1008 bytes |               546 bytes
+5227.b8c6e6c7e31eadcf.js              | status-tap-4d4674a1-js    |  530 bytes |               321 bytes
+
+Build at: 2023-02-12T05:47:33.771Z - Hash: aa53e093fe29d036 - Time: 28118ms
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap add android
+√ Adding native android project in android in 506.14ms
+√ add in 508.98ms
+√ Copying web assets from www to android\app\src\main\assets\public in 7.32s
+√ Creating capacitor.config.json in android\app\src\main\assets in 8.10ms
+√ copy android in 7.49s
+√ Updating Android plugins in 67.61ms
+[info] Found 5 Capacitor plugins for android:
+       @capacitor/app@4.1.1
+       @capacitor/haptics@4.1.0
+       @capacitor/keyboard@4.1.1
+       @capacitor/status-bar@4.1.1
+       @codetrix-studio/capacitor-google-auth@3.2.2
+√ update android in 321.53ms
+√ Syncing Gradle in 903.90μs
+[success] android platform added!
+Follow the Developer Workflow guide to get building:
+https://capacitorjs.com/docs/basics/workflow
+[?] Would you like to help improve Capacitor by sharing anonymous usage data? 💖
+    Read more about what is being collected and why here: https://capacitorjs.com/telemetry. You can change your mind at
+    any time by using the npx cap telemetry command.
+√ Share anonymous usage data? ... no
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap sync
+√ Copying web assets from www to android\app\src\main\assets\public in 8.61s
+√ Creating capacitor.config.json in android\app\src\main\assets in 4.00ms
+√ copy android in 8.74s
+√ Updating Android plugins in 16.77ms
+[info] Found 5 Capacitor plugins for android:
+       @capacitor/app@4.1.1
+       @capacitor/haptics@4.1.0
+       @capacitor/keyboard@4.1.1
+       @capacitor/status-bar@4.1.1
+       @codetrix-studio/capacitor-google-auth@3.2.2
+√ update android in 364.87ms
+√ copy web in 19.80ms
+√ update web in 1.41ms
+[info] Sync finished in 9.135s
+
+C:\Users\sergio\Desktop\IONIC\apptosi>adb devices
+"adb" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[info] Opening Android project at: android.
+
+C:\Users\sergio\Desktop\IONIC\apptosi>keytool -keystore  -list -v
+error de herramienta de claves: java.lang.Exception: El archivo de almacén de claves no existe: -list
+java.lang.Exception: El archivo de almacén de claves no existe: -list
+        at java.base/sun.security.tools.keytool.Main.doCommands(Main.java:902)
+        at java.base/sun.security.tools.keytool.Main.run(Main.java:412)
+        at java.base/sun.security.tools.keytool.Main.main(Main.java:405)
+
+C:\Users\sergio\Desktop\IONIC\apptosi>keytool -keystore "C:\Users\sergio\.android" -list -v
+error de herramienta de claves: java.lang.Exception: El archivo de almacén de claves no existe: C:\Users\sergio\.android
+java.lang.Exception: El archivo de almacén de claves no existe: C:\Users\sergio\.android
+        at java.base/sun.security.tools.keytool.Main.doCommands(Main.java:902)
+        at java.base/sun.security.tools.keytool.Main.run(Main.java:412)
+        at java.base/sun.security.tools.keytool.Main.main(Main.java:405)
+
+C:\Users\sergio\Desktop\IONIC\apptosi>keytool -keystore "C:\Users\sergio\.android\debug.keystore" -list -v
+Introduzca la contraseña del almacén de claves:  
+Tipo de Almacén de Claves: PKCS12
+Proveedor de Almacén de Claves: SUN
+
+Su almacén de claves contiene 1 entrada
+
+Nombre de Alias: androiddebugkey
+Fecha de Creación: 8 feb. 2023
+Tipo de Entrada: PrivateKeyEntry
+Longitud de la Cadena de Certificado: 1
+Certificado[1]:
+Propietario: C=US, O=Android, CN=Android Debug
+Emisor: C=US, O=Android, CN=Android Debug
+Número de serie: 1
+Válido desde: Wed Feb 08 23:44:15 ART 2023 hasta: Fri Jan 31 23:44:15 ART 2053
+Huellas digitales del certificado:
+         SHA1: BA:3F:E3:BA:CF:F2:BA:E5:64:6A:BC:6F:EC:40:97:E8:A3:AB:4F:81
+         SHA256: AB:38:C7:DA:CE:33:85:D9:8D:37:F7:21:85:53:35:8B:D2:34:5F:8F:7F:CA:0F:16:EB:0F:E9:1B:4B:D1:C6:37
+Nombre del algoritmo de firma: SHA256withRSA
+Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
+Versión: 1
+
+
+*******************************************
+*******************************************
+
+
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[info] Opening Android project at: android.
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap add android  
+[error] android platform already exists.
+        To re-add this platform, first remove .\android, then run this command again.
+        WARNING: Your native project will be completely removed.
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[info] Opening Android project at: android.
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npm run build               
+
+> apptosi@0.0.1 build
+> ng build
+
+One or more browsers which are configured in the project's Browserslist configuration will be ignored as ES5 output is not supported by the Angular CLI.
+Ignored browsers: chrome 60
+⠋ Generating browser application bundles (phase: setup)...    TypeScript compiler options "target" and "useDefineForClassFields" are set to "ES2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browerslist configuration. For more information, see https://angular.io/guide/build#configuring-browser-compatibility
+✔ Browser application bundle generation complete.
+✔ Copying assets complete.
+⠋ Generating index html...10 rules skipped due to selector errors:
+  :host-context([dir=rtl]) .ion-float-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-sm-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-sm-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-md-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-md-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-lg-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-lg-end -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-xl-start -> subselects_1.subselects[name] is not a function
+  :host-context([dir=rtl]) .ion-float-xl-end -> subselects_1.subselects[name] is not a function
+✔ Index html generation complete.
+
+Initial Chunk Files                   | Names                     |   Raw Size | Estimated Transfer Size
+main.7d2e70017f116316.js              | main                      |  340.20 kB |                92.17 kB
+polyfills.f946d3779880c5da.js         | polyfills                 |   33.07 kB |                10.67 kB
+styles.bac947a5496135b1.css           | styles                    |   27.16 kB |                 4.16 kB
+runtime.9907c64e53ed3fe2.js           | runtime                   |    4.52 kB |                 2.19 kB
+
+                                      | Initial Total             |  404.95 kB |               109.19 kB
+
+Lazy Chunk Files                      | Names                     |   Raw Size | Estimated Transfer Size
+2698.118cf490b992512b.js              | swiper-bundle-28080340-js |   97.16 kB |                23.39 kB
+polyfills-core-js.47d80097a3c81db0.js | polyfills-core-js         |   91.90 kB |                27.87 kB
+4711.456fd15fa41ae736.js              | -                         |   81.63 kB |                 8.47 kB
+4959.81a256a9acd1d244.js              | -                         |   67.96 kB |                11.68 kB
+1650.86a51fc754eca05d.js              | -                         |   48.23 kB |                 4.64 kB
+3236.ffab92742b383784.js              | -                         |   43.21 kB |                 9.37 kB
+1118.e54ee18fa435ea1b.js              | -                         |   34.17 kB |                 5.62 kB
+9325.3a522adebef9c6d9.js              | -                         |   28.43 kB |                 4.92 kB
+2349.22797302a251481e.js              | -                         |   28.12 kB |                 6.87 kB
+5652.e559dd309308bdde.js              | -                         |   25.47 kB |                 4.94 kB
+8628.805f79bfbbb45b3a.js              | -                         |   24.20 kB |                 3.79 kB
+2175.cbe8295e2edf5ba0.js              | -                         |   23.80 kB |                 4.69 kB
+3804.d3aee9ca8c3451d7.js              | -                         |   22.61 kB |                 5.68 kB
+1709.95d5510938ea0eb3.js              | -                         |   22.16 kB |                 4.61 kB
+5836.24ecd3c6784eb295.js              | -                         |   21.70 kB |                 3.42 kB
+3648.1664e5f57c21adff.js              | -                         |   21.47 kB |                 3.57 kB
+4651.409f305671c4c8ec.js              | -                         |   21.45 kB |                 3.76 kB
+8136.36a56015f918b565.js              | -                         |   20.41 kB |                 4.65 kB
+438.0c894ccae61e4cf3.js               | -                         |   20.36 kB |                 3.12 kB
+4174.d9562d521e0fd60f.js              | -                         |   19.09 kB |                 1.86 kB
+polyfills-dom.3a5e3168052f1fc5.js     | polyfills-dom             |   18.05 kB |                 5.04 kB
+common.a2ab21dd3d3ac9bd.js            | common                    |   16.49 kB |                 4.69 kB
+2773.d9d670eae40d9376.js              | -                         |   16.30 kB |                 4.23 kB
+1217.fde4baeafa591ca6.js              | -                         |   15.70 kB |                 2.85 kB
+5168.242c1277cd268ded.js              | -                         |   15.29 kB |                 2.96 kB
+7544.7dd9d67b2bf3923f.js              | -                         |   15.03 kB |                 2.73 kB
+6120.dbc1661e51c68aae.js              | -                         |   14.76 kB |                 3.05 kB
+6560.dca4e61506703928.js              | -                         |   14.54 kB |                 2.52 kB
+2073.e7628dddf8fcbd06.js              | -                         |   13.55 kB |                 2.32 kB
+1435.5a82c0508bab6916.js              | -                         |   12.29 kB |                 4.08 kB
+4144.693be183fd3f4798.js              | home-home-module          |   11.73 kB |                 4.02 kB
+388.89f033c1fd2b5a81.js               | -                         |   11.58 kB |                 2.10 kB
+9654.a8a96452ebbd497d.js              | -                         |   11.39 kB |                 2.61 kB
+5349.d5f5d10931029b55.js              | -                         |   11.34 kB |                 3.59 kB
+4330.314a046862ebb4fe.js              | -                         |   11.15 kB |                 3.80 kB
+9824.c512b904cf4c8833.js              | -                         |   11.15 kB |                 1.37 kB
+4432.6dc66e8f15ecd26e.js              | -                         |   10.62 kB |                 2.54 kB
+9016.c5274acf0968a2f2.js              | -                         |    9.40 kB |                 2.05 kB
+9434.8fec9c83f43bd654.js              | -                         |    8.66 kB |                 2.05 kB
+9922.8b663be220748549.js              | -                         |    8.44 kB |                 1.96 kB
+2289.98c6b790fbef4cc5.js              | -                         |    7.54 kB |                 2.65 kB
+7602.4bf1ab506dce2268.js              | -                         |    7.30 kB |                 2.07 kB
+9230.6d87c5f2ad9133dc.js              | -                         |    6.52 kB |                 1.80 kB
+9536.028c5277bf88eea1.js              | -                         |    6.36 kB |                 1.29 kB
+5817.fab2f0c037a74769.js              | -                         |    5.99 kB |                 1.42 kB
+4908.4f4abb698b29a051.js              | -                         |    5.97 kB |                 1.50 kB
+1186.cbfde2de12c286ce.js              | -                         |    5.49 kB |                 1.92 kB
+657.32281aecfea48d93.js               | -                         |    5.05 kB |                 1.25 kB
+3446.e6b5c0bb1a22789d.js              | input-shims-f2e11980-js   |    4.57 kB |                 1.78 kB
+4753.8ce67b175f1f0d7e.js              | -                         |    4.17 kB |              1011 bytes
+1536.b2f069ab89df5283.js              | -                         |    3.76 kB |                 1.27 kB
+9958.89200c852754de38.js              | -                         |    3.05 kB |               932 bytes
+7733.dba20ed35155a88a.js              | web                       |    2.54 kB |               967 bytes
+2531.2654ccaae225543c.js              | index-2dbe065f-js         |    1.83 kB |               817 bytes
+1033.0d4c404c719a46a0.js              | -                         |    1.64 kB |               666 bytes
+8939.4734c10cd219622c.js              | -                         |    1.50 kB |               517 bytes
+4376.a43b60102550c4e3.js              | -                         | 1008 bytes |               546 bytes
+5227.b8c6e6c7e31eadcf.js              | status-tap-4d4674a1-js    |  530 bytes |               321 bytes
+
+Build at: 2023-02-12T07:24:40.615Z - Hash: 4aa238e4d4436a8e - Time: 33837ms
+
+C:\Users\sergio\Desktop\IONIC\apptosi>npx cap open android
+[info] Opening Android project at: android.
+
+C:\Users\sergio\Desktop\IONIC\apptosi>ionic cap run android --livereload --external
+
+1- npm run build
+2- npx cap sync
+3- npx cap open android
