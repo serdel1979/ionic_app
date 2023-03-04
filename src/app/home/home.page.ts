@@ -26,6 +26,8 @@ export class HomePage implements OnInit {
   public loadCoords: boolean = false;
   public imgBlobBase64: any = '';
 
+  //info de clima
+
   public reg: RegistroDTO = {
     UserName: "",
     Latitud: 0,

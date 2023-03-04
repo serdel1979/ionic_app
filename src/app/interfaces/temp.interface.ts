@@ -54,3 +54,16 @@ export interface Wind {
     deg:   number;
     gust:  number;
 }
+
+export interface ClimateCurrent {
+     loadCoords: boolean;
+     todayDate :  Date;
+     climaActual : Weather;
+     loadClimaActual: boolean;
+     descripcionClima : WeatherElement[];
+     descripcionActual : string;
+     loadDescripcion : boolean;
+     urlIconClima: string;
+     coordenadas: [number, number];
+}
+
