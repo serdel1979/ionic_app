@@ -32,7 +32,7 @@ export class LoginPage{
     this.loadingCtl.create();
     this.authService.signIn().then(()=>{
       this.loadingCtl.dismiss();
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/project');
     }).catch(()=>{
       this.loadingCtl.dismiss();
       console.error("error");

@@ -33,4 +33,9 @@ export class MenuComponent implements OnInit {
     this.menuCtrl.close();
   }
 
+  project(){
+    this.router.navigateByUrl('/project');
+    this.menuCtrl.close();
+  }
+
 }

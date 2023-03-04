@@ -13,6 +13,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'project',
+    loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
+    canActivate:[LoginGuard]
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
     canActivate:[LoginGuard]
@@ -22,6 +27,7 @@ const routes: Routes = [
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule),
     canActivate:[LoginGuard]
   }
+
 ];
 
 @NgModule({
