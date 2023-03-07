@@ -8,16 +8,19 @@
 
     <ion-list>
       <ion-item>
-        <ion-label (click)="home()">Home</ion-label>
+ 
       </ion-item>
       <ion-item>
-        <ion-label (click)="project()">Proyecto</ion-label>
+        <ion-label [ngClass]="{'clicked': clicked}" (click)="home()">Home</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label (click)="info()">Información de clima</ion-label>
+        <ion-label [ngClass]="{'clicked': clicked}" (click)="project()">Proyecto</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label (click)="logout()">Salir</ion-label>
+        <ion-label [ngClass]="{'clicked': clicked}" (click)="info()">Información de clima</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label [ngClass]="{'clicked': clicked}" (click)="logout()">Salir</ion-label>
       </ion-item>
     </ion-list>
 

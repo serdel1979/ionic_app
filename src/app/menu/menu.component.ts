@@ -15,6 +15,9 @@ export class MenuComponent implements OnInit {
 
   private climCurrent!: ClimateCurrent;
 
+  public clicked: boolean = false;
+
+
   constructor(private router: Router, private authService: AuthService,
     private menuCtrl: MenuController, private climaService: ClimaService) { }
 
@@ -32,45 +35,53 @@ export class MenuComponent implements OnInit {
   }
 
 
-  consultaClima(){
-    this.climaService.getData(this.climCurrent.coordenadas[0],this.climCurrent.coordenadas[1]).subscribe(async (result) => {
+  consultaClima() {
+    this.climaService.getData(this.climCurrent.coordenadas[0], this.climCurrent.coordenadas[1]).subscribe(async (result) => {
       // manejar resultado exitoso
       //await this.presentAlert('Enviado','Enviado a base de datos','El registro se envió a la base de datos remota');
       console.log(result);
       this.climCurrent.climaActual = result;
       this.climCurrent.descripcionClima = result.weather;
-      this.climCurrent.descripcionActual=this.climCurrent.descripcionClima[0].description;
+      this.climCurrent.descripcionActual = this.climCurrent.descripcionClima[0].description;
       this.climCurrent.loadDescripcion = true;
       this.climCurrent.urlIconClima = `http://openweathermap.org/img/wn/${this.climCurrent.descripcionClima[0].icon}@4x.png`;
       this.climCurrent.loadClimaActual = true;
     },
-    async (error) => {
-      // manejar error
-      console.error(error);
-      //await this.presentAlert('Error','Error al enviar',error.message);
-    });
+      async (error) => {
+        // manejar error
+        console.error(error);
+        //await this.presentAlert('Error','Error al enviar',error.message);
+      });
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
     this.router.navigateByUrl('/login');
     console.log("logout");
     this.menuCtrl.close();
   }
 
-  info(){
+  info() {
+    this.clicked = !this.clicked;
     this.router.navigateByUrl('/info');
     this.menuCtrl.close();
+    this.clicked = !this.clicked;
   }
 
-  home(){
+  home() {
+    this.clicked = !this.clicked;
     this.router.navigateByUrl('/home');
     this.menuCtrl.close();
+    this.clicked = !this.clicked;
   }
 
-  project(){
+  project() {
+    this.clicked = !this.clicked;
     this.router.navigateByUrl('/project');
     this.menuCtrl.close();
+    this.clicked = !this.clicked;
   }
+
+ 
 
 }

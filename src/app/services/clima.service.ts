@@ -20,7 +20,7 @@ export class ClimaService {
   getData(lat:number,long:number){
     //http://192.168.1.7:5240/pruebas/clima/lat/-34.8870474/longitud/-57.8736141
     //return this.http.get<Weather>(`${URL}/climate/latitud/${lat}/longitud/${long}`)
-    return this.http.get<Weather>(`${urlApi}/weather?lat=${lat}&lon=${long}&appid=${apiKey}&lang=es`)
+    return this.http.get<Weather>(`${urlApi}/${lat}/${long}`);
   }
 
 
