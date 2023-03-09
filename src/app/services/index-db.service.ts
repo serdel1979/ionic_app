@@ -10,6 +10,16 @@ export interface Stuff {
 
 const STUFF_KEYS = 'my-stuffs';
 
+export interface Developed_activity{
+  id: number,
+  description: string,
+  reportid: number
+}
+
+const ACT_DEV_KEYS = 'my-activity-dev'
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +28,65 @@ export class IndexDBService {
   constructor(private storage: Storage) { }
 
 
+  //// actividades desarrolladas
+
+  addActivityDeveloped(activity: Developed_activity): Promise<any>{
+    return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[])=>{
+        if(activities){
+          activities.push(activity);
+          return this.storage.set(ACT_DEV_KEYS,activities);
+        }else{
+          return this.storage.set(ACT_DEV_KEYS,[activity]);
+        }
+    });
+  }
+
+  getActivities():Promise<Developed_activity[]>{
+    return this.storage.get(ACT_DEV_KEYS);
+  }
+
+
+  updateActivities(activity: Developed_activity): Promise<any>{
+    return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[]) => {
+      if (!activities || activities.length === 0) {
+        return null;
+      }
+      let newActivity: Developed_activity[] = [];
+      for (let i of activities) {
+        if (i.id === activity.id) {
+          newActivity.push(activity);
+        } else {
+          newActivity.push(i);
+        }
+      }
+      return this.storage.set(ACT_DEV_KEYS, newActivity);
+    });
+  }
+
+  
+  deletActivity(activity: Developed_activity): Promise<any>{
+    return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[]) => {
+      if (!activities || activities.length === 0) {
+        return null;
+      }
+      let toKeep: Developed_activity[] = [];
+      for (let i of activities) {
+        if (i.id !== activity.id) {
+          toKeep.push(activity);
+        } else {
+          toKeep.push(i);
+        }
+      }
+      return this.storage.set(ACT_DEV_KEYS, toKeep);
+    });
+  }
+
+
+
+
+
+
+  //// personal afectado
   addStuff(stuff: Stuff): Promise<any>{
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[])=>{
         if(stuffs){
@@ -58,6 +127,7 @@ export class IndexDBService {
       }
       let toKeep: Stuff[] = [];
       for (let i of stuffs) {
+        console.log(`${i.id} = ${stuff.id}?`);
         if (i.id !== stuff.id) {
           toKeep.push(i);
         } 

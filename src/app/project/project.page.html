@@ -59,7 +59,7 @@
           <ion-button (click)="addStuff()" expand="full">
             Nuevo
           </ion-button>
-          <div *ngIf="stuffs">
+          <div *ngIf="stuffs.length > 0">
             <ion-row class="header-row">
 
               <ion-col size="3" size-md="4" size-lg="2">
@@ -71,8 +71,8 @@
               <ion-col size="3">
                 Salida
               </ion-col>
-              <ion-col size="3" *ngIf="!bulkEdit">
-                Action
+              <ion-col size="3">
+                Acción
               </ion-col>
             </ion-row>
 
@@ -88,10 +88,10 @@
                 {{ row.date_end }}
               </ion-col>
               <ion-col size="3">
-                <ion-button size="small" (click)="removeRow(i)">
+                <ion-button size="small" (click)="stuffDelete(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
-                <ion-button size="small" (click)="bulkDelete(i)">
+                <ion-button size="small" (click)="stuffDelete(row)">
                   <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -105,30 +105,29 @@
           <ion-label>Actividades desarrolladas</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <ion-button expand="full">
+          <ion-button (click)="addActivitiesDeveloped()" expand="full">
             Nuevo
           </ion-button>
-
-          <ion-row class="header-row">
-
-            <ion-col size="9" size-md="4" size-lg="2">
-              Decripción
-            </ion-col>
-
-          </ion-row>
-          <ion-row class="data-row">
-            <ion-col size="9" size-md="4" size-lg="2">
-              Instalación de bandeja
-            </ion-col>
-            <ion-col size="3">
-              <ion-button size="small" (click)="removeRow(1)">
-                <ion-icon name="trash" slot="icon-only"></ion-icon>
-              </ion-button>
-              <ion-button size="small" (click)="removeRow(1)">
-                <ion-icon name="create" slot="icon-only"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
+          <div *ngIf="activitiesDeveloped.length > 0">
+            <ion-row class="header-row">
+              <ion-col size="9" size-md="4" size-lg="2">
+                Decripción
+              </ion-col>
+            </ion-row>
+            <ion-row class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
+              <ion-col size="9" size-md="4" size-lg="2">
+                {{ row.description }}
+              </ion-col>
+              <ion-col size="3">
+                <ion-button size="small">
+                  <ion-icon name="trash" slot="icon-only"></ion-icon>
+                </ion-button>
+                <ion-button size="small">
+                  <ion-icon name="create" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
         </div>
       </ion-accordion>
       <ion-accordion value="third">
@@ -176,10 +175,10 @@
               Pasar los cables por las bandejas arriba del cielorraso que está cortado
             </ion-col>
             <ion-col size="3">
-              <ion-button size="small" (click)="removeRow(1)">
+              <ion-button size="small">
                 <ion-icon name="trash" slot="icon-only"></ion-icon>
               </ion-button>
-              <ion-button size="small" (click)="removeRow(1)">
+              <ion-button size="small">
                 <ion-icon name="create" slot="icon-only"></ion-icon>
               </ion-button>
             </ion-col>
@@ -187,10 +186,10 @@
               Pasar el destapa caños por la chimenea azul
             </ion-col>
             <ion-col size="3">
-              <ion-button size="small" (click)="removeRow(1)">
+              <ion-button size="small">
                 <ion-icon name="trash" slot="icon-only"></ion-icon>
               </ion-button>
-              <ion-button size="small" (click)="removeRow(1)">
+              <ion-button size="small">
                 <ion-icon name="create" slot="icon-only"></ion-icon>
               </ion-button>
             </ion-col>
@@ -218,10 +217,10 @@
               Que estén amurados los racks
             </ion-col>
             <ion-col size="3">
-              <ion-button size="small" (click)="removeRow(1)">
+              <ion-button size="small">
                 <ion-icon name="trash" slot="icon-only"></ion-icon>
               </ion-button>
-              <ion-button size="small" (click)="removeRow(1)">
+              <ion-button size="small">
                 <ion-icon name="create" slot="icon-only"></ion-icon>
               </ion-button>
             </ion-col>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage'
-import { IndexDBService, Stuff } from '../services/index-db.service';
+import { Developed_activity, IndexDBService, Stuff } from '../services/index-db.service';
 
 interface Data {
   info: any,
@@ -22,44 +22,42 @@ export class ProjectPage implements OnInit {
   handlerMessage = '';
   roleMessage = '';
 
-  stuffs!: Stuff[];
+  public stuffs: Stuff[] = [];
+  public activitiesDeveloped: Developed_activity[] = [];
 
   public page = 1;
   public resultsCount = 3;
   public totalPages = 1;
 
-  public bulkEdit: boolean = false;
 
-  public sortDirection: number = 0;
 
-  constructor(private http: HttpClient, private alertController: AlertController,private indexDB: IndexDBService) { }
+  constructor(
+    private http: HttpClient, 
+    private alertController: AlertController,
+    private indexDB: IndexDBService
+    ) { }
 
 
   ngOnInit() {
-    this.loadData();
+    this.loadUsersAfectados();
   }
 
-  loadData(){
+  async loadUsersAfectados(){
     this.indexDB.getStuffs().then(stuffs=>{
       this.stuffs = stuffs;
-      console.log(stuffs);
     })
   }
 
-  sortBy(key: any){
-    console.log(key);
+  async loadActivitiesDeveloped(){
+    this.indexDB.getActivities().then(activities=>{
+      this.activitiesDeveloped = activities;
+    })
   }
 
-  toggleBulkEdit(){
-    this.bulkEdit = !this.bulkEdit;
-  }
 
-  bulkDelete(i: number){
-  }
-
-  async removeRow(index: number){
+  async stuffDelete(stuff: Stuff){
     const alert = await this.alertController.create({
-      header: `¿Está seguro de borrar a ${index+1}?`,
+      header: `¿Está seguro de borrar a ${stuff.name}?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -72,6 +70,15 @@ export class ProjectPage implements OnInit {
           text: 'OK',
           role: 'confirm',
           handler: () => {
+            let msg:any;
+            this.indexDB.deletStuff(stuff)
+            .then(()=>{
+              this.loadUsersAfectados();
+            })
+            .catch((e:any)=>{
+              msg = e;
+              this.loadUsersAfectados();
+            });
             this.handlerMessage = 'Alert confirmed';
           },
         },
@@ -83,14 +90,45 @@ export class ProjectPage implements OnInit {
     const { role } = await alert.onDidDismiss();
     this.roleMessage = `Dismissed with role: ${role}`;
   }
+
+
   
 
   addStuff(){
     this.indexDB.addStuff({id: 1, name: "pepe", date_start: "12:08",date_end: "13:00"}).then(()=>{
-      this.loadData();
+      this.loadUsersAfectados();
       console.log;
     }).catch(console.error);
   }
 
+
+  async addActivitiesDeveloped(){
+    const alert = await this.alertController.create({
+      header: 'Nueva actividad',
+      buttons: ['OK'],
+      inputs: [
+        {
+          type: 'textarea',
+          placeholder: 'Describa la actividad desarrollada',
+        },
+      ],
+    });
+    alert.present().then(() => {
+      alert.onDidDismiss().then((data) => {
+        const { values } = data.data;
+        let activity = {
+          id : 1,
+          description: values[0],
+          reportid: 1
+        }
+        this.indexDB.addActivityDeveloped(activity)
+        .then(()=>{
+                  this.loadActivitiesDeveloped();
+                })
+        .catch(console.error);
+      });
+    });
+
+  }
 
 }
