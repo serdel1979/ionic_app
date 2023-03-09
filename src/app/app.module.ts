@@ -12,7 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@awesome-cordova-plugins/native-geocoder/ngx';
-
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { registerLocaleData } from '@angular/common';
 
 
@@ -27,6 +27,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
+    IonicStorageModule.forRoot(),
     AppRoutingModule, 
     HttpClientModule,
   ],

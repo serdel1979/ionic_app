@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage'
 
 interface Data {
   info: any,
@@ -45,11 +46,12 @@ export class ProjectPage implements OnInit {
 
   public sortDirection: number = 0;
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private alertController: AlertController, private storage: Storage) { }
 
 
   ngOnInit() {
     this.loadData();
+    this.storage.set('key',{'name':'peperoni'});
   }
 
   loadData(){
@@ -67,8 +69,8 @@ export class ProjectPage implements OnInit {
     this.bulkEdit = !this.bulkEdit;
   }
 
-  bulkDelete(){
-
+  bulkDelete(i: number){
+    this.storage.get('key').then(console.log).catch(console.error)
   }
 
   async removeRow(index: number){
