@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AlertController } from '@ionic/angular';
 
 interface Data {
   info: any,
@@ -15,23 +16,27 @@ interface Data {
 export class ProjectPage implements OnInit {
 
 
+
+  handlerMessage = '';
+  roleMessage = '';
+
   public page = 1;
   public resultsCount = 3;
   public totalPages = 1;
 
   public data: any[] = [
     {
-      "Name":"Enzo",
+      "Name":"Enzo Díaz",
       "ingreso" : "8:00",
       "salida" : "14:00"
     },
     {
-      "Name":"Pablo",
+      "Name":"Pablo Aimar",
       "ingreso" : "8:00",
       "salida" : "14:00"
     },
     {
-      "Name":"Juancho",
+      "Name":"Juancho Psico",
       "ingreso" : "14:00",
       "salida" : "20:00"
     }
@@ -40,7 +45,7 @@ export class ProjectPage implements OnInit {
 
   public sortDirection: number = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private alertController: AlertController) { }
 
 
   ngOnInit() {
@@ -66,9 +71,33 @@ export class ProjectPage implements OnInit {
 
   }
 
-  removeRow(index: number){
+  async removeRow(index: number){
+    const alert = await this.alertController.create({
+      header: `¿Está seguro de borrar a ${index+1}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
 
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
   }
+  
 
 
 }

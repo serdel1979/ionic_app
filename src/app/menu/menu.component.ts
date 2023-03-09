@@ -22,10 +22,10 @@ export class MenuComponent implements OnInit {
     private menuCtrl: MenuController, private climaService: ClimaService) { }
 
   async ngOnInit() {
-    this.climCurrent.todayDate.toLocaleString('es-Ar');
+ 
     const geoLocation = new Geolocation();
     geoLocation.getCurrentPosition().then(geolocation => {
-      console.log(geolocation.coords.latitude);
+      this.climCurrent.todayDate.toLocaleString('es-Ar');
       this.climCurrent.coordenadas[0] = geolocation.coords.latitude;
       this.climCurrent.coordenadas[1] = geolocation.coords.longitude;
       console.log(this.climCurrent.coordenadas);
