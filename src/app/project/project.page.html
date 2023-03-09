@@ -10,56 +10,56 @@
   <ion-content class="ion-padding">
 
 
-      <ion-card-title>Parte Diario de Actividades</ion-card-title>
-      <ion-card-subtitle>Proyecto ET 25 de Mayo</ion-card-subtitle>
-    
-    
-      <ion-grid>
-        <ion-row>
-          <ion-col size="6">
-            Cliente
-          </ion-col>
-          <ion-col size="6">
-            TEYMA ABENGOA
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6">
-            Tarea
-          </ion-col>
-          <ion-col size="6">
-            Ensayos - Puesta en Servicio
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6">
-            Referencia
-          </ion-col>
-          <ion-col size="6">
-            ST22-1286
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6">
-            Jefe de obra
-          </ion-col>
-          <ion-col size="6">
-            Hernan Crespo
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+    <ion-card-title>Parte Diario de Actividades</ion-card-title>
+    <ion-card-subtitle>Proyecto ET 25 de Mayo</ion-card-subtitle>
 
-      <ion-accordion-group>
-        <ion-accordion value="first">
-          <ion-item slot="header" color="light">
-            <ion-label>Personal afectado</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
 
-            <ion-button expand="full">
-              Nuevo
-            </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          Cliente
+        </ion-col>
+        <ion-col size="6">
+          TEYMA ABENGOA
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          Tarea
+        </ion-col>
+        <ion-col size="6">
+          Ensayos - Puesta en Servicio
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          Referencia
+        </ion-col>
+        <ion-col size="6">
+          ST22-1286
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          Jefe de obra
+        </ion-col>
+        <ion-col size="6">
+          Hernan Crespo
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Personal afectado</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+
+          <ion-button (click)="addStuff()" expand="full">
+            Nuevo
+          </ion-button>
+          <div *ngIf="stuffs">
             <ion-row class="header-row">
 
               <ion-col size="3" size-md="4" size-lg="2">
@@ -76,16 +76,16 @@
               </ion-col>
             </ion-row>
 
-            <ion-row *ngFor="let row of data; let i = index;" class="data-row">
+            <ion-row *ngFor="let row of stuffs; let i = index;" class="data-row">
 
               <ion-col size="3" size-md="4" size-lg="2">
-                {{ row.Name }}
+                {{ row.name}}
               </ion-col>
               <ion-col size="3">
-                {{ row.ingreso }}
+                {{ row.date_start }}
               </ion-col>
               <ion-col size="3">
-                {{ row.salida }}
+                {{ row.date_end }}
               </ion-col>
               <ion-col size="3">
                 <ion-button size="small" (click)="removeRow(i)">
@@ -97,126 +97,127 @@
               </ion-col>
             </ion-row>
           </div>
-        </ion-accordion>
-        <ion-accordion value="second">
-          <ion-item slot="header" color="light">
-            <ion-label>Actividades desarrolladas</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <ion-button expand="full">
-              Nuevo
-            </ion-button>
 
-            <ion-row class="header-row">
+        </div>
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Actividades desarrolladas</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button expand="full">
+            Nuevo
+          </ion-button>
 
-              <ion-col size="9" size-md="4" size-lg="2">
-                Decripción
-              </ion-col>
-              
-            </ion-row>
-            <ion-row class="data-row">
-              <ion-col size="9" size-md="4" size-lg="2">
-                Instalación de bandeja
-              </ion-col>
-              <ion-col size="3">
-                <ion-button size="small" (click)="removeRow(1)">
-                  <ion-icon name="trash" slot="icon-only"></ion-icon>
-                </ion-button>
-                <ion-button size="small" (click)="removeRow(1)">
-                  <ion-icon name="create" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </div>
-        </ion-accordion>
-        <ion-accordion value="third">
-          <ion-item slot="header" color="light">
-            <ion-label>Observaciones</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <ion-label>Al realizar el protocolo en el seccionador 119, se detectó lo siguiente</ion-label>
+          <ion-row class="header-row">
 
-            <ion-list>
-              <ion-item>
-                <ion-thumbnail>
-                  <ion-img
-                    src="https://www.ledtecnologia.com/wp-content/uploads/2021/03/Tablero-Electrico-scaled.jpg" />
-                </ion-thumbnail>
-              </ion-item>
-              <ion-item>
-                <ion-button float-right>
-                  Editar
-                </ion-button>
-                <ion-button float-right>
-                  Eliminar
-                </ion-button>
-              </ion-item>
-            </ion-list>
-          </div>
-        </ion-accordion>
-        <ion-accordion value="fourth">
-          <ion-item slot="header" color="light">
-            <ion-label>Actividades a desarrollar</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <ion-button expand="full">
-              Nuevo
-            </ion-button>
+            <ion-col size="9" size-md="4" size-lg="2">
+              Decripción
+            </ion-col>
 
-            <ion-row class="header-row">
+          </ion-row>
+          <ion-row class="data-row">
+            <ion-col size="9" size-md="4" size-lg="2">
+              Instalación de bandeja
+            </ion-col>
+            <ion-col size="3">
+              <ion-button size="small" (click)="removeRow(1)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button size="small" (click)="removeRow(1)">
+                <ion-icon name="create" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="third">
+        <ion-item slot="header" color="light">
+          <ion-label>Observaciones</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-label>Al realizar el protocolo en el seccionador 119, se detectó lo siguiente</ion-label>
 
-              <ion-col size="9" size-md="4" size-lg="2">
-                Decripción
-              </ion-col>
-              
-            </ion-row>
-            <ion-row class="data-row">
-              <ion-col size="9" size-md="4" size-lg="2">
-                Pasar los cables por las bandejas
-              </ion-col>
-              <ion-col size="3">
-                <ion-button size="small" (click)="removeRow(1)">
-                  <ion-icon name="trash" slot="icon-only"></ion-icon>
-                </ion-button>
-                <ion-button size="small" (click)="removeRow(1)">
-                  <ion-icon name="create" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </div>
-        </ion-accordion>
-        <ion-accordion value="fifth">
-          <ion-item slot="header" color="light">
-            <ion-label>Necesidades</ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <ion-button expand="full">
-              Nuevo
-            </ion-button>
+          <ion-list>
+            <ion-item>
+              <ion-thumbnail>
+                <ion-img src="https://www.ledtecnologia.com/wp-content/uploads/2021/03/Tablero-Electrico-scaled.jpg" />
+              </ion-thumbnail>
+            </ion-item>
+            <ion-item>
+              <ion-button float-right>
+                Editar
+              </ion-button>
+              <ion-button float-right>
+                Eliminar
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="fourth">
+        <ion-item slot="header" color="light">
+          <ion-label>Actividades a desarrollar</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button expand="full">
+            Nuevo
+          </ion-button>
 
-            <ion-row class="header-row">
+          <ion-row class="header-row">
 
-              <ion-col size="9" size-md="4" size-lg="2">
-                Decripción
-              </ion-col>
-              
-            </ion-row>
-            <ion-row class="data-row">
-              <ion-col size="9" size-md="4" size-lg="2">
-                Que estén amurados los racks
-              </ion-col>
-              <ion-col size="3">
-                <ion-button size="small" (click)="removeRow(1)">
-                  <ion-icon name="trash" slot="icon-only"></ion-icon>
-                </ion-button>
-                <ion-button size="small" (click)="removeRow(1)">
-                  <ion-icon name="create" slot="icon-only"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </div>
-        </ion-accordion>
-      </ion-accordion-group>
+            <ion-col size="9" size-md="4" size-lg="2">
+              Decripción
+            </ion-col>
+
+          </ion-row>
+          <ion-row class="data-row">
+            <ion-col size="9" size-md="4" size-lg="2">
+              Pasar los cables por las bandejas
+            </ion-col>
+            <ion-col size="3">
+              <ion-button size="small" (click)="removeRow(1)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button size="small" (click)="removeRow(1)">
+                <ion-icon name="create" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="fifth">
+        <ion-item slot="header" color="light">
+          <ion-label>Necesidades</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button expand="full">
+            Nuevo
+          </ion-button>
+
+          <ion-row class="header-row">
+
+            <ion-col size="9" size-md="4" size-lg="2">
+              Decripción
+            </ion-col>
+
+          </ion-row>
+          <ion-row class="data-row">
+            <ion-col size="9" size-md="4" size-lg="2">
+              Que estén amurados los racks
+            </ion-col>
+            <ion-col size="3">
+              <ion-button size="small" (click)="removeRow(1)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button size="small" (click)="removeRow(1)">
+                <ion-icon name="create" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
 
 
   </ion-content>

@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 
 export interface Stuff {
   id: number,
+  name: string,
   date_start: string,
   date_end: string
 }

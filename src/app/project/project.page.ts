@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage'
+import { IndexDBService, Stuff } from '../services/index-db.service';
 
 interface Data {
   info: any,
@@ -21,44 +22,28 @@ export class ProjectPage implements OnInit {
   handlerMessage = '';
   roleMessage = '';
 
+  stuffs!: Stuff[];
+
   public page = 1;
   public resultsCount = 3;
   public totalPages = 1;
 
-  public data: any[] = [
-    {
-      "Name":"Enzo Díaz",
-      "ingreso" : "8:00",
-      "salida" : "14:00"
-    },
-    {
-      "Name":"Pablo Aimar",
-      "ingreso" : "8:00",
-      "salida" : "14:00"
-    },
-    {
-      "Name":"Juancho Psico",
-      "ingreso" : "14:00",
-      "salida" : "20:00"
-    }
-  ];
   public bulkEdit: boolean = false;
 
   public sortDirection: number = 0;
 
-  constructor(private http: HttpClient, private alertController: AlertController, private storage: Storage) { }
+  constructor(private http: HttpClient, private alertController: AlertController,private indexDB: IndexDBService) { }
 
 
   ngOnInit() {
     this.loadData();
-    this.storage.set('key',{'name':'peperoni'});
   }
 
   loadData(){
-    // this.http.get(`https://localhost:7071/users/getusers/${this.page}/${this.resultsCount}`).subscribe((data:any)=>{
-    //     this.data = data.results;
-    //     console.log(data);
-    // })
+    this.indexDB.getStuffs().then(stuffs=>{
+      this.stuffs = stuffs;
+      console.log(stuffs);
+    })
   }
 
   sortBy(key: any){
@@ -70,7 +55,6 @@ export class ProjectPage implements OnInit {
   }
 
   bulkDelete(i: number){
-    this.storage.get('key').then(console.log).catch(console.error)
   }
 
   async removeRow(index: number){
@@ -100,6 +84,13 @@ export class ProjectPage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
   
+
+  addStuff(){
+    this.indexDB.addStuff({id: 1, name: "pepe", date_start: "12:08",date_end: "13:00"}).then(()=>{
+      this.loadData();
+      console.log;
+    }).catch(console.error);
+  }
 
 
 }
