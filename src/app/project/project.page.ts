@@ -40,6 +40,7 @@ export class ProjectPage implements OnInit {
 
   ngOnInit() {
     this.loadUsersAfectados();
+    this.loadActivitiesDeveloped();
   }
 
   async loadUsersAfectados(){
@@ -84,9 +85,7 @@ export class ProjectPage implements OnInit {
         },
       ],
     });
-
     await alert.present();
-
     const { role } = await alert.onDidDismiss();
     this.roleMessage = `Dismissed with role: ${role}`;
   }
@@ -95,7 +94,7 @@ export class ProjectPage implements OnInit {
   
 
   addStuff(){
-    this.indexDB.addStuff({id: 1, name: "pepe", date_start: "12:08",date_end: "13:00"}).then(()=>{
+    this.indexDB.addStuff({id: this.stuffs.length+1, name: "pepe", date_start: "12:08",date_end: "13:00"}).then(()=>{
       this.loadUsersAfectados();
       console.log;
     }).catch(console.error);
@@ -117,7 +116,7 @@ export class ProjectPage implements OnInit {
       alert.onDidDismiss().then((data) => {
         const { values } = data.data;
         let activity = {
-          id : 1,
+          id : this.activitiesDeveloped.length,
           description: values[0],
           reportid: 1
         }
@@ -128,7 +127,44 @@ export class ProjectPage implements OnInit {
         .catch(console.error);
       });
     });
-
   }
+
+
+  async deletActivityDev(activityDev: Developed_activity){
+    const alert = await this.alertController.create({
+      header: `Está por eliminar una actividad desarrollada!!!`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            let msg:any;
+            this.indexDB.deletActivity(activityDev)
+            .then(()=>{
+              this.loadActivitiesDeveloped();
+            })
+            .catch((e:any)=>{
+              msg = e;
+              this.loadActivitiesDeveloped();
+            });
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
+  }
+
+
+
 
 }

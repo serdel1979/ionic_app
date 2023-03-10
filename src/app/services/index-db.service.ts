@@ -72,8 +72,6 @@ export class IndexDBService {
       let toKeep: Developed_activity[] = [];
       for (let i of activities) {
         if (i.id !== activity.id) {
-          toKeep.push(activity);
-        } else {
           toKeep.push(i);
         }
       }
@@ -127,7 +125,6 @@ export class IndexDBService {
       }
       let toKeep: Stuff[] = [];
       for (let i of stuffs) {
-        console.log(`${i.id} = ${stuff.id}?`);
         if (i.id !== stuff.id) {
           toKeep.push(i);
         } 
