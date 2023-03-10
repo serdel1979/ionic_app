@@ -18,6 +18,14 @@ export interface Developed_activity{
 
 const ACT_DEV_KEYS = 'my-activity-dev'
 
+export interface Activities_to_develop{
+  id: number,
+  description: string,
+  reportid: number
+}
+
+const ACT_TO_DEV_KEYS = 'my-activity-to-dev'
+
 
 
 @Injectable({
@@ -26,6 +34,59 @@ const ACT_DEV_KEYS = 'my-activity-dev'
 export class IndexDBService {
 
   constructor(private storage: Storage) { }
+
+
+
+  /// actividades a desarrollar
+
+  addActivityToDevelop(activityToDev: Activities_to_develop): Promise<any>{
+    return this.storage.get(ACT_TO_DEV_KEYS).then((activitiesToDev: Activities_to_develop[])=>{
+        if(activitiesToDev){
+          activitiesToDev.push(activityToDev);
+          return this.storage.set(ACT_TO_DEV_KEYS,activitiesToDev);
+        }else{
+          return this.storage.set(ACT_TO_DEV_KEYS,[activityToDev]);
+        }
+    });
+  }
+
+  getActivitiesToDevelop():Promise<Activities_to_develop[]>{
+    return this.storage.get(ACT_TO_DEV_KEYS);
+  }
+
+
+  updateActivityToDevelop(activity: Activities_to_develop): Promise<any>{
+    return this.storage.get(ACT_TO_DEV_KEYS).then((activities: Activities_to_develop[]) => {
+      if (!activities || activities.length === 0) {
+        return null;
+      }
+      let newActivity: Activities_to_develop[] = [];
+      for (let i of activities) {
+        if (i.id === activity.id) {
+          newActivity.push(activity);
+        } else {
+          newActivity.push(i);
+        }
+      }
+      return this.storage.set(ACT_TO_DEV_KEYS, newActivity);
+    });
+  }
+
+  
+  deletActivityToDevelop(activity: Activities_to_develop): Promise<any>{
+    return this.storage.get(ACT_TO_DEV_KEYS).then((activities: Activities_to_develop[]) => {
+      if (!activities || activities.length === 0) {
+        return null;
+      }
+      let toKeep: Activities_to_develop[] = [];
+      for (let i of activities) {
+        if (i.id !== activity.id) {
+          toKeep.push(i);
+        }
+      }
+      return this.storage.set(ACT_TO_DEV_KEYS, toKeep);
+    });
+  }
 
 
   //// actividades desarrolladas
@@ -82,8 +143,6 @@ export class IndexDBService {
 
 
 
-
-
   //// personal afectado
   addStuff(stuff: Stuff): Promise<any>{
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[])=>{
@@ -132,6 +191,10 @@ export class IndexDBService {
       return this.storage.set(STUFF_KEYS, toKeep);
     });
   }
+
+
+
+
 
 
 }

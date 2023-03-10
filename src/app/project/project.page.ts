@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage'
-import { Developed_activity, IndexDBService, Stuff } from '../services/index-db.service';
+import { Activities_to_develop, Developed_activity, IndexDBService, Stuff } from '../services/index-db.service';
 
 interface Data {
   info: any,
@@ -24,6 +22,7 @@ export class ProjectPage implements OnInit {
 
   public stuffs: Stuff[] = [];
   public activitiesDeveloped: Developed_activity[] = [];
+  public activitiesToDev: Activities_to_develop[] = [];
 
   public page = 1;
   public resultsCount = 3;
@@ -32,7 +31,6 @@ export class ProjectPage implements OnInit {
 
 
   constructor(
-    private http: HttpClient, 
     private alertController: AlertController,
     private indexDB: IndexDBService
     ) { }
@@ -52,6 +50,12 @@ export class ProjectPage implements OnInit {
   async loadActivitiesDeveloped(){
     this.indexDB.getActivities().then(activities=>{
       this.activitiesDeveloped = activities;
+    })
+  }
+
+  async loadActivitiesToDev(){
+    this.indexDB.getActivitiesToDevelop().then(activities=>{
+      this.activitiesToDev = activities;
     })
   }
 
@@ -129,7 +133,7 @@ export class ProjectPage implements OnInit {
     });
   }
 
-
+  
   async deletActivityDev(activityDev: Developed_activity){
     const alert = await this.alertController.create({
       header: `Está por eliminar una actividad desarrollada!!!`,
@@ -164,7 +168,33 @@ export class ProjectPage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-
+  async addActivityToDev(){
+    const alert = await this.alertController.create({
+      header: 'Nueva actividad para desarrollar',
+      buttons: ['OK'],
+      inputs: [
+        {
+          type: 'textarea',
+          placeholder: 'Describa la actividad a desarrollar!!!',
+        },
+      ],
+    });
+    alert.present().then(() => {
+      alert.onDidDismiss().then((data) => {
+        const { values } = data.data;
+        let activity = {
+          id : this.activitiesDeveloped.length,
+          description: values[0],
+          reportid: 1
+        }
+        this.indexDB.addActivityToDevelop(activity)
+        .then(()=>{
+                  this.loadActivitiesToDev();
+                })
+        .catch(console.error);
+      });
+    });
+  }
 
 
 }
