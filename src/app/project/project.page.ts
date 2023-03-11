@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Activities_to_develop, Developed_activity, IndexDBService, Stuff } from '../services/index-db.service';
+import { NeedsService } from '../services/needs.service';
 
-interface Data {
-  info: any,
-  results: any[]
-}
+
 
 @Component({
   selector: 'app-project',
@@ -32,35 +30,37 @@ export class ProjectPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private indexDB: IndexDBService
-    ) { }
+    private indexDB: IndexDBService,
+    private needsService: NeedsService
+  ) { }
 
 
   ngOnInit() {
     this.loadUsersAfectados();
     this.loadActivitiesDeveloped();
+    this.loadActivitiesToDev();
   }
 
-  async loadUsersAfectados(){
-    this.indexDB.getStuffs().then(stuffs=>{
+  async loadUsersAfectados() {
+    this.indexDB.getStuffs().then(stuffs => {
       this.stuffs = stuffs;
     })
   }
 
-  async loadActivitiesDeveloped(){
-    this.indexDB.getActivities().then(activities=>{
+  async loadActivitiesDeveloped() {
+    this.indexDB.getActivities().then(activities => {
       this.activitiesDeveloped = activities;
     })
   }
 
-  async loadActivitiesToDev(){
-    this.indexDB.getActivitiesToDevelop().then(activities=>{
+  async loadActivitiesToDev() {
+    this.indexDB.getActivitiesToDevelop().then(activities => {
       this.activitiesToDev = activities;
     })
   }
 
 
-  async stuffDelete(stuff: Stuff){
+  async stuffDelete(stuff: Stuff) {
     const alert = await this.alertController.create({
       header: `¿Está seguro de borrar a ${stuff.name}?`,
       buttons: [
@@ -75,15 +75,15 @@ export class ProjectPage implements OnInit {
           text: 'OK',
           role: 'confirm',
           handler: () => {
-            let msg:any;
+            let msg: any;
             this.indexDB.deletStuff(stuff)
-            .then(()=>{
-              this.loadUsersAfectados();
-            })
-            .catch((e:any)=>{
-              msg = e;
-              this.loadUsersAfectados();
-            });
+              .then(() => {
+                this.loadUsersAfectados();
+              })
+              .catch((e: any) => {
+                msg = e;
+                this.loadUsersAfectados();
+              });
             this.handlerMessage = 'Alert confirmed';
           },
         },
@@ -95,17 +95,17 @@ export class ProjectPage implements OnInit {
   }
 
 
-  
 
-  addStuff(){
-    this.indexDB.addStuff({id: this.stuffs.length+1, name: "pepe", date_start: "12:08",date_end: "13:00"}).then(()=>{
+
+  addStuff() {
+    this.indexDB.addStuff({ id: this.stuffs.length + 1, name: "pepe", date_start: "12:08", date_end: "13:00" }).then(() => {
       this.loadUsersAfectados();
       console.log;
     }).catch(console.error);
   }
 
 
-  async addActivitiesDeveloped(){
+  async addActivitiesDeveloped() {
     const alert = await this.alertController.create({
       header: 'Nueva actividad',
       buttons: ['OK'],
@@ -118,23 +118,25 @@ export class ProjectPage implements OnInit {
     });
     alert.present().then(() => {
       alert.onDidDismiss().then((data) => {
-        const { values } = data.data;
-        let activity = {
-          id : this.activitiesDeveloped.length,
-          description: values[0],
-          reportid: 1
-        }
-        this.indexDB.addActivityDeveloped(activity)
-        .then(()=>{
-                  this.loadActivitiesDeveloped();
-                })
-        .catch(console.error);
+        if(data.data){
+            const { values } = data.data;
+            let activity = {
+              id: this.activitiesDeveloped.length,
+              description: values[0],
+              reportid: 1
+            }
+            this.indexDB.addActivityDeveloped(activity)
+              .then(() => {
+                this.loadActivitiesDeveloped();
+              })
+              .catch(console.error);
+            }
       });
     });
   }
 
-  
-  async deletActivityDev(activityDev: Developed_activity){
+
+  async deletActivityDev(activityDev: Developed_activity) {
     const alert = await this.alertController.create({
       header: `Está por eliminar una actividad desarrollada!!!`,
       buttons: [
@@ -149,15 +151,15 @@ export class ProjectPage implements OnInit {
           text: 'OK',
           role: 'confirm',
           handler: () => {
-            let msg:any;
+            let msg: any;
             this.indexDB.deletActivity(activityDev)
-            .then(()=>{
-              this.loadActivitiesDeveloped();
-            })
-            .catch((e:any)=>{
-              msg = e;
-              this.loadActivitiesDeveloped();
-            });
+              .then(() => {
+                this.loadActivitiesDeveloped();
+              })
+              .catch((e: any) => {
+                msg = e;
+                this.loadActivitiesDeveloped();
+              });
             this.handlerMessage = 'Alert confirmed';
           },
         },
@@ -168,7 +170,7 @@ export class ProjectPage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-  async addActivityToDev(){
+  async addActivityToDev() {
     const alert = await this.alertController.create({
       header: 'Nueva actividad para desarrollar',
       buttons: ['OK'],
@@ -181,20 +183,57 @@ export class ProjectPage implements OnInit {
     });
     alert.present().then(() => {
       alert.onDidDismiss().then((data) => {
-        const { values } = data.data;
-        let activity = {
-          id : this.activitiesDeveloped.length,
-          description: values[0],
-          reportid: 1
+        if (data.data) {
+          const { values } = data.data;
+          let activity = {
+            id: this.activitiesToDev.length,
+            description: values[0],
+            reportid: 1
+          }
+          this.indexDB.addActivityToDevelop(activity)
+            .then(() => {
+              this.loadActivitiesToDev();
+            })
+            .catch(console.error);
         }
-        this.indexDB.addActivityToDevelop(activity)
-        .then(()=>{
-                  this.loadActivitiesToDev();
-                })
-        .catch(console.error);
       });
+
     });
   }
 
+
+  async deletActivityToDev(activityToDev: Activities_to_develop) {
+    const alert = await this.alertController.create({
+      header: `Está por eliminar una actividad desarrollada!!!`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            let msg: any;
+            this.indexDB.deletActivityToDevelop(activityToDev)
+              .then(() => {
+                this.loadActivitiesToDev();
+              })
+              .catch((e: any) => {
+                msg = e;
+                this.loadActivitiesToDev();
+              });
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
+  }
 
 }
