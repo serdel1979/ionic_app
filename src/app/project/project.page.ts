@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Activities_to_develop, Developed_activity, IndexDBService, Stuff } from '../services/index-db.service';
-import { NeedsService } from '../services/needs.service';
+import { Activities_to_develop, Developed_activity, IndexDBService, NeedNextDay, Stuff } from '../services/index-db.service';
+
 
 
 
@@ -21,6 +21,7 @@ export class ProjectPage implements OnInit {
   public stuffs: Stuff[] = [];
   public activitiesDeveloped: Developed_activity[] = [];
   public activitiesToDev: Activities_to_develop[] = [];
+  public needsNextDay: NeedNextDay[] = [];
 
   public page = 1;
   public resultsCount = 3;
@@ -31,7 +32,6 @@ export class ProjectPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private indexDB: IndexDBService,
-    private needsService: NeedsService
   ) { }
 
 
@@ -39,6 +39,13 @@ export class ProjectPage implements OnInit {
     this.loadUsersAfectados();
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
+    this.loadNeeds();
+  }
+
+  async loadNeeds(){
+    this.indexDB.getNeeds().then(needs=>{
+        this.needsNextDay = needs;
+    })
   }
 
   async loadUsersAfectados() {

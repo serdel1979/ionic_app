@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
+const STUFF_KEYS = 'my-stuffs';
+const ACT_DEV_KEYS = 'my-activity-dev';
+const ACT_TO_DEV_KEYS = 'my-activity-to-dev';
+const NEED_KEYS = 'my-needs';
+
 export interface Stuff {
   id: number,
   name: string,
@@ -8,7 +13,11 @@ export interface Stuff {
   date_end: string
 }
 
-const STUFF_KEYS = 'my-stuffs';
+export interface NeedNextDay{
+  id: number,
+  description: string,
+  reportid: number
+}
 
 export interface Developed_activity{
   id: number,
@@ -16,7 +25,6 @@ export interface Developed_activity{
   reportid: number
 }
 
-const ACT_DEV_KEYS = 'my-activity-dev'
 
 export interface Activities_to_develop{
   id: number,
@@ -24,7 +32,7 @@ export interface Activities_to_develop{
   reportid: number
 }
 
-const ACT_TO_DEV_KEYS = 'my-activity-to-dev'
+
 
 
 
@@ -36,6 +44,58 @@ export class IndexDBService {
   constructor(private storage: Storage) { }
 
 
+  ///necesidades
+
+  addNeed(need: NeedNextDay): Promise<any>{
+    return this.storage.get(NEED_KEYS).then((needNextDay: NeedNextDay[])=>{
+        if(needNextDay){
+          needNextDay.push(need);
+          return this.storage.set(NEED_KEYS,needNextDay);
+        }else{
+          return this.storage.set(NEED_KEYS,[need]);
+        }
+    });
+  }
+
+  getNeeds():Promise<NeedNextDay[]>{
+    this.storage.keys().then(k=>{
+      console.log(k);
+    })
+    return this.storage.get(NEED_KEYS);
+  }
+
+
+  updateNeed(need: NeedNextDay): Promise<any>{
+    return this.storage.get(NEED_KEYS).then((needs: NeedNextDay[]) => {
+      if (!needs || needs.length === 0) {
+        return null;
+      }
+      let newActivity: NeedNextDay[] = [];
+      for (let i of needs) {
+        if (i.id === need.id) {
+          newActivity.push(need);
+        } else {
+          newActivity.push(i);
+        }
+      }
+      return this.storage.set(NEED_KEYS, newActivity);
+    });
+  }
+
+  deletNeed(need: NeedNextDay): Promise<any>{
+    return this.storage.get(NEED_KEYS).then((needs: NeedNextDay[]) => {
+      if (!needs || needs.length === 0) {
+        return null;
+      }
+      let toKeep: NeedNextDay[] = [];
+      for (let i of needs) {
+        if (i.id !== need.id) {
+          toKeep.push(i);
+        }
+      }
+      return this.storage.set(NEED_KEYS, toKeep);
+    });
+  }
 
   /// actividades a desarrollar
 
