@@ -1,37 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Stuff } from '../interfaces/reg.interface';
 
+
+const NEED_KEYS = 'my-needs';
 const STUFF_KEYS = 'my-stuffs';
 const ACT_DEV_KEYS = 'my-activity-dev';
 const ACT_TO_DEV_KEYS = 'my-activity-to-dev';
-const NEED_KEYS = 'my-needs';
-
-export interface Stuff {
-  id: number,
-  name: string,
-  date_start: string,
-  date_end: string
-}
-
-export interface NeedNextDay{
-  id: number,
-  description: string,
-  reportid: number
-}
-
-export interface Developed_activity{
-  id: number,
-  description: string,
-  reportid: number
-}
-
-
-export interface Activities_to_develop{
-  id: number,
-  description: string,
-  reportid: number
-}
-
+const OBSERVATIONS_KEYS = 'my-observations';
 
 
 
@@ -41,8 +17,18 @@ export interface Activities_to_develop{
 })
 export class IndexDBService {
 
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage){ 
 
+    //this.storage.remove('my-observation-dev').then(()=>console.log('borrado my-observation-dev'));
+    this.storage.keys().then(c=>{
+        c.find((k)=>{
+          (k===STUFF_KEYS || k===NEED_KEYS || k===ACT_DEV_KEYS || k===OBSERVATIONS_KEYS || k===ACT_TO_DEV_KEYS)?console.log(`La clave ${k} ya estaba creada`):this.storage.set(k,[]);     
+        })
+    })
+
+  }
+
+  
 
   ///necesidades
 
@@ -58,9 +44,6 @@ export class IndexDBService {
   }
 
   getNeeds():Promise<NeedNextDay[]>{
-    this.storage.keys().then(k=>{
-      console.log(k);
-    })
     return this.storage.get(NEED_KEYS);
   }
 

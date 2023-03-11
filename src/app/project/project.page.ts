@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Activities_to_develop, Developed_activity, IndexDBService, NeedNextDay, Stuff } from '../services/index-db.service';
-
-
+import {  IndexDBService } from '../services/index-db.service';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Stuff } from '../interfaces/reg.interface';
 
 
 @Component({
@@ -31,37 +30,37 @@ export class ProjectPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private indexDB: IndexDBService,
+    private indexDBService: IndexDBService
   ) { }
 
 
   ngOnInit() {
+    this.loadNeeds();
     this.loadUsersAfectados();
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
-    this.loadNeeds();
   }
 
   async loadNeeds(){
-    this.indexDB.getNeeds().then(needs=>{
+    this.indexDBService.getNeeds().then(needs=>{
         this.needsNextDay = needs;
     })
   }
 
   async loadUsersAfectados() {
-    this.indexDB.getStuffs().then(stuffs => {
+    this.indexDBService.getStuffs().then(stuffs => {
       this.stuffs = stuffs;
     })
   }
 
   async loadActivitiesDeveloped() {
-    this.indexDB.getActivities().then(activities => {
+    this.indexDBService.getActivities().then(activities => {
       this.activitiesDeveloped = activities;
     })
   }
 
   async loadActivitiesToDev() {
-    this.indexDB.getActivitiesToDevelop().then(activities => {
+    this.indexDBService.getActivitiesToDevelop().then(activities => {
       this.activitiesToDev = activities;
     })
   }
@@ -83,7 +82,7 @@ export class ProjectPage implements OnInit {
           role: 'confirm',
           handler: () => {
             let msg: any;
-            this.indexDB.deletStuff(stuff)
+            this.indexDBService.deletStuff(stuff)
               .then(() => {
                 this.loadUsersAfectados();
               })
@@ -105,7 +104,7 @@ export class ProjectPage implements OnInit {
 
 
   addStuff() {
-    this.indexDB.addStuff({ id: this.stuffs.length + 1, name: "pepe", date_start: "12:08", date_end: "13:00" }).then(() => {
+    this.indexDBService.addStuff({ id: this.stuffs.length + 1, name: "pepe", date_start: "12:08", date_end: "13:00" }).then(() => {
       this.loadUsersAfectados();
       console.log;
     }).catch(console.error);
@@ -132,7 +131,7 @@ export class ProjectPage implements OnInit {
               description: values[0],
               reportid: 1
             }
-            this.indexDB.addActivityDeveloped(activity)
+            this.indexDBService.addActivityDeveloped(activity)
               .then(() => {
                 this.loadActivitiesDeveloped();
               })
@@ -159,7 +158,7 @@ export class ProjectPage implements OnInit {
           role: 'confirm',
           handler: () => {
             let msg: any;
-            this.indexDB.deletActivity(activityDev)
+            this.indexDBService.deletActivity(activityDev)
               .then(() => {
                 this.loadActivitiesDeveloped();
               })
@@ -197,7 +196,7 @@ export class ProjectPage implements OnInit {
             description: values[0],
             reportid: 1
           }
-          this.indexDB.addActivityToDevelop(activity)
+          this.indexDBService.addActivityToDevelop(activity)
             .then(() => {
               this.loadActivitiesToDev();
             })
@@ -225,7 +224,7 @@ export class ProjectPage implements OnInit {
           role: 'confirm',
           handler: () => {
             let msg: any;
-            this.indexDB.deletActivityToDevelop(activityToDev)
+            this.indexDBService.deletActivityToDevelop(activityToDev)
               .then(() => {
                 this.loadActivitiesToDev();
               })
