@@ -17,38 +17,49 @@ const OBSERVATIONS_KEYS = 'my-observations';
 })
 export class IndexDBService {
 
-  constructor(private storage: Storage){ 
-
-    //this.storage.remove('my-observation-dev').then(()=>console.log('borrado my-observation-dev'));
-    this.storage.keys().then(c=>{
-        c.find((k)=>{
-          (k===STUFF_KEYS || k===NEED_KEYS || k===ACT_DEV_KEYS || k===OBSERVATIONS_KEYS || k===ACT_TO_DEV_KEYS)?console.log(`La clave ${k} ya estaba creada`):this.storage.set(k,[]);     
-        })
-    })
-
-  }
-
-  
-
-  ///necesidades
-
-  addNeed(need: NeedNextDay): Promise<any>{
-    return this.storage.get(NEED_KEYS).then((needNextDay: NeedNextDay[])=>{
-        if(needNextDay){
-          needNextDay.push(need);
-          return this.storage.set(NEED_KEYS,needNextDay);
-        }else{
-          return this.storage.set(NEED_KEYS,[need]);
-        }
+  constructor(private storage: Storage) {
+    this.storage.keys().then(c => {
+      console.log(c);
+      (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):this.storage.set(NEED_KEYS,[]);
+      (this.f(c, STUFF_KEYS))?console.log(`${STUFF_KEYS} ya existía`):this.storage.set(STUFF_KEYS,[]);
+      (this.f(c, ACT_DEV_KEYS))?console.log(`${ACT_DEV_KEYS} ya existía`):this.storage.set(ACT_DEV_KEYS,[]);
+      (this.f(c, ACT_TO_DEV_KEYS))?console.log(`${ACT_TO_DEV_KEYS} ya existía`):this.storage.set(ACT_TO_DEV_KEYS,[]);
+      (this.f(c, OBSERVATIONS_KEYS))?console.log(`${OBSERVATIONS_KEYS} ya existía`):this.storage.set(OBSERVATIONS_KEYS,[]);
     });
   }
 
-  getNeeds():Promise<NeedNextDay[]>{
+
+
+
+  private f = function (wordsArray: string[],word: string) {
+    for (let i = 0; i < wordsArray.length; i++) {
+      if (wordsArray[i] === word) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  ///necesidades
+
+  addNeed(need: NeedNextDay): Promise<any> {
+    return this.storage.get(NEED_KEYS).then((needNextDay: NeedNextDay[]) => {
+      if (needNextDay) {
+        needNextDay.push(need);
+        return this.storage.set(NEED_KEYS, needNextDay);
+      } else {
+        return this.storage.set(NEED_KEYS, [need]);
+      }
+    });
+  }
+
+  getNeeds(): Promise<NeedNextDay[]> {
     return this.storage.get(NEED_KEYS);
   }
 
 
-  updateNeed(need: NeedNextDay): Promise<any>{
+  updateNeed(need: NeedNextDay): Promise<any> {
     return this.storage.get(NEED_KEYS).then((needs: NeedNextDay[]) => {
       if (!needs || needs.length === 0) {
         return null;
@@ -65,7 +76,7 @@ export class IndexDBService {
     });
   }
 
-  deletNeed(need: NeedNextDay): Promise<any>{
+  deletNeed(need: NeedNextDay): Promise<any> {
     return this.storage.get(NEED_KEYS).then((needs: NeedNextDay[]) => {
       if (!needs || needs.length === 0) {
         return null;
@@ -82,23 +93,23 @@ export class IndexDBService {
 
   /// actividades a desarrollar
 
-  addActivityToDevelop(activityToDev: Activities_to_develop): Promise<any>{
-    return this.storage.get(ACT_TO_DEV_KEYS).then((activitiesToDev: Activities_to_develop[])=>{
-        if(activitiesToDev){
-          activitiesToDev.push(activityToDev);
-          return this.storage.set(ACT_TO_DEV_KEYS,activitiesToDev);
-        }else{
-          return this.storage.set(ACT_TO_DEV_KEYS,[activityToDev]);
-        }
+  addActivityToDevelop(activityToDev: Activities_to_develop): Promise<any> {
+    return this.storage.get(ACT_TO_DEV_KEYS).then((activitiesToDev: Activities_to_develop[]) => {
+      if (activitiesToDev) {
+        activitiesToDev.push(activityToDev);
+        return this.storage.set(ACT_TO_DEV_KEYS, activitiesToDev);
+      } else {
+        return this.storage.set(ACT_TO_DEV_KEYS, [activityToDev]);
+      }
     });
   }
 
-  getActivitiesToDevelop():Promise<Activities_to_develop[]>{
+  getActivitiesToDevelop(): Promise<Activities_to_develop[]> {
     return this.storage.get(ACT_TO_DEV_KEYS);
   }
 
 
-  updateActivityToDevelop(activity: Activities_to_develop): Promise<any>{
+  updateActivityToDevelop(activity: Activities_to_develop): Promise<any> {
     return this.storage.get(ACT_TO_DEV_KEYS).then((activities: Activities_to_develop[]) => {
       if (!activities || activities.length === 0) {
         return null;
@@ -115,8 +126,8 @@ export class IndexDBService {
     });
   }
 
-  
-  deletActivityToDevelop(activity: Activities_to_develop): Promise<any>{
+
+  deletActivityToDevelop(activity: Activities_to_develop): Promise<any> {
     return this.storage.get(ACT_TO_DEV_KEYS).then((activities: Activities_to_develop[]) => {
       if (!activities || activities.length === 0) {
         return null;
@@ -134,23 +145,23 @@ export class IndexDBService {
 
   //// actividades desarrolladas
 
-  addActivityDeveloped(activity: Developed_activity): Promise<any>{
-    return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[])=>{
-        if(activities){
-          activities.push(activity);
-          return this.storage.set(ACT_DEV_KEYS,activities);
-        }else{
-          return this.storage.set(ACT_DEV_KEYS,[activity]);
-        }
+  addActivityDeveloped(activity: Developed_activity): Promise<any> {
+    return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[]) => {
+      if (activities) {
+        activities.push(activity);
+        return this.storage.set(ACT_DEV_KEYS, activities);
+      } else {
+        return this.storage.set(ACT_DEV_KEYS, [activity]);
+      }
     });
   }
 
-  getActivities():Promise<Developed_activity[]>{
+  getActivities(): Promise<Developed_activity[]> {
     return this.storage.get(ACT_DEV_KEYS);
   }
 
 
-  updateActivities(activity: Developed_activity): Promise<any>{
+  updateActivities(activity: Developed_activity): Promise<any> {
     return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[]) => {
       if (!activities || activities.length === 0) {
         return null;
@@ -167,8 +178,8 @@ export class IndexDBService {
     });
   }
 
-  
-  deletActivity(activity: Developed_activity): Promise<any>{
+
+  deletActivity(activity: Developed_activity): Promise<any> {
     return this.storage.get(ACT_DEV_KEYS).then((activities: Developed_activity[]) => {
       if (!activities || activities.length === 0) {
         return null;
@@ -187,22 +198,22 @@ export class IndexDBService {
 
 
   //// personal afectado
-  addStuff(stuff: Stuff): Promise<any>{
-    return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[])=>{
-        if(stuffs){
-          stuffs.push(stuff);
-          return this.storage.set(STUFF_KEYS,stuffs);
-        }else{
-          return this.storage.set(STUFF_KEYS,[stuff]);
-        }
+  addStuff(stuff: Stuff): Promise<any> {
+    return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
+      if (stuffs) {
+        stuffs.push(stuff);
+        return this.storage.set(STUFF_KEYS, stuffs);
+      } else {
+        return this.storage.set(STUFF_KEYS, [stuff]);
+      }
     });
   }
 
-  getStuffs():Promise<Stuff[]>{
+  getStuffs(): Promise<Stuff[]> {
     return this.storage.get(STUFF_KEYS);
   }
 
-  updateStuff(stuff: Stuff): Promise<any>{
+  updateStuff(stuff: Stuff): Promise<any> {
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
       if (!stuffs || stuffs.length === 0) {
         return null;
@@ -220,7 +231,7 @@ export class IndexDBService {
   }
 
 
-  deletStuff(stuff: Stuff): Promise<Stuff>{
+  deletStuff(stuff: Stuff): Promise<Stuff> {
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
       if (!stuffs || stuffs.length === 0) {
         return null;
@@ -229,7 +240,7 @@ export class IndexDBService {
       for (let i of stuffs) {
         if (i.id !== stuff.id) {
           toKeep.push(i);
-        } 
+        }
       }
       return this.storage.set(STUFF_KEYS, toKeep);
     });
