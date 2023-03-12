@@ -83,7 +83,7 @@ export class IndexDBService {
       }
       let toKeep: NeedNextDay[] = [];
       for (let i of needs) {
-        if (i.id !== need.id) {
+        if (i.id != need.id) {
           toKeep.push(i);
         }
       }

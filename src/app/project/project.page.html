@@ -192,30 +192,31 @@
           <ion-label>Necesidades</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <ion-button expand="full">
+          <ion-button (click)="addNeed()" expand="full">
             Nuevo
           </ion-button>
+          <div *ngIf="needsNextDay.length > 0">
+              <ion-row class="header-row">
 
-          <ion-row class="header-row">
+                <ion-col size="9" size-md="4" size-lg="2">
+                  Decripción
+                </ion-col>
 
-            <ion-col size="9" size-md="4" size-lg="2">
-              Decripción
-            </ion-col>
-
-          </ion-row>
-          <ion-row class="data-row">
-            <ion-col size="9" size-md="4" size-lg="2">
-              Que estén amurados los racks
-            </ion-col>
-            <ion-col size="3">
-              <ion-button size="small">
-                <ion-icon name="trash" slot="icon-only"></ion-icon>
-              </ion-button>
-              <ion-button size="small">
-                <ion-icon name="create" slot="icon-only"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
+              </ion-row>
+              <ion-row class="data-row" *ngFor="let row of needsNextDay; let i = index;">
+                <ion-col size="9" size-md="4" size-lg="2">
+                  {{ row.description }}
+                </ion-col>
+                <ion-col size="3">
+                  <ion-button (click)="deletNeed(row)" size="small">
+                    <ion-icon name="trash" slot="icon-only"></ion-icon>
+                  </ion-button>
+                  <ion-button size="small">
+                    <ion-icon name="create" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </div>
         </div>
       </ion-accordion>
     </ion-accordion-group>

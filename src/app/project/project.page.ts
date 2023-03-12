@@ -242,4 +242,69 @@ export class ProjectPage implements OnInit {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
+  async addNeed() {
+    const alert = await this.alertController.create({
+      header: 'Agregar una necesidad',
+      buttons: ['OK'],
+      inputs: [
+        {
+          type: 'textarea',
+          placeholder: 'Describa lo que necesita para la próxima!!!',
+        },
+      ],
+    });
+    alert.present().then(() => {
+      alert.onDidDismiss().then((data) => {
+        if (data.data) {
+          const { values } = data.data;
+          let need = {
+            id: this.needsNextDay.length,
+            description: values[0],
+            reportid: 1
+          }
+          this.indexDBService.addNeed(need)
+            .then(() => {
+              this.loadNeeds();
+            })
+            .catch(console.error);
+        }
+      });
+
+    });
+  }
+
+  async deletNeed(need: NeedNextDay) {
+    const alert = await this.alertController.create({
+      header: `Está por eliminar una necesidad!!!`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            let msg: any;
+            this.indexDBService.deletNeed(need)
+              .then(() => {
+                this.loadNeeds();
+              })
+              .catch((e: any) => {
+                msg = e;
+                this.loadNeeds();
+              });
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
+  }
+
 }
