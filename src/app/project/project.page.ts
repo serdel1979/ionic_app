@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import {  IndexDBService } from '../services/index-db.service';
-import { Activities_to_develop, Developed_activity, NeedNextDay, Stuff } from '../interfaces/reg.interface';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
+import { LoadObservationsPage } from '../load-observations/load-observations.page';
 
 
 @Component({
@@ -17,10 +18,14 @@ export class ProjectPage implements OnInit {
   handlerMessage = '';
   roleMessage = '';
 
+  message = 'This modal example uses the modalController to present and dismiss modals.';
+
+
   public stuffs: Stuff[] = [];
   public activitiesDeveloped: Developed_activity[] = [];
   public activitiesToDev: Activities_to_develop[] = [];
   public needsNextDay: NeedNextDay[] = [];
+  public observations: Observation[] = [];
 
   public page = 1;
   public resultsCount = 3;
@@ -30,7 +35,8 @@ export class ProjectPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
-    private indexDBService: IndexDBService
+    private indexDBService: IndexDBService,
+    private modalCtrl: ModalController
   ) { }
 
 
@@ -305,6 +311,19 @@ export class ProjectPage implements OnInit {
     await alert.present();
     const { role } = await alert.onDidDismiss();
     this.roleMessage = `Dismissed with role: ${role}`;
+  }
+
+  async addObservation(){
+    const modal = await this.modalCtrl.create({
+      component: LoadObservationsPage,
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
+    }
   }
 
 }

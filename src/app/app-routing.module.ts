@@ -26,7 +26,11 @@ const routes: Routes = [
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule),
     canActivate:[LoginGuard]
+  },  {
+    path: 'load-observations',
+    loadChildren: () => import('./load-observations/load-observations.module').then( m => m.LoadObservationsPageModule)
   }
+
 
 ];
 
