@@ -1,5 +1,5 @@
 {
-  "name": "apptosi",
+  "name": "reportapp",
   "integrations": {
     "capacitor": {
       "enabled": false

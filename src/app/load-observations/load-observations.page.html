@@ -10,30 +10,33 @@
 </ion-header>
 <ion-content class="ion-padding" slot="content">
 
-  <ion-textarea style="height:200px;" placeholder="Describa alguna observación" [(ngModel)]="description" name="description"></ion-textarea>
-  <ion-button (click)="cargaImg()">
-    +<ion-icon name="images"></ion-icon>
+  <ion-textarea placeholder="Describa alguna observación, opcionalmente puede agregar fotos..."
+    [(ngModel)]="observation.description" name="description"></ion-textarea>
+  <ion-button *ngIf="observation.description !== ''" (click)="cargaImg()">
+    <ion-icon name="images"></ion-icon>
   </ion-button>
 
-  <ion-row class="header-row">
 
-    <ion-col size="9" size-md="4" size-lg="2">
-      Decripción
-    </ion-col>
+  <div *ngIf="observation.photos.length > 0">
 
-  </ion-row>
+    <ion-row class="header-row">
+      <ion-col size="9" size-md="4" size-lg="2">
+        Decripción
+      </ion-col>
+    </ion-row>
 
-  <ion-row class="data-row">
-    <ion-col size="9" size-md="4" size-lg="2">
-      descripcion de una foto
-    </ion-col>
-    <ion-col size="3">
-      <ion-button size="small">
-        <ion-icon name="trash" slot="icon-only"></ion-icon>
-      </ion-button>
-      <ion-button size="small">
-        <ion-icon name="create" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
+    <ion-row class="data-row" *ngFor="let photo of observation.photos">
+      <ion-col size="9" size-md="4" size-lg="2">
+        {{ photo.description }}
+      </ion-col>
+      <ion-col size="3">
+        <ion-button size="small">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button size="small">
+          <ion-icon name="create" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
