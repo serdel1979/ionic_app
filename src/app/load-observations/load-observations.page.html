@@ -1,33 +1,77 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+      <ion-button color="medium" (click)="cancel()">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()">Confirm</ion-button>
+      <ion-button (click)="confirm()">Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" slot="content">
 
-  <ion-textarea placeholder="Describa alguna observación, opcionalmente puede agregar fotos..."
-    [(ngModel)]="observation.description" name="description"></ion-textarea>
-  <ion-button *ngIf="observation.description !== ''" (click)="cargaImg()">
-    <ion-icon name="images"></ion-icon>
-  </ion-button>
+
+
+  <ion-grid class="grid-container">
+    <ion-row>
+      <ion-col size="12">
+        <ion-textarea placeholder="Describa alguna observación, opcionalmente puede agregar fotos..."
+          [(ngModel)]="observation.description" name="description"></ion-textarea>
+      </ion-col>
+    </ion-row>
+    <ion-row  *ngIf="observation.description !== ''" ion-row style="justify-content: center;">
+      <ion-col class="text-center" size="6">
+        <ion-button (click)="cargaImg()">
+          <ion-icon name="images"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col class="text-center" size="6">
+        <ion-thumbnail *ngIf="load">
+          <ion-img [src]="src" />
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" *ngIf="load">
+        <ion-textarea [(ngModel)]="photo.description" placeholder="Describa la foto..." name="description-foto">
+          
+        </ion-textarea>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" *ngIf="load">
+        <ion-button (click)="addPhoto()" expand="full">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          Guardar la foto
+        </ion-button>  
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
 
 
   <div *ngIf="observation.photos.length > 0">
 
     <ion-row class="header-row">
-      <ion-col size="9" size-md="4" size-lg="2">
+      <ion-col size="6" size-md="4" size-lg="2">
         Decripción
+      </ion-col>
+      <ion-col size="3" size-md="4" size-lg="2">
+
       </ion-col>
     </ion-row>
 
     <ion-row class="data-row" *ngFor="let photo of observation.photos">
-      <ion-col size="9" size-md="4" size-lg="2">
+      <ion-col size="6" size-md="4" size-lg="2">
         {{ photo.description }}
+      </ion-col>
+      <ion-col>
+        <ion-thumbnail *ngIf="load">
+          <ion-img [src]="src" />
+        </ion-thumbnail>
       </ion-col>
       <ion-col size="3">
         <ion-button size="small">
