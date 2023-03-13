@@ -35,5 +35,5 @@ export interface Observation{
 export interface TPhoto {
   id: number,
   description: string,
-  photo: Blob
+  photo?: Blob | undefined
 }
