@@ -37,3 +37,10 @@ export interface TPhoto {
   description: string,
   photo?: Blob | undefined
 }
+
+export interface PhotoBase64 {
+  id: number,
+  description: string,
+  photo?: string;
+  render: boolean;
+}

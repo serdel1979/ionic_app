@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { ModalController } from '@ionic/angular';
-import { Observation, TPhoto } from '../interfaces/reg.interface';
+import { Observable } from 'rxjs';
+import { Observation, PhotoBase64, TPhoto } from '../interfaces/reg.interface';
 
 
-const base64 = 'data:image/png;base64,';
+const BASE64 = 'data:image/png;base64,';
 
 @Component({
   selector: 'app-load-observations',
@@ -18,14 +19,18 @@ export class LoadObservationsPage {
   description: string = '';
 
   public base64: string | unknown  = '';
+  public urlImgBase64 : string = BASE64;
 
   public observation: Observation = { id: 1, description: "", photos: [] };
 
   public photo: TPhoto = { id: 1, description: "", photo: undefined };
+  public photosBase64: PhotoBase64[] = [];
 
   public load: boolean = false;
   public src: string | ArrayBuffer | null = '';
   public imgBlobBase64: any = '';
+  
+  public renderOk : boolean = false;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -39,15 +44,10 @@ export class LoadObservationsPage {
       allowEditing: true,
       resultType: CameraResultType.Base64
     });
-    console.log(image);
     if (image.base64String != undefined) {
       let blob = new Blob([image.base64String], { type: 'image/png' });
-      this.src = `${base64}${image.base64String}`;
-      console.log('base64 desde cam ->',this.src);
-      console.log('blob convertido y ahora lo vuelvo a convertir a b64',blob);
+      this.src = `${BASE64}${image.base64String}`;
       this.base64 = await this.convertBlobToBase64(blob);
-      console.log('base64 ->',this.base64);
-      console.log('blob ->',this.photo);
       this.photo.photo = blob;
       this.photo.id = this.observation.photos.length;
       this.load = true;
@@ -56,9 +56,18 @@ export class LoadObservationsPage {
 
   addPhoto() {
     this.observation.photos.push(this.photo);
-    console.log(this.observation);
-    this.photo = { id: this.observation.photos.length, description: "", photo: undefined };
-    this.load = false;
+    this.convertBlobToBase64(this.photo.photo!).then(c=>{
+      this.photosBase64.push(
+        { 
+          id: 1, 
+          description: this.photo.description, 
+          photo: `${BASE64}${c}`,
+          render: true
+        }
+      );
+      this.photo = { id: this.observation.photos.length, description: "", photo: undefined };
+      this.load = false;
+    })
   }
 
 
@@ -68,7 +77,7 @@ export class LoadObservationsPage {
     reader.onload = () => {
       resolve(reader.result);
     };
-    reader.readAsDataURL(blob);
+    reader.readAsText(blob);
   });
 
  

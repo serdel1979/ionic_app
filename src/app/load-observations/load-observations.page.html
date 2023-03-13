@@ -29,9 +29,6 @@
         <ion-thumbnail *ngIf="load">
           <ion-img [src]="src" />
         </ion-thumbnail>
-        <ion-thumbnail *ngIf="load">
-          <ion-img [src]="base64" />
-        </ion-thumbnail>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -52,11 +49,7 @@
   </ion-grid>
 
 
-
-
-
-
-  <div *ngIf="observation.photos.length > 0">
+  <div *ngIf="photosBase64.length > 0">
 
     <ion-row class="header-row">
       <ion-col size="6" size-md="4" size-lg="2">
@@ -67,13 +60,13 @@
       </ion-col>
     </ion-row>
 
-    <ion-row class="data-row" *ngFor="let photo of observation.photos">
+    <ion-row class="data-row" *ngFor="let photo of photosBase64">
       <ion-col size="6" size-md="4" size-lg="2">
-        {{ photo.description }}
+        <a *ngIf="photo.render"> {{ photo.description }} </a>
       </ion-col>
       <ion-col>
-        <ion-thumbnail *ngIf="load">
-          <ion-img [src]="src" />
+        <ion-thumbnail *ngIf="photo.render">
+          <ion-img [src]="photo.photo" />
         </ion-thumbnail>
       </ion-col>
       <ion-col size="3">
