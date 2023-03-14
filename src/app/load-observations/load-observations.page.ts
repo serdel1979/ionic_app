@@ -25,7 +25,7 @@ export class LoadObservationsPage {
 
   public observation: Observation = { id: 1, description: "", photos: [] };
 
-  public photo: TPhoto = { id: 1, description: "", photo: undefined };
+  public photo: TPhoto = { id: 1, description: "", photo: undefined, urlPhoto: "" };
   public photosBase64: PhotoBase64[] = [];
 
   public load: boolean = false;
@@ -57,8 +57,12 @@ export class LoadObservationsPage {
   }
 
   addPhoto() {
-    this.observation.photos.push(this.photo);
+    //this.observation.photos.push(this.photo);
+    // this.photo.urlPhoto = URL.createObjectURL(this.photo.photo!);
+    // console.log(this.photo.urlPhoto);
     this.convertBlobToBase64(this.photo.photo!).then(c=>{
+      this.photo.urlPhoto = `${BASE64}${c}`;
+      this.observation.photos.push(this.photo);
       this.photosBase64.push(
         { 
           id: 1, 
@@ -67,7 +71,8 @@ export class LoadObservationsPage {
           render: true
         }
       );
-      this.photo = { id: this.observation.photos.length, description: "", photo: undefined };
+      console.log(this.photosBase64);
+      this.photo = { id: this.observation.photos.length, description: "", photo: undefined, urlPhoto: ""};
       this.load = false;
     })
   }

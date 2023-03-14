@@ -51,7 +51,6 @@ export class ProjectPage implements OnInit {
   
   async loadObservations(){
     this.indexDBService.getObservations().then(observations=>{
-      console.log('observaciones guardadas -> ',observations);
       this.observations = observations;
     })
   }

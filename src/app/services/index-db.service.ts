@@ -18,6 +18,7 @@ const OBSERVATIONS_KEYS = 'my-observations';
 export class IndexDBService {
 
   constructor(private storage: Storage) {
+    //this.storage.set(OBSERVATIONS_KEYS,[]);
     this.storage.keys().then(c => {
       console.log(c);
       (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):this.storage.set(NEED_KEYS,[]);
@@ -58,7 +59,20 @@ export class IndexDBService {
     return this.storage.get(OBSERVATIONS_KEYS);
   }
 
-
+  deletObservations(need: Observation): Promise<any> {
+    return this.storage.get(OBSERVATIONS_KEYS).then((obs: Observation[]) => {
+      if (!obs || obs.length === 0) {
+        return null;
+      }
+      let toKeep: Observation[] = [];
+      for (let i of obs) {
+        if (i.id != need.id) {
+          toKeep.push(i);
+        }
+      }
+      return this.storage.set(OBSERVATIONS_KEYS, toKeep);
+    });
+  }
 
   ///necesidades
 

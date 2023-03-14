@@ -139,24 +139,36 @@
             Nuevo
           </ion-button>
           <div *ngIf="observations.length > 0">
-            <ion-label>Al realizar el protocolo en el seccionador 119, se detectó lo siguiente</ion-label>
-
-            <ion-list>
-              <ion-item>
-                <ion-thumbnail>
-                  <ion-img
-                    src="https://www.ledtecnologia.com/wp-content/uploads/2021/03/Tablero-Electrico-scaled.jpg" />
-                </ion-thumbnail>
-              </ion-item>
-              <ion-item>
-                <ion-button float-right>
-                  Editar
+            <ion-row class="header-row">
+              <ion-col size="9" size-md="4" size-lg="2">
+                Decripción
+              </ion-col>
+            </ion-row>
+            <ion-row class="data-row" *ngFor="let row of observations; let i = index;">
+              <ion-col size="9" size-md="4" size-lg="2">
+                {{ row.description }}
+              </ion-col>
+              <ion-col size="3">
+                <ion-button size="small">
+                  <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
-                <ion-button float-right>
-                  Eliminar
+                <ion-button size="small">
+                  <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
-              </ion-item>
-            </ion-list>
+              </ion-col>
+              <div *ngIf="row.photos.length > 0">
+                <ion-row *ngFor="let photo of row.photos">
+                  <ion-col size="9" size-md="4" size-lg="2">
+                    {{ photo.description }}
+                  </ion-col>
+                  <ion-col size="3" size-md="4" size-lg="2">
+                    <ion-thumbnail>
+                      <ion-img [src]="photo.urlPhoto"/>     
+                    </ion-thumbnail>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </ion-row>
           </div>
 
         </div>
