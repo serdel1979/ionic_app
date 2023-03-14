@@ -3,8 +3,10 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Observation, PhotoBase64, TPhoto } from '../interfaces/reg.interface';
+import { IndexDBService } from '../services/index-db.service';
 
 
+const OBSERVATIONS_KEYS = 'my-observations';
 const BASE64 = 'data:image/png;base64,';
 
 @Component({
@@ -32,7 +34,7 @@ export class LoadObservationsPage {
   
   public renderOk : boolean = false;
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController, private indexDbService:  IndexDBService) { }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
@@ -86,10 +88,12 @@ export class LoadObservationsPage {
 
 
   confirm() {
-    if (!this.load) {
-      console.log("acá puedo validar datos antes de guardar en bd")
-      return;
-    }
+    console.log(this,this.observation);
+    this.indexDbService.addObservation(this.observation).then(c=>console.log(c));
+    // if (!this.load) {
+    //   console.log("acá puedo validar datos antes de guardar en bd")
+    //   return;
+    // }
     return this.modalCtrl.dismiss(this.name, 'confirm');
   }
 

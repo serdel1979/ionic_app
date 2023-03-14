@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Activities_to_develop, Developed_activity, NeedNextDay, Stuff } from '../interfaces/reg.interface';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
 
 
 const NEED_KEYS = 'my-needs';
@@ -39,6 +39,25 @@ export class IndexDBService {
     }
     return false;
   }
+
+
+  ///observaciones
+
+  addObservation(observ: Observation): Promise<any> {
+    return this.storage.get(OBSERVATIONS_KEYS).then((observations: Observation[]) => {
+      if (observations) {
+        observations.push(observ);
+        return this.storage.set(OBSERVATIONS_KEYS, observations);
+      } else {
+        return this.storage.set(OBSERVATIONS_KEYS, [observ]);
+      }
+    });
+  }
+
+  getObservations(): Promise<Observation[]> {
+    return this.storage.get(OBSERVATIONS_KEYS);
+  }
+
 
 
   ///necesidades

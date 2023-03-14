@@ -45,8 +45,19 @@ export class ProjectPage implements OnInit {
     this.loadUsersAfectados();
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
+    this.loadObservations();
   }
 
+  
+  async loadObservations(){
+    this.indexDBService.getObservations().then(observations=>{
+      console.log('observaciones guardadas -> ',observations);
+      this.observations = observations;
+    })
+  }
+  
+  
+  
   async loadNeeds(){
     this.indexDBService.getNeeds().then(needs=>{
         this.needsNextDay = needs;
