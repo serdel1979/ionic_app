@@ -71,7 +71,6 @@ export class LoadObservationsPage {
           render: true
         }
       );
-      console.log(this.photosBase64);
       this.photo = { id: this.observation.photos.length, description: "", photo: undefined, urlPhoto: ""};
       this.load = false;
     })

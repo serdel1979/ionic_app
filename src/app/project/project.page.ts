@@ -48,7 +48,10 @@ export class ProjectPage implements OnInit {
     this.loadObservations();
   }
 
-  
+ 
+ 
+
+
   async loadObservations(){
     this.indexDBService.getObservations().then(observations=>{
       this.observations = observations;
@@ -329,12 +332,14 @@ export class ProjectPage implements OnInit {
     });
     modal.present();
 
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
+    await modal.onDidDismiss().then(()=>{
       this.loadObservations();
-      this.message = `Hello, ${data}!`;
-    }
+    })
+
+    // if (role === 'confirm') {
+    //   this.loadObservations();
+    //   this.message = `Hello, ${data}!`;
+    // }
   }
 
 }

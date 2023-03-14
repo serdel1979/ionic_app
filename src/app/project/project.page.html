@@ -141,15 +141,15 @@
           <div *ngIf="observations.length > 0">
             <ion-grid>
               <ion-row class="header-row">
-                <ion-col size="9">
+                <ion-col size="9" size-md="4" size-lg="2">
                   Decripción
                 </ion-col>
               </ion-row>
               <ion-row class="data-row" *ngFor="let row of observations; let i = index;">
-                <ion-col size="9">
+                <ion-col size="9" size-md="4" size-lg="2">
                   {{ row.description }}
                 </ion-col>
-                <ion-col size="3">
+                <ion-col size="3" size-md="4" size-lg="2">
                   <ion-button size="small">
                     <ion-icon name="trash" slot="icon-only"></ion-icon>
                   </ion-button>
@@ -157,7 +157,7 @@
                     <ion-icon name="create" slot="icon-only"></ion-icon>
                   </ion-button>
                 </ion-col>
-                <div size="12" *ngIf="row.photos.length > 0">
+                <ion-grid>
                   <ion-row *ngFor="let photo of row.photos">
                     <ion-col size="9">
                       {{ photo.description }}
@@ -168,7 +168,7 @@
                       </ion-thumbnail>
                     </ion-col>
                   </ion-row>
-                </div>
+                </ion-grid>
               </ion-row>
             </ion-grid>
           </div>
