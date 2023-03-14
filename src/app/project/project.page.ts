@@ -332,6 +332,7 @@ export class ProjectPage implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
+      this.loadObservations();
       this.message = `Hello, ${data}!`;
     }
   }
