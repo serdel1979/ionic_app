@@ -3,6 +3,8 @@ import { AlertController, ModalController } from '@ionic/angular';
 import {  IndexDBService } from '../services/index-db.service';
 import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
+import { uuId } from '../utils/uuid.function';
+
 
 
 @Component({
@@ -49,8 +51,42 @@ export class ProjectPage implements OnInit {
   }
 
  
+  
  
 
+  async deletObservation(observation: Observation) {
+    const alert = await this.alertController.create({
+      header: `Está por eliminar una observación y sus datos!!!`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: () => {
+            let msg: any;
+            this.indexDBService.deletObservations(observation)
+              .then(() => {
+                this.loadObservations();
+              })
+              .catch((e: any) => {
+                msg = e;
+                this.loadObservations();
+              });
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
+  }
 
   async loadObservations(){
     this.indexDBService.getObservations().then(observations=>{
@@ -123,7 +159,7 @@ export class ProjectPage implements OnInit {
 
 
   addStuff() {
-    this.indexDBService.addStuff({ id: this.stuffs.length + 1, name: "pepe", date_start: "12:08", date_end: "13:00" }).then(() => {
+    this.indexDBService.addStuff({ id: uuId(), name: "pepe", date_start: "12:08", date_end: "13:00" }).then(() => {
       this.loadUsersAfectados();
       console.log;
     }).catch(console.error);
@@ -146,7 +182,7 @@ export class ProjectPage implements OnInit {
         if(data.data){
             const { values } = data.data;
             let activity = {
-              id: this.activitiesDeveloped.length,
+              id: uuId(),
               description: values[0],
               reportid: 1
             }
@@ -211,7 +247,7 @@ export class ProjectPage implements OnInit {
         if (data.data) {
           const { values } = data.data;
           let activity = {
-            id: this.activitiesToDev.length,
+            id: uuId(),
             description: values[0],
             reportid: 1
           }
@@ -277,7 +313,7 @@ export class ProjectPage implements OnInit {
         if (data.data) {
           const { values } = data.data;
           let need = {
-            id: this.needsNextDay.length,
+            id: uuId(),
             description: values[0],
             reportid: 1
           }

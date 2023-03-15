@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Observation, PhotoBase64, TPhoto } from '../interfaces/reg.interface';
 import { IndexDBService } from '../services/index-db.service';
+import { uuId } from '../utils/uuid.function';
 
 
 const OBSERVATIONS_KEYS = 'my-observations';
@@ -23,9 +24,9 @@ export class LoadObservationsPage {
   public base64: string | unknown  = '';
   public urlImgBase64 : string = BASE64;
 
-  public observation: Observation = { id: 1, description: "", photos: [] };
+  public observation: Observation = { id: uuId(), description: "", photos: [] };
 
-  public photo: TPhoto = { id: 1, description: "", photo: undefined, urlPhoto: "" };
+  public photo: TPhoto = { id: uuId(), description: "", photo: undefined, urlPhoto: "" };
   public photosBase64: PhotoBase64[] = [];
 
   public load: boolean = false;
@@ -51,7 +52,7 @@ export class LoadObservationsPage {
       this.src = `${BASE64}${image.base64String}`;
       this.base64 = await this.convertBlobToBase64(blob);
       this.photo.photo = blob;
-      this.photo.id = this.observation.photos.length;
+      this.photo.id = uuId();
       this.load = true;
     }
   }
@@ -65,13 +66,13 @@ export class LoadObservationsPage {
       this.observation.photos.push(this.photo);
       this.photosBase64.push(
         { 
-          id: 1, 
+          id: uuId(), 
           description: this.photo.description, 
           photo: `${BASE64}${c}`,
           render: true
         }
       );
-      this.photo = { id: this.observation.photos.length, description: "", photo: undefined, urlPhoto: ""};
+      this.photo = { id: uuId(), description: "", photo: undefined, urlPhoto: ""};
       this.load = false;
     })
   }

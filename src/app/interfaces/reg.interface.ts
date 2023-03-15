@@ -1,46 +1,46 @@
 export interface Stuff {
-  id: number,
+  id: string,
   name: string,
   date_start: string,
   date_end: string
 }
 
 export interface NeedNextDay {
-  id: number,
+  id: string,
   description: string,
   reportid: number
 }
 
 export interface Developed_activity {
-  id: number,
+  id: string,
   description: string,
   reportid: number
 }
 
 
 export interface Activities_to_develop {
-  id: number,
+  id: string,
   description: string,
   reportid: number
 }
 
 
 export interface Observation{
-  id: number,
+  id: string,
   description: string,
   photos: TPhoto[]
 }
 
 
 export interface TPhoto {
-  id: number,
+  id: string,
   description: string,
   photo?: Blob | undefined ,
   urlPhoto: string
 }
 
 export interface PhotoBase64 {
-  id: number,
+  id: string,
   description: string,
   photo?: string;
   render: boolean;
