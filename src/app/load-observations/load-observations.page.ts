@@ -93,7 +93,6 @@ export class LoadObservationsPage {
 
 
   confirm() {
-    console.log(this,this.observation);
     this.indexDbService.addObservation(this.observation).then(c=>console.log(c));
     // if (!this.load) {
     //   console.log("acá puedo validar datos antes de guardar en bd")

@@ -51,7 +51,10 @@ export class ProjectPage implements OnInit {
   }
 
  
-  
+  ionViewWillEnter(){
+    this.loadObservations();
+    console.log("observations cargado");
+  }
  
 
   async deletObservation(observation: Observation) {
@@ -371,11 +374,11 @@ export class ProjectPage implements OnInit {
     await modal.onDidDismiss().then(()=>{
       this.loadObservations();
     })
-
-    // if (role === 'confirm') {
-    //   this.loadObservations();
-    //   this.message = `Hello, ${data}!`;
-    // }
+    
   }
+
+ 
+
+
 
 }
