@@ -327,3 +327,5 @@ C:\Users\sergio\Desktop\IONIC\apptosi>ionic cap run android --livereload --exter
 1- npm run build
 2- npx cap sync
 3- npx cap open android
+
+ apk --> app/build/outputs/apk del proyecto.
