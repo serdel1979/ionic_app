@@ -9,7 +9,9 @@
   </ion-header>
   <ion-content class="ion-padding">
 
-
+    <ion-button (click)="refresh()">
+      <ion-icon name="refresh-circle"></ion-icon>
+    </ion-button>
     <ion-card-title>Parte Diario de Actividades</ion-card-title>
     <ion-card-subtitle>Proyecto ET 25 de Mayo</ion-card-subtitle>
 
@@ -49,9 +51,10 @@
       </ion-row>
     </ion-grid>
 
-    <div *ngIf="2>3">
-    {{ observations.length }}
-    </div>
+    <ion-label style="color: blue">
+      {{ observations.length }}
+    </ion-label>
+
     <ion-accordion-group>
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
@@ -73,9 +76,6 @@
               </ion-col>
               <ion-col size="3">
                 Salida
-              </ion-col>
-              <ion-col size="3">
-                Acción
               </ion-col>
             </ion-row>
 
@@ -245,6 +245,9 @@
       </ion-accordion>
     </ion-accordion-group>
 
+    <ion-button style="margin-top: 10px;">
+      Enviar
+    </ion-button>
 
   </ion-content>
 </div>

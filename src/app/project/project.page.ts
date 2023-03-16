@@ -50,6 +50,13 @@ export class ProjectPage implements OnInit {
     this.loadObservations();
   }
 
+  refresh(){
+    this.loadNeeds();
+    this.loadUsersAfectados();
+    this.loadActivitiesDeveloped();
+    this.loadActivitiesToDev();
+    this.loadObservations();
+  }
  
   ionViewWillEnter(){
     this.loadObservations();
