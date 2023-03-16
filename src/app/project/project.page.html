@@ -81,16 +81,16 @@
 
             <ion-row *ngFor="let row of stuffs; let i = index;" class="data-row">
 
-              <ion-col size="3" size-md="4" size-lg="2">
+              <ion-col size="4" size-md="4" size-lg="2">
                 {{ row.name}}
               </ion-col>
-              <ion-col size="3">
+              <ion-col size="2">
                 {{ row.date_start }}
               </ion-col>
-              <ion-col size="3">
+              <ion-col size="2">
                 {{ row.date_end }}
               </ion-col>
-              <ion-col size="3">
+              <ion-col size="4">
                 <ion-button size="small" (click)="stuffDelete(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
