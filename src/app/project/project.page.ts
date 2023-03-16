@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import {  IndexDBService } from '../services/index-db.service';
 import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
@@ -13,7 +13,7 @@ import { uuId } from '../utils/uuid.function';
   styleUrls: ['./project.page.scss'],
 })
 
-export class ProjectPage implements OnInit {
+export class ProjectPage implements OnInit, OnChanges {
 
 
 
@@ -42,6 +42,11 @@ export class ProjectPage implements OnInit {
   ) { }
 
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.refresh();
+  }
+
+
   ngOnInit() {
     this.loadNeeds();
     this.loadUsersAfectados();
@@ -60,7 +65,6 @@ export class ProjectPage implements OnInit {
  
   ionViewWillEnter(){
     this.loadObservations();
-    console.log("observations cargado");
   }
  
 
@@ -169,11 +173,28 @@ export class ProjectPage implements OnInit {
 
 
   addStuff() {
-    this.indexDBService.addStuff({ id: uuId(), name: "pepe", date_start: "12:08", date_end: "13:00" }).then(() => {
+    this.indexDBService.addStuff({ id: uuId(), name: "Ermindo Onega", responsability: "Especialista", date_start: "12:08", date_end: "13:00" }).then(() => {
       this.loadUsersAfectados();
       console.log;
     }).catch(console.error);
   }
+
+ 
+
+  async seeStuff(stuff: Stuff) {
+    const alert = await this.alertController.create({
+      header: 'Personal',
+      subHeader: 'Datos del trabajador seleccionado',
+      message: `Nombre: ${stuff.name}
+      Responsabilidad: ${stuff.name}
+      Entrada: ${stuff.date_start}
+      Salida: ${stuff.date_end}
+      `,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+
 
 
   async addActivitiesDeveloped() {
