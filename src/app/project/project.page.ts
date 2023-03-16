@@ -385,6 +385,10 @@ export class ProjectPage implements OnInit {
   }
 
  
+  puedeEnviar(): boolean{
+    if(this.stuffs.length > 0 && this.activitiesDeveloped.length > 0) return true;
+    return false;
+  }
 
 
 
