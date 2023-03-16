@@ -185,10 +185,10 @@ export class ProjectPage implements OnInit, OnChanges {
     const alert = await this.alertController.create({
       header: 'Personal',
       subHeader: 'Datos del trabajador seleccionado',
-      message: `Nombre: ${stuff.name}
-      Responsabilidad: ${stuff.name}
-      Entrada: ${stuff.date_start}
-      Salida: ${stuff.date_end}
+      message: `Nombre: ${stuff.name}\n
+      Responsabilidad: ${stuff.responsability}
+      Entrada: ${stuff.date_start}\n
+      Salida: ${stuff.date_end}\n
       `,
       buttons: ['OK'],
     });
