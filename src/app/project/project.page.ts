@@ -227,6 +227,38 @@ export class ProjectPage implements OnInit, OnChanges {
     });
   }
 
+  async editActivitiesDeveloped(activityDev: Developed_activity) {
+    const alert = await this.alertController.create({
+      header: 'Edita actividad desarrollada',
+      buttons: ['OK'],
+      inputs: [
+        {
+          type: 'textarea',
+          value: `${activityDev.description}`,
+          placeholder: 'Ingrese una actividad desarrollada!!!',
+        },
+      ],
+    });
+    alert.present().then(() => {
+      alert.onDidDismiss().then((data) => {
+        if (data.data) {
+          const { values } = data.data;
+          let activity = {
+            id: activityDev.id,
+            description: values[0],
+            reportid: 1
+          }
+          this.indexDBService.updateActivities(activity)
+            .then(() => {
+              this.loadActivitiesDeveloped();
+            })
+            .catch(console.error);
+        }
+      });
+
+    });
+  }
+
 
   async deletActivityDev(activityDev: Developed_activity) {
     const alert = await this.alertController.create({
@@ -328,6 +360,38 @@ export class ProjectPage implements OnInit, OnChanges {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
+  async editActivityToDev(activityToDev: Activities_to_develop) {
+    const alert = await this.alertController.create({
+      header: 'Edita una actividad a desarrollar',
+      buttons: ['OK'],
+      inputs: [
+        {
+          type: 'textarea',
+          value: `${activityToDev.description}`,
+          placeholder: 'Ingrese una actividad a desarrollar!!!',
+        },
+      ],
+    });
+    alert.present().then(() => {
+      alert.onDidDismiss().then((data) => {
+        if (data.data) {
+          const { values } = data.data;
+          let activity = {
+            id: activityToDev.id,
+            description: values[0],
+            reportid: 1
+          }
+          this.indexDBService.updateActivityToDevelop(activity)
+            .then(() => {
+              this.loadActivitiesToDev();
+            })
+            .catch(console.error);
+        }
+      });
+
+    });
+  }
+
   async addNeed() {
     const alert = await this.alertController.create({
       header: 'Agregar una necesidad',
@@ -422,6 +486,38 @@ export class ProjectPage implements OnInit, OnChanges {
       this.loadObservations();
     })
 
+  }
+
+  async editNeed(needNextDay: NeedNextDay) {
+    const alert = await this.alertController.create({
+      header: 'Edita actividad desarrollada',
+      buttons: ['OK'],
+      inputs: [
+        {
+          type: 'textarea',
+          value: `${needNextDay.description}`,
+          placeholder: 'Ingrese una actividad desarrollada!!!',
+        },
+      ],
+    });
+    alert.present().then(() => {
+      alert.onDidDismiss().then((data) => {
+        if (data.data) {
+          const { values } = data.data;
+          let need = {
+            id: needNextDay.id,
+            description: values[0],
+            reportid: 1
+          }
+          this.indexDBService.updateNeed(need)
+            .then(() => {
+              this.loadNeeds();
+            })
+            .catch(console.error);
+        }
+      });
+
+    });
   }
 
 

@@ -16,7 +16,7 @@
     <ion-card-subtitle>Proyecto ET 25 de Mayo</ion-card-subtitle>
 
 
-    <ion-grid>
+    <ion-grid class="text-gr">
       <ion-row>
         <ion-col size="6">
           Cliente
@@ -51,7 +51,7 @@
       </ion-row>
     </ion-grid>
 
-    <ion-accordion-group>
+    <ion-accordion-group class="text-gr">
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <ion-label>Personal afectado</ion-label>
@@ -114,7 +114,7 @@
                 <ion-button size="small" (click)="deletActivityDev(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
-                <ion-button size="small">
+                <ion-button size="small"(click)="editActivitiesDeveloped(row)">
                   <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -195,7 +195,7 @@
                 <ion-button size="small" (click)="deletActivityToDev(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
-                <ion-button size="small">
+                <ion-button size="small"(click)="editActivityToDev(row)" >
                   <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
@@ -227,7 +227,7 @@
                 <ion-button (click)="deletNeed(row)" size="small">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
-                <ion-button size="small">
+                <ion-button size="small" (click)="editNeed(row)" >
                   <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>

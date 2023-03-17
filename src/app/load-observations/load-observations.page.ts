@@ -105,7 +105,13 @@ export class LoadObservationsPage {
   });
 
 
-
+  deletItem(i:number){
+    if(this.observation.photos){
+      console.log('antes de borrar a ',i,this.observation.photos);
+      this.observation.photos.splice(i,1);
+      console.log('despues de borrar a ',i,this.observation.photos);
+    }
+  }
 
 
 
