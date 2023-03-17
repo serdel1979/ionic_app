@@ -18,15 +18,11 @@ const routes: Routes = [
     canActivate:[LoginGuard]
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate:[LoginGuard]
-  },
-  {
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule),
     canActivate:[LoginGuard]
-  },  {
+  },
+  {
     path: 'load-observations',
     loadChildren: () => import('./load-observations/load-observations.module').then( m => m.LoadObservationsPageModule)
   }
