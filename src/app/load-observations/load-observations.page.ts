@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Observation, PhotoBase64, TPhoto } from '../interfaces/reg.interface';
 import { IndexDBService } from '../services/index-db.service';
@@ -35,7 +35,17 @@ export class LoadObservationsPage {
   
   public renderOk : boolean = false;
 
-  constructor(private modalCtrl: ModalController, private indexDbService:  IndexDBService) { }
+  public edition: boolean = false;
+
+  myParameterObservation: any;
+
+  constructor(private modalCtrl: ModalController, private indexDbService:  IndexDBService, private navParams: NavParams) {
+  }
+
+  ionViewWillEnter() { 
+    this.myParameterObservation = this.navParams.get('observation');
+    this.edition = this.myParameterObservation = this.navParams.get('edition');
+  }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
@@ -53,6 +63,7 @@ export class LoadObservationsPage {
       this.base64 = await this.convertBlobToBase64(blob);
       this.photo.photo = blob;
       this.photo.id = uuId();
+      this.photo.urlPhoto = this.src;
       this.load = true;
     }
   }
@@ -64,14 +75,14 @@ export class LoadObservationsPage {
     this.convertBlobToBase64(this.photo.photo!).then(c=>{
       this.photo.urlPhoto = `${BASE64}${c}`;
       this.observation.photos.push(this.photo);
-      this.photosBase64.push(
-        { 
-          id: uuId(), 
-          description: this.photo.description, 
-          photo: `${BASE64}${c}`,
-          render: true
-        }
-      );
+      // this.photosBase64.push(
+      //   { 
+      //     id: uuId(), 
+      //     description: this.photo.description, 
+      //     photo: `${BASE64}${c}`,
+      //     render: true
+      //   }
+      // );
       this.photo = { id: uuId(), description: "", photo: undefined, urlPhoto: ""};
       this.load = false;
     })
@@ -93,11 +104,14 @@ export class LoadObservationsPage {
 
 
   confirm() {
-    this.indexDbService.addObservation(this.observation).then(c=>console.log(c));
-    // if (!this.load) {
-    //   console.log("acá puedo validar datos antes de guardar en bd")
-    //   return;
-    // }
+    console.log(this.edition);
+    if(this.edition){
+      this.indexDbService.editObservation(this.observation).then(c=>console.log('editado ',c));
+      this.edition = false;
+    }else{
+      this.indexDbService.addObservation(this.observation).then(c=>console.log('agregado ',c));
+    }
+    
     return this.modalCtrl.dismiss(this.name, 'confirm');
   }
 

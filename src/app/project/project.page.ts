@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
-import {  IndexDBService } from '../services/index-db.service';
+import { IndexDBService } from '../services/index-db.service';
 import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
 import { uuId } from '../utils/uuid.function';
@@ -55,18 +55,18 @@ export class ProjectPage implements OnInit, OnChanges {
     this.loadObservations();
   }
 
-  refresh(){
+  refresh() {
     this.loadNeeds();
     this.loadUsersAfectados();
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
     this.loadObservations();
   }
- 
-  ionViewWillEnter(){
+
+  ionViewWillEnter() {
     this.loadObservations();
   }
- 
+
 
   async deletObservation(observation: Observation) {
     const alert = await this.alertController.create({
@@ -102,17 +102,17 @@ export class ProjectPage implements OnInit, OnChanges {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-  async loadObservations(){
-    this.indexDBService.getObservations().then(observations=>{
+  async loadObservations() {
+    this.indexDBService.getObservations().then(observations => {
       this.observations = observations;
     })
   }
-  
-  
-  
-  async loadNeeds(){
-    this.indexDBService.getNeeds().then(needs=>{
-        this.needsNextDay = needs;
+
+
+
+  async loadNeeds() {
+    this.indexDBService.getNeeds().then(needs => {
+      this.needsNextDay = needs;
     })
   }
 
@@ -179,7 +179,7 @@ export class ProjectPage implements OnInit, OnChanges {
     }).catch(console.error);
   }
 
- 
+
 
   async seeStuff(stuff: Stuff) {
     const alert = await this.alertController.create({
@@ -210,19 +210,19 @@ export class ProjectPage implements OnInit, OnChanges {
     });
     alert.present().then(() => {
       alert.onDidDismiss().then((data) => {
-        if(data.data){
-            const { values } = data.data;
-            let activity = {
-              id: uuId(),
-              description: values[0],
-              reportid: 1
-            }
-            this.indexDBService.addActivityDeveloped(activity)
-              .then(() => {
-                this.loadActivitiesDeveloped();
-              })
-              .catch(console.error);
-            }
+        if (data.data) {
+          const { values } = data.data;
+          let activity = {
+            id: uuId(),
+            description: values[0],
+            reportid: 1
+          }
+          this.indexDBService.addActivityDeveloped(activity)
+            .then(() => {
+              this.loadActivitiesDeveloped();
+            })
+            .catch(console.error);
+        }
       });
     });
   }
@@ -393,21 +393,40 @@ export class ProjectPage implements OnInit, OnChanges {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-  async addObservation(){
+  async addObservation() {
     const modal = await this.modalCtrl.create({
       component: LoadObservationsPage,
+      componentProps: {
+        edition: false
+      }
     });
     modal.present();
 
-    await modal.onDidDismiss().then(()=>{
+    await modal.onDidDismiss().then(() => {
       this.loadObservations();
     })
-    
+
   }
 
- 
-  puedeEnviar(): boolean{
-    if(this.stuffs.length > 0 && this.activitiesDeveloped.length > 0) return true;
+  async editObservation(obs: Observation) {
+    const modal = await this.modalCtrl.create({
+      component: LoadObservationsPage,
+      componentProps: {
+        observation: obs,
+        edition: true
+      }
+    });
+    modal.present();
+
+    await modal.onDidDismiss().then(() => {
+      this.loadObservations();
+    })
+
+  }
+
+
+  puedeEnviar(): boolean {
+    if (this.stuffs.length > 0 && this.activitiesDeveloped.length > 0) return true;
     return false;
   }
 

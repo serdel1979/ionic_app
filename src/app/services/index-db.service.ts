@@ -74,6 +74,25 @@ export class IndexDBService {
     });
   }
 
+  editObservation(observation: Observation): Promise<any> {
+    return this.storage.get(OBSERVATIONS_KEYS).then((observations: Observation[]) => {
+      if (!observations || observations.length === 0) {
+        return null;
+      }
+      let myObservation: Observation[] = [];
+      for (let i of observations) {
+        if (i.id === observation.id) {
+          myObservation.push(observation);
+        } else {
+          myObservation.push(i);
+        }
+      }
+      return this.storage.set(OBSERVATIONS_KEYS, myObservation);
+    });
+  }
+
+
+
   ///necesidades
 
   addNeed(need: NeedNextDay): Promise<any> {
