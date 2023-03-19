@@ -104,8 +104,8 @@
                 Decripción
               </ion-col>
             </ion-row>
-            <ion-row (click)="seeDetail(row.description,'Actividad','Actividad desarrollada')" class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
-              <ion-col size="5" size-md="4" size-lg="2">
+            <ion-row class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
+              <ion-col (click)="seeDetail(row.description,'Actividad','Actividad desarrollada')" size="5" size-md="4" size-lg="2">
                 {{ row.description  | uppercase }}
               </ion-col>
               <ion-col size="7">
