@@ -27,6 +27,7 @@
         </ion-button>
       </ion-col>
       <ion-col class="text-center" size="6">
+          <ion-spinner *ngIf="!load && iniLoad" name="circles"></ion-spinner>
           <ion-img *ngIf="load" [src]="src" />
       </ion-col>
     </ion-row>

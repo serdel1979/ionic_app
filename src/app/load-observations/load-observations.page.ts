@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { ModalController, NavParams } from '@ionic/angular';
+import { AlertController, ModalController, NavParams } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Observation, PhotoBase64, TPhoto } from '../interfaces/reg.interface';
 import { IndexDBService } from '../services/index-db.service';
@@ -30,6 +30,8 @@ export class LoadObservationsPage {
   public photosBase64: PhotoBase64[] = [];
 
   public load: boolean = false;
+  public iniLoad: boolean = false;
+
   public src: string | ArrayBuffer | null = '';
   public imgBlobBase64: any = '';
 
@@ -39,7 +41,11 @@ export class LoadObservationsPage {
 
   myParameterObservation: any;
 
-  constructor(private modalCtrl: ModalController, private indexDbService: IndexDBService, private navParams: NavParams) {
+  constructor(
+    private modalCtrl: ModalController, 
+    private alertController: AlertController,
+    private indexDbService: IndexDBService, 
+    private navParams: NavParams) {
   }
 
   ionViewWillEnter() {
@@ -52,6 +58,7 @@ export class LoadObservationsPage {
   }
 
   async cargaImg() {
+    this.iniLoad = true;
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
@@ -65,6 +72,7 @@ export class LoadObservationsPage {
       this.subObservation.id = uuId();
       this.subObservation.urlPhoto = this.src;
       this.load = true;
+      this.iniLoad = false;
     }
   }
 
@@ -88,7 +96,10 @@ export class LoadObservationsPage {
         this.load = false;
       })
     }else{
-      console.log(this.subObservation);
+      if(this.subObservation.description == ""){
+        this.seeMsg('No puede agregar una descripción vacía sin foto','Adjuntar','Adjunta datos relacionados a una observación');
+        return;
+      }
       this.observation.photos.push(this.subObservation);
       this.subObservation = { id: uuId(), description: "", photo: undefined, urlPhoto: "" };
     }
@@ -107,16 +118,27 @@ export class LoadObservationsPage {
 
   deletItem(i:number){
     if(this.observation.photos){
-      console.log('antes de borrar a ',i,this.observation.photos);
       this.observation.photos.splice(i,1);
-      console.log('despues de borrar a ',i,this.observation.photos);
     }
   }
 
 
+  async seeMsg(msg: string, hder: string, subhder: string) {
+    const alert = await this.alertController.create({
+      header: hder,
+      subHeader: subhder,
+      message: msg,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+
 
   confirm() {
-    console.log(this.edition);
+    if(this.observation.description == ""){
+        this.seeMsg('No puede dejar vacía la descripción de una observación','Edición','Edición de una observación');
+        return;
+    }
     if (this.edition) {
       this.indexDbService.editObservation(this.observation).then(c => console.log('editado ', c));
       this.edition = false;
