@@ -25,7 +25,11 @@ const routes: Routes = [
   {
     path: 'load-observations',
     loadChildren: () => import('./load-observations/load-observations.module').then( m => m.LoadObservationsPageModule)
+  },  {
+    path: 'detail-photo',
+    loadChildren: () => import('./detail-photo/detail-photo.module').then( m => m.DetailPhotoPageModule)
   }
+
 
 
 ];

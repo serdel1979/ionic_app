@@ -1,9 +1,10 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { IndexDBService } from '../services/index-db.service';
-import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff, TPhoto } from '../interfaces/reg.interface';
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
 import { uuId } from '../utils/uuid.function';
+import { DetailPhotoPage } from '../detail-photo/detail-photo.page';
 
 
 
@@ -478,6 +479,22 @@ export class ProjectPage implements OnInit, OnChanges {
       componentProps: {
         observation: obs,
         edition: true
+      }
+    });
+    modal.present();
+
+    await modal.onDidDismiss().then(() => {
+      this.loadObservations();
+    })
+
+  }
+
+  async seeDetailPhoto(description: string, photo: TPhoto){
+    const modal = await this.modalCtrl.create({
+      component: DetailPhotoPage,
+      componentProps: {
+        description: description,
+        photo: photo
       }
     });
     modal.present();

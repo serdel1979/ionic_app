@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="confirm()">Volver</ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" slot="content">
+
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalle de la foto</ion-card-title>
+      <ion-card-subtitle>{{description | uppercase}}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-img [src]="photo.urlPhoto"></ion-img>
+    </ion-card-content>
+
+    <ion-label>{{photo.description  | uppercase}}</ion-label>
+  </ion-card>
+
+
+
+
+</ion-content>

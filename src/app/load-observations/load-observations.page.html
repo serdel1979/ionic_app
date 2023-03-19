@@ -62,10 +62,10 @@
 
     <ion-row class="data-row; text-gr" *ngFor="let photo of observation.photos; let i= index">
       <ion-col *ngIf="photo.photo" size="5" size-md="4" size-lg="2">
-        <ion-label>{{ photo.description }} </ion-label>
+        <ion-label>{{ photo.description  | uppercase}} </ion-label>
       </ion-col>
       <ion-col *ngIf="!photo.photo" size="8" size-md="4" size-lg="2">
-        <ion-label>{{ photo.description }} </ion-label>
+        <ion-label>{{ photo.description  | uppercase}} </ion-label>
       </ion-col>
       <ion-col size="3" *ngIf="photo.photo">
         <ion-thumbnail>
