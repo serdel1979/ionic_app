@@ -59,24 +59,28 @@ export class LoadObservationsPage {
 
   async cargaImg() {
     this.iniLoad = true;
-    const image = await Camera.getPhoto({
+    await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Base64
+    }).then(async (image)=>{
+      if (image.base64String != undefined) {
+        let blob = new Blob([image.base64String], { type: 'image/png' });
+        this.src = `${BASE64}${image.base64String}`;
+        this.base64 = await this.convertBlobToBase64(blob);
+        this.subObservation.photo = blob;
+        this.subObservation.id = uuId();
+        this.subObservation.urlPhoto = this.src;
+        this.load = true;
+        this.iniLoad = false;
+      }
+    })
+    .catch(()=>{
+      this.iniLoad = false;
     })
     
-    if (image.base64String != undefined) {
-      let blob = new Blob([image.base64String], { type: 'image/png' });
-      this.src = `${BASE64}${image.base64String}`;
-      this.base64 = await this.convertBlobToBase64(blob);
-      this.subObservation.photo = blob;
-      this.subObservation.id = uuId();
-      this.subObservation.urlPhoto = this.src;
-      this.load = true;
-      this.iniLoad = false;
-    }else{
-      this.iniLoad = false;
-    }
+    
+   
   }
 
   addPhoto() {
