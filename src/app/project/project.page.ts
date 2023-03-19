@@ -213,6 +213,7 @@ export class ProjectPage implements OnInit, OnChanges {
       alert.onDidDismiss().then((data) => {
         if (data.data) {
           const { values } = data.data;
+          if(values[0] == '')return;
           let activity = {
             id: uuId(),
             description: values[0],
@@ -310,6 +311,7 @@ export class ProjectPage implements OnInit, OnChanges {
       alert.onDidDismiss().then((data) => {
         if (data.data) {
           const { values } = data.data;
+          if(values[0] == '')return;
           let activity = {
             id: uuId(),
             description: values[0],
@@ -408,6 +410,7 @@ export class ProjectPage implements OnInit, OnChanges {
       alert.onDidDismiss().then((data) => {
         if (data.data) {
           const { values } = data.data;
+          if(values[0] == '')return;
           let need = {
             id: uuId(),
             description: values[0],
@@ -545,6 +548,7 @@ export class ProjectPage implements OnInit, OnChanges {
 
 
   async seeDetail(detail: string, header: string, subHeader: string) {
+    if(detail == ''){detail = 'No se especificó detalle!!!'};
     const alert = await this.alertController.create({
       header: header,
       subHeader: subHeader,
