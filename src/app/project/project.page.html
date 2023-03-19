@@ -104,7 +104,7 @@
                 Decripción
               </ion-col>
             </ion-row>
-            <ion-row class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
+            <ion-row (click)="seeDetail(row.description,'Actividad','Actividad desarrollada')" class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
               <ion-col size="5" size-md="4" size-lg="2">
                 {{ row.description  | uppercase }}
               </ion-col>
@@ -136,7 +136,7 @@
                 </ion-col>
               </ion-row>
               <ion-row class="data-row" *ngFor="let row of observations; let i = index;">
-                <ion-col size="6" size-md="4" size-lg="2">
+                <ion-col (click)="seeDetail(row.description,'Observación','Detalle de observación')" size="6" size-md="4" size-lg="2">
                   {{ row.description  | uppercase }}
                 </ion-col>
                 <ion-col size="6" size-md="4" size-lg="2">
@@ -149,10 +149,10 @@
                 </ion-col>
                 <ion-grid>
                   <ion-row *ngFor="let photo of row.photos">
-                    <ion-col *ngIf="!photo.photo" size="12">
+                    <ion-col (click)="seeDetail(photo.description,'Descripción','Detalle')" *ngIf="!photo.photo" size="12">
                       {{ photo.description  | uppercase }}
                     </ion-col>
-                    <ion-col *ngIf="photo.photo" size="9">
+                    <ion-col (click)="seeDetail(photo.description,'Descripción de la foto','Detalle')" *ngIf="photo.photo" size="9">
                       {{ photo.description  | uppercase }}
                     </ion-col>
                     <ion-col *ngIf="photo.photo" size="3">
@@ -188,7 +188,7 @@
             </ion-row>
 
             <ion-row class="data-row" *ngFor="let row of activitiesToDev; let i = index;">
-              <ion-col size="5" size-md="4" size-lg="2">
+              <ion-col (click)="seeDetail(row.description,'Descripción','Actividad a desarrollar')" size="5" size-md="4" size-lg="2">
                 {{ row.description }}
               </ion-col>
               <ion-col size="7">
@@ -220,7 +220,7 @@
 
             </ion-row>
             <ion-row class="data-row" *ngFor="let row of needsNextDay; let i = index;">
-              <ion-col size="5" size-md="4" size-lg="2">
+              <ion-col (click)="seeDetail(row.description,'Descripción','Necesidad para mañana')" size="5" size-md="4" size-lg="2">
                 {{ row.description  | uppercase }}
               </ion-col>
               <ion-col size="7">

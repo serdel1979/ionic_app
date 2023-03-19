@@ -544,5 +544,14 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
 
+  async seeDetail(detail: string, header: string, subHeader: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: detail,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
 
 }
