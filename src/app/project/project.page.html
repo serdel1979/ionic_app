@@ -9,9 +9,7 @@
   </ion-header>
   <ion-content class="ion-padding">
 
-    <ion-button (click)="refresh()">
-      <ion-icon name="refresh-circle"></ion-icon>
-    </ion-button>
+
     <ion-card-title>Parte Diario de Actividades</ion-card-title>
     <ion-card-subtitle>Proyecto ET 25 de Mayo</ion-card-subtitle>
 
@@ -102,15 +100,15 @@
           </ion-button>
           <div *ngIf="activitiesDeveloped.length > 0">
             <ion-row class="header-row">
-              <ion-col size="7" size-md="4" size-lg="2">
+              <ion-col size="5" size-md="4" size-lg="2">
                 Decripción
               </ion-col>
             </ion-row>
             <ion-row class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
-              <ion-col size="7" size-md="4" size-lg="2">
+              <ion-col size="5" size-md="4" size-lg="2">
                 {{ row.description  | uppercase }}
               </ion-col>
-              <ion-col size="5">
+              <ion-col size="7">
                 <ion-button size="small" (click)="deletActivityDev(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
@@ -166,8 +164,10 @@
                 </ion-grid>
               </ion-row>
             </ion-grid>
+            <ion-button (click)="refresh()">
+              <ion-icon name="refresh-circle"></ion-icon>
+            </ion-button>
           </div>
-
         </div>
       </ion-accordion>
       <ion-accordion value="fourth">
@@ -181,17 +181,17 @@
           <div *ngIf="activitiesToDev.length > 0">
             <ion-row class="header-row">
 
-              <ion-col size="7" size-md="4" size-lg="2">
+              <ion-col size="5" size-md="4" size-lg="2">
                 Decripción
               </ion-col>
 
             </ion-row>
 
             <ion-row class="data-row" *ngFor="let row of activitiesToDev; let i = index;">
-              <ion-col size="7" size-md="4" size-lg="2">
+              <ion-col size="5" size-md="4" size-lg="2">
                 {{ row.description }}
               </ion-col>
-              <ion-col size="5">
+              <ion-col size="7">
                 <ion-button size="small" (click)="deletActivityToDev(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
@@ -214,16 +214,16 @@
           <div *ngIf="needsNextDay.length > 0">
             <ion-row class="header-row">
 
-              <ion-col size="7" size-md="4" size-lg="2">
+              <ion-col size="5" size-md="4" size-lg="2">
                 Decripción
               </ion-col>
 
             </ion-row>
             <ion-row class="data-row" *ngFor="let row of needsNextDay; let i = index;">
-              <ion-col size="7" size-md="4" size-lg="2">
+              <ion-col size="5" size-md="4" size-lg="2">
                 {{ row.description  | uppercase }}
               </ion-col>
-              <ion-col size="5">
+              <ion-col size="7">
                 <ion-button (click)="deletNeed(row)" size="small">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>

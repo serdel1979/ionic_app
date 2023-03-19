@@ -57,7 +57,7 @@ export interface Wind {
 
 export interface ClimateCurrent {
      loadCoords: boolean;
-     todayDate :  Date;
+     todayDate : Date;
      climaActual : Weather;
      loadClimaActual: boolean;
      descripcionClima : WeatherElement[];

@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
  
     const geoLocation = new Geolocation();
     geoLocation.getCurrentPosition().then(geolocation => {
+      this.climCurrent.todayDate =  new Date;
       this.climCurrent.todayDate.toLocaleString('es-Ar');
       this.climCurrent.coordenadas[0] = geolocation.coords.latitude;
       this.climCurrent.coordenadas[1] = geolocation.coords.longitude;
@@ -68,12 +69,6 @@ export class MenuComponent implements OnInit {
     this.clicked = !this.clicked;
   }
 
-  home() {
-    this.clicked = !this.clicked;
-    this.router.navigateByUrl('/home');
-    this.menuCtrl.close();
-    this.clicked = !this.clicked;
-  }
 
   project() {
     this.clicked = !this.clicked;

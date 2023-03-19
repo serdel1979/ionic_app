@@ -21,7 +21,7 @@ export class LoginPage{
       GoogleAuth.initialize();
     };
     if(this.authService.isLogued){
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/project');
     };
   }
 
