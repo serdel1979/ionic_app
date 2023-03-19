@@ -58,13 +58,13 @@ export class LoadObservationsPage {
   }
 
   async cargaImg() {
-    
+    this.iniLoad = true;
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Base64
     })
-    this.iniLoad = true;
+    
     if (image.base64String != undefined) {
       let blob = new Blob([image.base64String], { type: 'image/png' });
       this.src = `${BASE64}${image.base64String}`;
