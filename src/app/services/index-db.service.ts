@@ -18,28 +18,32 @@ const OBSERVATIONS_KEYS = 'my-observations';
 export class IndexDBService {
 
   constructor(private storage: Storage) {
-    //this.storage.set(OBSERVATIONS_KEYS,[]);
-    this.storage.keys().then(c => {
-      console.log(c);
-      (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):this.storage.set(NEED_KEYS,[]);
-      (this.f(c, STUFF_KEYS))?console.log(`${STUFF_KEYS} ya existía`):this.storage.set(STUFF_KEYS,[]);
-      (this.f(c, ACT_DEV_KEYS))?console.log(`${ACT_DEV_KEYS} ya existía`):this.storage.set(ACT_DEV_KEYS,[]);
-      (this.f(c, ACT_TO_DEV_KEYS))?console.log(`${ACT_TO_DEV_KEYS} ya existía`):this.storage.set(ACT_TO_DEV_KEYS,[]);
-      (this.f(c, OBSERVATIONS_KEYS))?console.log(`${OBSERVATIONS_KEYS} ya existía`):this.storage.set(OBSERVATIONS_KEYS,[]);
-    });
+    this.storage.set(NEED_KEYS,[]);
+    this.storage.set(STUFF_KEYS,[]);
+    this.storage.set(ACT_DEV_KEYS,[]);
+    this.storage.set(ACT_TO_DEV_KEYS,[]);
+    this.storage.set(OBSERVATIONS_KEYS,[]);
+    // this.storage.keys().then(c => {
+    //   console.log(c);
+    //   (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):this.storage.set(NEED_KEYS,[]);
+    //   (this.f(c, STUFF_KEYS))?console.log(`${STUFF_KEYS} ya existía`):this.storage.set(STUFF_KEYS,[]);
+    //   (this.f(c, ACT_DEV_KEYS))?console.log(`${ACT_DEV_KEYS} ya existía`):this.storage.set(ACT_DEV_KEYS,[]);
+    //   (this.f(c, ACT_TO_DEV_KEYS))?console.log(`${ACT_TO_DEV_KEYS} ya existía`):this.storage.set(ACT_TO_DEV_KEYS,[]);
+    //   (this.f(c, OBSERVATIONS_KEYS))?console.log(`${OBSERVATIONS_KEYS} ya existía`):this.storage.set(OBSERVATIONS_KEYS,[]);
+    // });
   }
 
 
 
 
-  private f = function (wordsArray: string[],word: string) {
-    for (let i = 0; i < wordsArray.length; i++) {
-      if (wordsArray[i] === word) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // private f = function (wordsArray: string[],word: string) {
+  //   for (let i = 0; i < wordsArray.length; i++) {
+  //     if (wordsArray[i] === word) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 
 
   ///observaciones
