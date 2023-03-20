@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { InfiniteScrollCustomEvent, isPlatform, LoadingController, MenuController } from '@ionic/angular';
+import { AlertController, InfiniteScrollCustomEvent, isPlatform, LoadingController, MenuController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class LoginPage{
 
 
   constructor(private loadingCtl: LoadingController, private authService: AuthService,
+    private alertController: AlertController,
     private router: Router,
     private menuCtrl: MenuController) {
     if(!isPlatform('capacitor')){
@@ -31,10 +32,21 @@ export class LoginPage{
   async signIn(){
     this.authService.signIn().then(()=>{
       this.router.navigateByUrl('/project');
-    }).catch(()=>{
-      console.error("error");
+    }).catch((err)=>{
+      this.seeError(err);
     });
 
+  }
+
+
+  async seeError(error: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      subHeader: 'Falla en el login',
+      message: error,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
 
