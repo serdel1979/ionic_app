@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { User } from '../interfaces/users.interface';
+import { StuffService } from '../services/stuff.service';
 
 @Component({
   selector: 'app-load-stuff',
@@ -8,9 +10,16 @@ import { ModalController } from '@ionic/angular';
 })
 export class LoadStuffPage implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+
+  public users : User[] = [];
+
+  constructor(private modalCtrl: ModalController, private stuffs: StuffService) { }
 
   ngOnInit() {
+    this.stuffs.getUsers().subscribe((users)=>{
+      this.users = users;
+      console.log(this.users);
+    })
   }
 
 
