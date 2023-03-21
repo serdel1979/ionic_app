@@ -13,7 +13,17 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 })
 export class MenuComponent implements OnInit {
 
-  private climCurrent!: ClimateCurrent;
+
+  private climCurrent: ClimateCurrent = {
+    loadCoords : false,
+    todayDate : new Date,
+    loadClimaActual: false,
+    descripcionClima : [],
+    descripcionActual : '',
+    loadDescripcion: false,
+    urlIconClima : '',
+    coordenadas : [0,0]
+  };
 
   public clicked: boolean = false;
 
