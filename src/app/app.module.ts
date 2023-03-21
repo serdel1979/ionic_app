@@ -13,7 +13,7 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 
 
 import localeEsAr from '@angular/common/locales/es-AR';
@@ -44,7 +44,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
       useClass: Interceptor,
       multi: true
     },
-    { provide: LOCALE_ID, useValue: 'es-Ar' }
+    { provide: LOCALE_ID, useValue: 'es-Ar' },
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   exports:[MenuComponent],
   bootstrap: [AppComponent]
