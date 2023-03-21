@@ -15,7 +15,7 @@ al archivo en /android/app/src/main/res/values/strings.xml
 
 keytool -keystore "C:\Users\sergio\.android\debug.keystore" -list -v
 
-BA:3F:E3:BA:CF:F2:BA:E5:64:6A:BC:6F:EC:40:97:E8:A3:AB:4F:81
-
+casa: 	 BA:3F:E3:BA:CF:F2:BA:E5:64:6A:BC:6F:EC:40:97:E8:A3:AB:4F:81
+trabajo: 2A:4F:79:B2:2E:68:C9:84:27:10:A3:89:06:F3:29:FA:4D:F5:C5:E0
 
 idcliente: 402562450789-69arnbrvh5laddd9qqophkks7kic4o1n.apps.googleusercontent.com

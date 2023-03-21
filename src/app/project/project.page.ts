@@ -5,6 +5,7 @@ import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, St
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
 import { uuId } from '../utils/uuid.function';
 import { DetailPhotoPage } from '../detail-photo/detail-photo.page';
+import { LoadStuffPage } from '../load-stuff/load-stuff.page';
 
 
 
@@ -473,7 +474,20 @@ export class ProjectPage implements OnInit, OnChanges {
     await modal.onDidDismiss().then(() => {
       this.loadObservations();
     })
+  }
 
+  async addStuffModal(){
+    const modal = await this.modalCtrl.create({
+      component: LoadStuffPage,
+      componentProps: {
+        edition: false
+      }
+    });
+    modal.present();
+
+    await modal.onDidDismiss().then(() => {
+      this.loadUsersAfectados();
+    })
   }
 
   async editObservation(obs: Observation) {

@@ -24,12 +24,32 @@ export class AppComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     await this.storage.create();
-    await this.storage.set(NEED_KEYS,[]);
-    await this.storage.set(STUFF_KEYS,[]);
-    await this.storage.set(ACT_DEV_KEYS,[]);
-    await this.storage.set(ACT_TO_DEV_KEYS,[]);
-    await this.storage.set(OBSERVATIONS_KEYS,[]);
+    // await this.storage.set(NEED_KEYS,[]);
+    // await this.storage.set(STUFF_KEYS,[]);
+    // await this.storage.set(ACT_DEV_KEYS,[]);
+    // await this.storage.set(ACT_TO_DEV_KEYS,[]);
+    // await this.storage.set(OBSERVATIONS_KEYS,[]);
+
+    this.storage.keys().then(async c => {
+      console.log(c);
+      (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):await this.storage.set(NEED_KEYS,[]);
+      (this.f(c, STUFF_KEYS))?console.log(`${STUFF_KEYS} ya existía`):await this.storage.set(STUFF_KEYS,[]);
+      (this.f(c, ACT_DEV_KEYS))?console.log(`${ACT_DEV_KEYS} ya existía`):await this.storage.set(ACT_DEV_KEYS,[]);
+      (this.f(c, ACT_TO_DEV_KEYS))?console.log(`${ACT_TO_DEV_KEYS} ya existía`):await this.storage.set(ACT_TO_DEV_KEYS,[]);
+      (this.f(c, OBSERVATIONS_KEYS))?console.log(`${OBSERVATIONS_KEYS} ya existía`):await this.storage.set(OBSERVATIONS_KEYS,[]);
+    });
   }
+
+
+   private f = function (wordsArray: string[],word: string) {
+    for (let i = 0; i < wordsArray.length; i++) {
+      if (wordsArray[i] === word) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
 
 }

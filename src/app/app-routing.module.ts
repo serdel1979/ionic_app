@@ -28,6 +28,10 @@ const routes: Routes = [
   },  {
     path: 'detail-photo',
     loadChildren: () => import('./detail-photo/detail-photo.module').then( m => m.DetailPhotoPageModule)
+  },
+  {
+    path: 'load-stuff',
+    loadChildren: () => import('./load-stuff/load-stuff.module').then( m => m.LoadStuffPageModule)
   }
 
 
