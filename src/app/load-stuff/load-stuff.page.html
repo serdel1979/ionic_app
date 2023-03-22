@@ -8,7 +8,32 @@
 </ion-header>
 <ion-content class="ion-padding" slot="content">
 
+  <ion-grid class="text-gr">
+    <ion-row class="header-row">
+      <ion-col size="6">
+        Nombre y apellido
+      </ion-col>
+      <ion-col size="6">
+        Email
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let stuff of users" class="data-row">
+      <ion-col size="4">
+        {{ stuff.name}} {{ stuff.surname }}
+      </ion-col>
+      <ion-col size="6">
+        {{ stuff.email }}
+      </ion-col>
+      <ion-col size="2" (click)="add()">
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-col>
 
 
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-datetime presentation="time" [value]="hora" [(ngModel)]="hora"></ion-datetime>
 
 </ion-content>

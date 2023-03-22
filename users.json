@@ -21,17 +21,32 @@
         "name" : "Lalo",
         "surname" : "Luna",
         "dni" : 27154112,
-        "responsabilityId" : 2 ,
+        "responsabilityId" : 2,
         "leader" : false
       },
       {
         "email" : "lolo@gmail.com",
         "name" : "Lorenzo",
-        "surname" : "Acosta",
+        "surname" : "Martino",
         "dni" : 27154111,
-        "responsabilityId" : 1 ,
+        "responsabilityId" : 1,
+        "leader" : false
+      },
+      {
+        "email" : "lochos@gmail.com",
+        "name" : "Manio",
+        "surname" : "Runco",
+        "dni" : 27154222,
+        "responsabilityId" : 2,
+        "leader" : false
+      },
+      {
+        "email" : "palomo@gmail.com",
+        "name" : "Lorenzo",
+        "surname" : "Acosta",
+        "dni" : 23564555,
+        "responsabilityId" : 3,
         "leader" : false
       }
-
     ]
   }

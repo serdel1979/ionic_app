@@ -13,6 +13,7 @@ export class LoadStuffPage implements OnInit {
 
   public users : User[] = [];
 
+  public hora: string = '';
   constructor(private modalCtrl: ModalController, private stuffs: StuffService) { }
 
   ngOnInit() {
@@ -25,6 +26,17 @@ export class LoadStuffPage implements OnInit {
 
   volver(){
     return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
+  add(){
+    console.log(this.hora);
+    let ionDatetime = this.hora; 
+    //Obtener la fecha desde el string 
+    let dateObj = new Date(ionDatetime); 
+    //Obtener solo la hora desde el objeto Date 
+    let hour = dateObj.getHours();
+    let minuts = dateObj.getMinutes();
+    console.log(`${hour}:${minuts}`);
   }
 
   confirm(){
