@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { User } from '../interfaces/users.interface';
 import { StuffService } from '../services/stuff.service';
 
@@ -14,7 +14,8 @@ export class LoadStuffPage implements OnInit {
   public users : User[] = [];
 
   public hora: string = '';
-  constructor(private modalCtrl: ModalController, private stuffs: StuffService) { }
+  constructor(private modalCtrl: ModalController, private stuffs: StuffService,
+    private alertController: AlertController) { }
 
   ngOnInit() {
     this.stuffs.getUsers().subscribe((users)=>{
@@ -37,6 +38,11 @@ export class LoadStuffPage implements OnInit {
     let minuts = dateObj.getMinutes();
     console.log(`${hour}:${minuts}`);
   }
+
+
+ 
+
+
 
   confirm(){
 
