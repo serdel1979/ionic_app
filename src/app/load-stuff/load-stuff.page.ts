@@ -29,7 +29,6 @@ export class LoadStuffPage implements OnInit {
   }
 
   add(){
-    console.log(this.hora);
     let ionDatetime = this.hora; 
     //Obtener la fecha desde el string 
     let dateObj = new Date(ionDatetime); 
