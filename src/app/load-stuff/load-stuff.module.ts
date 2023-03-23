@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { LoadStuffPageRoutingModule } from './load-stuff-routing.module';
 
 import { LoadStuffPage } from './load-stuff.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    PipesModule,
     LoadStuffPageRoutingModule
   ],
   declarations: [LoadStuffPage]

@@ -3,37 +3,86 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="volver()">Volver</ion-button>
     </ion-buttons>
-    
+
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" slot="content">
 
-  <ion-grid class="text-gr">
-    <ion-row class="header-row">
-      <ion-col size="6">
-        Nombre y apellido
-      </ion-col>
-      <ion-col size="6">
-        Email
-      </ion-col>
+
+  <ion-grid>
+    <ion-row>
+      <ion-searchbar (ionInput)="filterList($event)"></ion-searchbar>
+
+      <div *ngIf="!userSelect">
+        <ion-grid class="text-gr">
+
+          <ion-row class="header-row">
+            <ion-col size="6">
+              Nombre y apellido
+            </ion-col>
+            <ion-col size="6">
+              Email
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let stuff of users | filter: textFind" class="data-row">
+            <ion-col size="4">
+              {{ stuff.name}} {{ stuff.surname }}
+            </ion-col>
+            <ion-col size="6">
+              {{ stuff.email }}
+            </ion-col>
+            <ion-col size="2">
+              <ion-button (click)="select(stuff)" size="small">
+                <ion-icon name="checkmark-circle"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-infinite-scroll threshold="50px" (ionInfinite)="loadMoreUsers($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más datos...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-grid>
+      </div>
     </ion-row>
 
-    <ion-row *ngFor="let stuff of users" class="data-row">
-      <ion-col size="4">
-        {{ stuff.name}} {{ stuff.surname }}
+    <div *ngIf="userSelect">
+      <ion-row>
+        <ion-col>Nombre</ion-col>
+        <ion-col>{{ userSelect.name }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Apellido</ion-col>
+        <ion-col>{{ userSelect.surname }}</ion-col>
+      </ion-row>
+    </div>
+    <div *ngiF="horaEntrada != ''">
+      <ion-row>
+        <ion-col>Hora de entrada</ion-col>
+        <ion-col>12:00</ion-col>
+      </ion-row>
+      <div *ngIf="horaSalida != ''">
+        <ion-row>
+          <ion-col>Hora de salida</ion-col>
+          <ion-col>23:00</ion-col>
+        </ion-row>
+      </div>
+    </div>
+
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-datetime presentation="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-datetime>
       </ion-col>
       <ion-col size="6">
-        {{ stuff.email }}
+        <ion-datetime presentation="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-datetime>
       </ion-col>
-      <ion-col size="2" (click)="add()">
-        <ion-icon name="add-circle"></ion-icon>
-      </ion-col>
-
-
     </ion-row>
+    <ion-row>
+      <ion-button>Guardar</ion-button>
+    </ion-row>
+
 
   </ion-grid>
-
-  <ion-datetime presentation="time" [value]="hora" [(ngModel)]="hora"></ion-datetime>
 
 </ion-content>

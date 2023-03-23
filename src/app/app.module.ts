@@ -17,6 +17,7 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 
 
 import localeEsAr from '@angular/common/locales/es-AR';
+import { PipesModule } from './pipes/pipes.module';
 
 
 
@@ -30,6 +31,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     IonicStorageModule.forRoot(),
     AppRoutingModule, 
     HttpClientModule,
+    PipesModule
   ],
   providers: [
     Geolocation,
