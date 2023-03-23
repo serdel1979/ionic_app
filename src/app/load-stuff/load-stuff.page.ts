@@ -45,11 +45,14 @@ export class LoadStuffPage implements OnInit {
     });
 
     await this.loading.present();
-    this.stuffs.getUsers().subscribe((users)=>{
-        this.users = users;
-        this.totalUsers = users.length;
-        this.hideLoading();
-    })
+    // this.stuffs.getUsers().subscribe((users)=>{
+    //     this.users = users;
+    //     this.totalUsers = users.length;
+    //     this.hideLoading();
+    // })
+    this.users = this.stuffs.getUsers();
+    this.totalUsers = this.users.length;
+    this.hideLoading();
   }
 
 

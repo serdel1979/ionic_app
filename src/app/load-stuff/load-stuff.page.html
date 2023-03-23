@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="volver()">Volver</ion-button>
     </ion-buttons>
-
+    <ion-buttons slot="end">
+      <ion-button >Confirmar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" slot="content">
@@ -11,7 +13,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-searchbar (ionInput)="filterList($event)"></ion-searchbar>
+      <ion-searchbar *ngIf="!userSelect" (ionInput)="filterList($event)"></ion-searchbar>
 
       <div *ngIf="!userSelect">
         <ion-grid class="text-gr">
@@ -56,15 +58,15 @@
         <ion-col>{{ userSelect.surname }}</ion-col>
       </ion-row>
     </div>
-    <div *ngiF="horaEntrada != ''">
+    <div *ngIf="horaEntrada != ''">
       <ion-row>
         <ion-col>Hora de entrada</ion-col>
-        <ion-col>12:00</ion-col>
+        <ion-col>{{ horaEntrada }}</ion-col>
       </ion-row>
       <div *ngIf="horaSalida != ''">
         <ion-row>
           <ion-col>Hora de salida</ion-col>
-          <ion-col>23:00</ion-col>
+          <ion-col>{{ horaSalida }}</ion-col>
         </ion-row>
       </div>
     </div>
@@ -72,17 +74,16 @@
 
     <ion-row>
       <ion-col size="6">
-        <ion-datetime presentation="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-datetime>
+        <ion-input type="time"[value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
       </ion-col>
       <ion-col size="6">
-        <ion-datetime presentation="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-datetime>
+        <ion-input type="time"[value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
       </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-button>Guardar</ion-button>
     </ion-row>
 
 
   </ion-grid>
 
+
+ 
 </ion-content>
