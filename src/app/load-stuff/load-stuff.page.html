@@ -4,7 +4,7 @@
       <ion-button color="medium" (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button >Confirmar</ion-button>
+      <ion-button>Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -49,35 +49,39 @@
     </ion-row>
 
     <div *ngIf="userSelect">
-      <ion-row>
-        <ion-col>Nombre</ion-col>
-        <ion-col>{{ userSelect.name }}</ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>Apellido</ion-col>
-        <ion-col>{{ userSelect.surname }}</ion-col>
-      </ion-row>
+      <ion-card>
+        <ion-row>
+          <ion-col>Nombre</ion-col>
+          <ion-col>{{ userSelect.name }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Apellido</ion-col>
+          <ion-col>{{ userSelect.surname }}</ion-col>
+        </ion-row>
+      </ion-card>
     </div>
     <div *ngIf="horaEntrada != ''">
-      <ion-row>
-        <ion-col>Hora de entrada</ion-col>
-        <ion-col>{{ horaEntrada }}</ion-col>
-      </ion-row>
-      <div *ngIf="horaSalida != ''">
+      <ion-card>
         <ion-row>
-          <ion-col>Hora de salida</ion-col>
-          <ion-col>{{ horaSalida }}</ion-col>
+          <ion-col>Hora de entrada</ion-col>
+          <ion-col>{{ horaEntrada }}</ion-col>
         </ion-row>
-      </div>
+        <div *ngIf="horaSalida != ''">
+          <ion-row>
+            <ion-col>Hora de salida</ion-col>
+            <ion-col>{{ horaSalida }}</ion-col>
+          </ion-row>
+        </div>
+      </ion-card>
     </div>
 
 
     <ion-row>
       <ion-col size="6">
-        <ion-input type="time"[value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
+        <ion-input *ngIf="horaEntrada == ''" type="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
       </ion-col>
       <ion-col size="6">
-        <ion-input type="time"[value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
+        <ion-input *ngIf="horaSalida == ''" type="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
       </ion-col>
     </ion-row>
 
@@ -85,5 +89,5 @@
   </ion-grid>
 
 
- 
+
 </ion-content>
