@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { rejects } from 'assert';
+import { resolve } from 'dns';
 import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
 
 
@@ -17,36 +19,12 @@ const OBSERVATIONS_KEYS = 'my-observations';
 })
 export class IndexDBService {
 
-  constructor(private storage: Storage) {
-    // this.storage.set(NEED_KEYS,[]);
-    // this.storage.set(STUFF_KEYS,[]);
-    // this.storage.set(ACT_DEV_KEYS,[]);
-    // this.storage.set(ACT_TO_DEV_KEYS,[]);
-    // this.storage.set(OBSERVATIONS_KEYS,[]);
-    // this.storage.keys().then(c => {
-    //   console.log(c);
-    //   (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):this.storage.set(NEED_KEYS,[]);
-    //   (this.f(c, STUFF_KEYS))?console.log(`${STUFF_KEYS} ya existía`):this.storage.set(STUFF_KEYS,[]);
-    //   (this.f(c, ACT_DEV_KEYS))?console.log(`${ACT_DEV_KEYS} ya existía`):this.storage.set(ACT_DEV_KEYS,[]);
-    //   (this.f(c, ACT_TO_DEV_KEYS))?console.log(`${ACT_TO_DEV_KEYS} ya existía`):this.storage.set(ACT_TO_DEV_KEYS,[]);
-    //   (this.f(c, OBSERVATIONS_KEYS))?console.log(`${OBSERVATIONS_KEYS} ya existía`):this.storage.set(OBSERVATIONS_KEYS,[]);
-    // });
-  }
+  constructor(private storage: Storage) {}
 
 
 
 
-  // private f = function (wordsArray: string[],word: string) {
-  //   for (let i = 0; i < wordsArray.length; i++) {
-  //     if (wordsArray[i] === word) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
 
-
-  ///observaciones
 
   addObservation(observ: Observation): Promise<any> {
     return this.storage.get(OBSERVATIONS_KEYS).then((observations: Observation[]) => {
@@ -302,6 +280,19 @@ export class IndexDBService {
     });
   }
 
+  getStuff(email: string): Promise<Stuff | null>{
+    return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
+      if (!stuffs || stuffs.length === 0) {
+        return null;
+      }
+      for (let i of stuffs) {
+        if (i.id === email) {
+          return i;
+        }
+      }
+      return null;
+    });
+  }
 
 
 

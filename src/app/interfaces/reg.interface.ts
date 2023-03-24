@@ -3,7 +3,8 @@ export interface Stuff {
   name: string,
   responsability: string,
   date_start: string,
-  date_end: string
+  date_end: string,
+  activities?: Activities_to_develop[]
 }
 
 export interface NeedNextDay {
@@ -22,7 +23,8 @@ export interface Developed_activity {
 export interface Activities_to_develop {
   id: string,
   description: string,
-  reportid: number
+  reportid: number,
+  stuffs?: Stuff[]
 }
 
 

@@ -17,7 +17,7 @@ export class StuffService {
       "name" : "Sergio",
       "surname" : "De Luca",
       "dni" : 27154111,
-      "responsabilityId" : 2 ,
+      "responsability" : "Especiealista" ,
       "leader" : false
     },
     {
@@ -25,7 +25,7 @@ export class StuffService {
       "name" : "Pablo",
       "surname" : "Armenio",
       "dni" : 27158881,
-      "responsabilityId" : 1 ,
+      "responsability" : "Especialista" ,
       "leader" : false
     },
     {
@@ -33,7 +33,7 @@ export class StuffService {
       "name" : "Luciano",
       "surname" : "Pantalon",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Ayudante",
       "leader" : false
     },
     {
@@ -41,7 +41,7 @@ export class StuffService {
       "name" : "Leandro",
       "surname" : "Monge",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Instalador",
       "leader" : false
     },
     {
@@ -49,7 +49,7 @@ export class StuffService {
       "name" : "Lucia",
       "surname" : "Lacaña",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Montador",
       "leader" : false
     },
     {
@@ -57,7 +57,7 @@ export class StuffService {
       "name" : "Lio",
       "surname" : "Costacurta",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Especialista",
       "leader" : false
     },
     {
@@ -65,7 +65,7 @@ export class StuffService {
       "name" : "Sandro",
       "surname" : "Pablosqui",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Montador",
       "leader" : false
     },
     {
@@ -73,7 +73,7 @@ export class StuffService {
       "name" : "Pablo",
       "surname" : "Lucio",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Montador",
       "leader" : false
     },
     {
@@ -81,7 +81,7 @@ export class StuffService {
       "name" : "Leonor",
       "surname" : "Orosco",
       "dni" : 27154112,
-      "responsabilityId" : 2,
+      "responsability" : "Ayudante",
       "leader" : false
     }
   ]

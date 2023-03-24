@@ -67,6 +67,7 @@ export class ProjectPage implements OnInit, OnChanges {
 
   ionViewWillEnter() {
     this.loadObservations();
+    this.loadUsersAfectados();
   }
 
 

@@ -3,6 +3,6 @@ export interface User{
     name : string,
     surname : string,
     dni : number,
-    responsabilityId : number,
+    responsability : string,
     leader : boolean
 }

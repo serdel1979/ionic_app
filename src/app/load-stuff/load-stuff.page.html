@@ -4,7 +4,7 @@
       <ion-button color="medium" (click)="volver()">Volver</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>Confirmar</ion-button>
+      <ion-button (click)="confirm()">Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -16,35 +16,41 @@
       <ion-searchbar *ngIf="!userSelect" (ionInput)="filterList($event)"></ion-searchbar>
 
       <div *ngIf="!userSelect">
-        <ion-grid class="text-gr">
 
-          <ion-row class="header-row">
-            <ion-col size="6">
-              Nombre y apellido
-            </ion-col>
-            <ion-col size="6">
-              Email
-            </ion-col>
-          </ion-row>
+        <div *ngIf="(users | filter: textFind).length > 0">
+          <ion-grid class="text-gr">
 
-          <ion-row *ngFor="let stuff of users | filter: textFind" class="data-row">
-            <ion-col size="4">
-              {{ stuff.name}} {{ stuff.surname }}
-            </ion-col>
-            <ion-col size="6">
-              {{ stuff.email }}
-            </ion-col>
-            <ion-col size="2">
-              <ion-button (click)="select(stuff)" size="small">
-                <ion-icon name="checkmark-circle"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-          <ion-infinite-scroll threshold="50px" (ionInfinite)="loadMoreUsers($event)">
-            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más datos...">
-            </ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </ion-grid>
+            <ion-row class="header-row">
+              <ion-col size="6">
+                Nombre y apellido
+              </ion-col>
+              <ion-col size="6">
+                Email
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngFor="let stuff of users | filter: textFind" class="data-row">
+              <ion-col size="4">
+                {{ stuff.name}} {{ stuff.surname }}
+              </ion-col>
+              <ion-col size="6">
+                {{ stuff.email }}
+              </ion-col>
+              <ion-col size="2">
+                <ion-button (click)="select(stuff)" size="small">
+                  <ion-icon name="checkmark-circle"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-infinite-scroll threshold="50px" (ionInfinite)="loadMoreUsers($event)">
+              <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más datos...">
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+          </ion-grid>
+        </div>
+        <div *ngIf="(users | filter: textFind).length == 0">
+          <span style="color: rgb(84, 121, 12); text-align: center;">Sin datos...</span>
+        </div>
       </div>
     </ion-row>
 
@@ -83,49 +89,61 @@
               <ion-col>{{ horaSalida }}</ion-col>
             </ion-row>
           </div>
+          <ion-row>
+            <ion-col size="6">
+              <ion-input type="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input type="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
+            </ion-col>
+          </ion-row>
         </ion-card-content>
       </ion-card>
     </div>
 
-    <ion-card *ngIf="userSelect">
-      <ion-card-header>
-        <ion-card-title>Selección de horarios</ion-card-title>
-        <ion-card-subtitle>Ingresar hora de entrada y salida</ion-card-subtitle>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-row>
-          <ion-col size="6">
-            Horario de entrada
-          </ion-col>
-          <ion-col size="6">
-            Horario de salida
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col size="6">
-            <ion-input type="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
-          </ion-col>
-          <ion-col size="6">
-            <ion-input type="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card *ngIf="userSelect">
+    <ion-card *ngIf="horaEntrada !== '' && horaSalida !== '' ">
       <ion-card-header>
         <ion-card-title>Selección de tareas</ion-card-title>
-        <ion-card-subtitle>Selecciona las tareas del trabajador</ion-card-subtitle>
+        <ion-card-subtitle>Selecciona las tareas para el trabajador</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-
+        <ion-grid>
+          <ion-row *ngFor="let actvitie of activities; let i = index">
+            <ion-col size="8">
+              {{ actvitie.description }}
+            </ion-col>
+            <ion-col size="4">
+              <ion-button size="small" (click)="addActivity(actvitie,i)">
+                <ion-icon name="add-circle"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
 
+    <ion-card *ngIf="horaEntrada !== '' && horaSalida !== '' ">
+      <ion-card-header>
+        <ion-card-title>Tareas seleccionadas</ion-card-title>
+        <ion-card-subtitle>Tareas seleccionadas para el trabajador</ion-card-subtitle>
+      </ion-card-header>
 
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let actvitiestuff of stuff.activities; let i = index">
+            <ion-col size="8">
+              {{ actvitiestuff.description }}
+            </ion-col>
+            <ion-col size="4">
+              <ion-button size="small" (click)="removeActivitie(actvitiestuff,i)">
+                <ion-icon name="remove"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
 
   </ion-grid>
 

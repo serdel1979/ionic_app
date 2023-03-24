@@ -86,6 +86,13 @@
                   <ion-icon name="eye"></ion-icon>
                 </ion-button>
               </ion-col>
+              <div *ngIf="row.activities">
+                <ion-list>
+                  <ion-item *ngFor="let activity of row.activities">
+                    {{ activity.description }}
+                  </ion-item>
+                </ion-list>
+              </div>
             </ion-row>
           </div>
 

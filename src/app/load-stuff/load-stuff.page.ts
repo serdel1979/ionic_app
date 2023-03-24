@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, ModalController, LoadingController, IonInfiniteScroll} from '@ionic/angular';
-import { Stuff } from '../interfaces/reg.interface';
+import { Developed_activity, Stuff } from '../interfaces/reg.interface';
 import { User } from '../interfaces/users.interface';
+import { IndexDBService } from '../services/index-db.service';
 import { StuffService } from '../services/stuff.service';
+import { uuId } from '../utils/uuid.function';
 
 @Component({
   selector: 'app-load-stuff',
@@ -17,20 +19,33 @@ export class LoadStuffPage implements OnInit {
 
   public users : User[] = [];
   public textFind = '';
+  public activities : Developed_activity[] = [];
 
   public userSelect!: User;
+
+  public stuff : Stuff = {
+    id: '',
+    name: '',
+    responsability :'',
+    date_start: '',
+    date_end: '',
+    activities : []
+  }
 
   totalUsers = 0;
   limit = 3;
   loading: any;
 
-  public horaEntrada: string = '';
-  public horaSalida: string = '';
+  public horaEntrada: string = '08:00';
+  public horaSalida: string = '16:00';
   constructor(private modalCtrl: ModalController, private stuffs: StuffService,
-    private alertController: AlertController, public loadingController: LoadingController ) { }
+    private alertController: AlertController, public loadingController: LoadingController, private indexDbService: IndexDBService) { }
 
   ngOnInit() {
     this.getUsers();
+    this.indexDbService.getActivities().then(activities=>{
+      this.activities = activities;
+    })
   }
 
 
@@ -104,14 +119,44 @@ export class LoadStuffPage implements OnInit {
   // }
 
   select(user: User){
-   this.userSelect = user;
+    //busco por email para ver si el usuario ya lo tengo agregado
+    this.indexDbService.getStuff(user.email).then(async st=>{
+      if(st){
+          const alert = await this.alertController.create({
+            header: 'Error',
+            subHeader: 'Selección erronea',
+            message: `El personal ${user.name} ${user.surname} ya está asignado`,
+            buttons: ['OK'],
+          });
+          await alert.present();
+      }else{
+        this.userSelect = user;
+      }
+    });    
   }
  
 
 
 
   confirm(){
+    this.stuff.id = this.userSelect.email;
+    this.stuff.name = this.userSelect.surname;
+    this.stuff.responsability = this.userSelect.responsability;
+    this.stuff.date_start = this.horaEntrada;
+    this.stuff.date_end = this.horaSalida;
+    this.indexDbService.addStuff(this.stuff);
+    return this.modalCtrl.dismiss();
+  }
 
+  addActivity(activitie: Developed_activity, i: number){
+    this.stuff.activities?.push(activitie);
+    this.activities.splice(i,1);
+  }
+
+
+  removeActivitie(activitie: Developed_activity,i: number){
+    this.activities.push(activitie);
+    this.stuff.activities?.splice(i,1);
   }
 
 }
