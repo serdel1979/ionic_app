@@ -68,6 +68,7 @@ export class ProjectPage implements OnInit, OnChanges {
   ionViewWillEnter() {
     this.loadObservations();
     this.loadUsersAfectados();
+    this.loadActivitiesDeveloped();
   }
 
 
@@ -156,11 +157,11 @@ export class ProjectPage implements OnInit, OnChanges {
             let msg: any;
             this.indexDBService.deletStuff(stuff)
               .then(() => {
-                this.loadUsersAfectados();
+                this.ionViewWillEnter();
               })
               .catch((e: any) => {
                 msg = e;
-                this.loadUsersAfectados();
+                this.ionViewWillEnter();
               });
             this.handlerMessage = 'Alert confirmed';
           },
@@ -172,15 +173,6 @@ export class ProjectPage implements OnInit, OnChanges {
     this.roleMessage = `Dismissed with role: ${role}`;
   }
 
-
-
-
-  addStuff() {
-    this.indexDBService.addStuff({ id: uuId(), name: "Ermindo Onega", responsability: "Especialista", date_start: "12:08", date_end: "13:00" }).then(() => {
-      this.loadUsersAfectados();
-      console.log;
-    }).catch(console.error);
-  }
 
 
 
@@ -219,6 +211,7 @@ export class ProjectPage implements OnInit, OnChanges {
           let activity = {
             id: uuId(),
             description: values[0],
+            stuffs: [],
             reportid: 1
           }
           this.indexDBService.addActivityDeveloped(activity)
@@ -231,6 +224,8 @@ export class ProjectPage implements OnInit, OnChanges {
     });
   }
 
+
+  //éste método hay que retocarlo para no poder editar una actividad si está asignada a usuarios
   async editActivitiesDeveloped(activityDev: Developed_activity) {
     const alert = await this.alertController.create({
       header: 'Edita actividad desarrollada',
@@ -250,6 +245,7 @@ export class ProjectPage implements OnInit, OnChanges {
           let activity = {
             id: activityDev.id,
             description: values[0],
+            stuffs: activityDev.stuffs, 
             reportid: 1
           }
           this.indexDBService.updateActivities(activity)
@@ -487,7 +483,7 @@ export class ProjectPage implements OnInit, OnChanges {
     modal.present();
 
     await modal.onDidDismiss().then(() => {
-      this.loadUsersAfectados();
+      this.ionViewWillEnter();
     })
   }
 
@@ -568,6 +564,21 @@ export class ProjectPage implements OnInit, OnChanges {
       header: header,
       subHeader: subHeader,
       message: detail,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+
+  async seeActDev(actDev: Developed_activity){
+    console.log(actDev);
+    let stuffas = '. Personal asignado: ';
+    for(let stuff of actDev.stuffs){
+      stuffas = stuffas +', '+ stuff.name;
+    }
+    const alert = await this.alertController.create({
+      header: 'Tareas',
+      subHeader: 'Tareas desarrolladas el día de hoy',
+      message: actDev.description+stuffas,
       buttons: ['OK'],
     });
     await alert.present();

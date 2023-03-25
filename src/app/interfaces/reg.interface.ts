@@ -4,7 +4,7 @@ export interface Stuff {
   responsability: string,
   date_start: string,
   date_end: string,
-  activities?: Activities_to_develop[]
+  activities: Developed_activity[]
 }
 
 export interface NeedNextDay {
@@ -16,15 +16,15 @@ export interface NeedNextDay {
 export interface Developed_activity {
   id: string,
   description: string,
-  reportid: number
+  reportid: number,
+  stuffs: Stuff[]
 }
 
 
 export interface Activities_to_develop {
   id: string,
   description: string,
-  reportid: number,
-  stuffs?: Stuff[]
+  reportid: number
 }
 
 

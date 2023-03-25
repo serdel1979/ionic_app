@@ -144,19 +144,24 @@ export class LoadStuffPage implements OnInit {
     this.stuff.responsability = this.userSelect.responsability;
     this.stuff.date_start = this.horaEntrada;
     this.stuff.date_end = this.horaSalida;
-    this.indexDbService.addStuff(this.stuff);
-    return this.modalCtrl.dismiss();
+ 
+    this.indexDbService.addStuff(this.stuff).then(()=>{
+      for(let activity of this.stuff.activities){
+        this.indexDbService.addStuffToActivity(activity,this.stuff);
+      }
+      return this.modalCtrl.dismiss();
+    })
   }
 
   addActivity(activitie: Developed_activity, i: number){
-    this.stuff.activities?.push(activitie);
+    this.stuff.activities.push(activitie);
     this.activities.splice(i,1);
   }
 
 
   removeActivitie(activitie: Developed_activity,i: number){
     this.activities.push(activitie);
-    this.stuff.activities?.splice(i,1);
+    this.stuff.activities.splice(i,1);
   }
 
 }

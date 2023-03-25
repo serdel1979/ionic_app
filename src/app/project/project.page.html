@@ -63,7 +63,7 @@
           <div *ngIf="stuffs.length > 0">
             <ion-row class="header-row">
 
-              <ion-col size="4" size-md="4" size-lg="2">
+              <ion-col size="6" size-md="4" size-lg="2">
                 Nombre
               </ion-col>
 
@@ -71,22 +71,19 @@
 
             <ion-row *ngFor="let row of stuffs; let i = index;" class="data-row">
 
-              <ion-col size="4" size-md="4" size-lg="2">
+              <ion-col size="6" size-md="4" size-lg="2">
                 {{ row.name | uppercase}}
               </ion-col>
 
-              <ion-col size="8">
+              <ion-col size="6">
                 <ion-button size="small" (click)="stuffDelete(row)">
                   <ion-icon name="trash" slot="icon-only"></ion-icon>
                 </ion-button>
                 <ion-button size="small">
                   <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
-                <ion-button size="small" (click)="seeStuff(row)">
-                  <ion-icon name="eye"></ion-icon>
-                </ion-button>
               </ion-col>
-              <div *ngIf="row.activities">
+              <div *ngIf="row.activities.length > 0">
                 <ion-list>
                   <ion-item *ngFor="let activity of row.activities">
                     {{ activity.description }}
@@ -113,7 +110,7 @@
               </ion-col>
             </ion-row>
             <ion-row class="data-row" *ngFor="let row of activitiesDeveloped; let i = index;">
-              <ion-col (click)="seeDetail(row.description,'Actividad','Actividad desarrollada')" size="5" size-md="4" size-lg="2">
+              <ion-col (click)="seeActDev(row)" size="5" size-md="4" size-lg="2">
                 {{ row.description  | uppercase }}
               </ion-col>
               <ion-col size="7">
@@ -124,6 +121,11 @@
                   <ion-icon name="create" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-col>
+              <ion-list *ngIf="row.stuffs.length > 0">
+                <ion-item *ngFor="let stuff of row.stuffs">
+                    {{ stuff.name }}
+                </ion-item>
+              </ion-list>
             </ion-row>
           </div>
         </div>

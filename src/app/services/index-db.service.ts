@@ -228,6 +228,21 @@ export class IndexDBService {
     });
   }
 
+  addStuffToActivity(activity: Developed_activity, stuff: Stuff):Promise<any>{
+    activity.stuffs.push(stuff);
+    return this.updateActivities(activity);
+  }
+
+  deletStuffFromActivity(activity: Developed_activity, stuff: Stuff):Promise<any>{
+      let newStuffs: Stuff[] = [];
+      for (let i of activity.stuffs) {
+        if (i.id !== stuff.id) {
+          newStuffs.push(i);
+        } 
+      }
+      activity.stuffs = newStuffs;
+    return this.updateActivities(activity);
+  }
 
 
 
@@ -266,6 +281,9 @@ export class IndexDBService {
 
 
   deletStuff(stuff: Stuff): Promise<Stuff> {
+    for(let act of stuff.activities){
+      this.deletStuffFromActivity(act,stuff);
+    }
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
       if (!stuffs || stuffs.length === 0) {
         return null;
