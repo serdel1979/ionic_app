@@ -69,9 +69,9 @@
 
             </ion-row>
 
-            <ion-row (click)="seeDetaiStuff(row)" *ngFor="let row of stuffs; let i = index;" class="data-row">
+            <ion-row *ngFor="let row of stuffs; let i = index;" class="data-row">
 
-              <ion-col size="6" size-md="4" size-lg="2">
+              <ion-col (click)="seeDetaiStuff(row)" size="6" size-md="4" size-lg="2">
                 {{ row.name | uppercase}} {{ row.surname | uppercase }}
               </ion-col>
 
