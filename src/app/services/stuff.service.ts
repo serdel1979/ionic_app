@@ -13,10 +13,10 @@ export class StuffService {
 
   private users: User[] = [
     {
-      "email" : "sdlbsso@gmail.com",
+      "email" : "splbsso@gmail.com",
       "name" : "Sergio",
       "surname" : "De Luca",
-      "dni" : 27154111,
+      "dni" : 28154011,
       "responsability" : "Especiealista" ,
       "leader" : false
     },
@@ -31,7 +31,7 @@ export class StuffService {
     {
       "email" : "lalo@gmail.com",
       "name" : "Luciano",
-      "surname" : "Pantalon",
+      "surname" : "Pantaleon",
       "dni" : 27154112,
       "responsability" : "Ayudante",
       "leader" : false
@@ -39,7 +39,7 @@ export class StuffService {
     {
       "email" : "lacho@gmail.com",
       "name" : "Leandro",
-      "surname" : "Monge",
+      "surname" : "Mongue",
       "dni" : 27154112,
       "responsability" : "Instalador",
       "leader" : false
@@ -61,9 +61,9 @@ export class StuffService {
       "leader" : false
     },
     {
-      "email" : "sandr@gmail.com",
+      "email" : "sandro@gmail.com",
       "name" : "Sandro",
-      "surname" : "Pablosqui",
+      "surname" : "Paoblosqui",
       "dni" : 27154112,
       "responsability" : "Montador",
       "leader" : false
@@ -77,7 +77,7 @@ export class StuffService {
       "leader" : false
     },
     {
-      "email" : "leonoro@gmail.com",
+      "email" : "leonor@gmail.com",
       "name" : "Leonor",
       "surname" : "Orosco",
       "dni" : 27154112,
