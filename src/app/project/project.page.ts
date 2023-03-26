@@ -265,6 +265,11 @@ export class ProjectPage implements OnInit, OnChanges {
 
 
   async deletActivityDev(activityDev: Developed_activity) {
+
+    if(activityDev.stuffs.length > 0){
+      this.seeDetail('No puede eliminar una actividad con personal asignado','Error','');
+      return;
+    }
     const alert = await this.alertController.create({
       header: `Está por eliminar una actividad desarrollada!!!`,
       buttons: [
