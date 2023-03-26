@@ -69,34 +69,26 @@
             <ion-col>Apellido</ion-col>
             <ion-col><span style="font-weight:bold;">{{ userSelect.surname }}</span></ion-col>
           </ion-row>
-        </ion-card-content>
-      </ion-card>
-    </div>
-    <div *ngIf="horaEntrada != '' && userSelect">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Horarios definidos</ion-card-title>
-          <ion-card-subtitle>Hora de entrada y salida</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-row>
-            <ion-col>Hora de entrada</ion-col>
-            <ion-col>{{ horaEntrada }}</ion-col>
-          </ion-row>
-          <div *ngIf="horaSalida != ''">
+          <div>
             <ion-row>
-              <ion-col>Hora de salida</ion-col>
-              <ion-col>{{ horaSalida }}</ion-col>
+              <ion-col>Hora de entrada</ion-col>
+              <ion-col>{{ horaEntrada }}</ion-col>
+            </ion-row>
+            <div *ngIf="horaSalida != ''">
+              <ion-row>
+                <ion-col>Hora de salida</ion-col>
+                <ion-col>{{ horaSalida }}</ion-col>
+              </ion-row>
+            </div>
+            <ion-row>
+              <ion-col size="6">
+                <ion-input style="background-color: orangered; color: white;" type="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
+              </ion-col>
+              <ion-col size="6">
+                <ion-input style="background-color: orangered; color: white;" type="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
+              </ion-col>
             </ion-row>
           </div>
-          <ion-row>
-            <ion-col size="6">
-              <ion-input style="background-color: orangered; color: white;" type="time" [value]="horaEntrada" [(ngModel)]="horaEntrada"></ion-input>
-            </ion-col>
-            <ion-col size="6">
-              <ion-input style="background-color: orangered; color: white;" type="time" [value]="horaSalida" [(ngModel)]="horaSalida"></ion-input>
-            </ion-col>
-          </ion-row>
         </ion-card-content>
       </ion-card>
     </div>
@@ -104,7 +96,7 @@
     <ion-card *ngIf="horaEntrada !== '' && horaSalida !== '' && userSelect ">
       <ion-card-header>
         <ion-card-title>Selección de tareas</ion-card-title>
-        <ion-card-subtitle>Selecciona las tareas para el trabajador</ion-card-subtitle>
+        <ion-card-subtitle>Asigna tareas a personal</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
@@ -125,12 +117,11 @@
 
     <ion-card *ngIf="horaEntrada !== '' && horaSalida !== '' && userSelect">
       <ion-card-header>
-        <ion-card-title>Tareas seleccionadas</ion-card-title>
+        <ion-card-title>Tareas asignadas</ion-card-title>
         <ion-card-subtitle>Tareas seleccionadas para el trabajador</ion-card-subtitle>
       </ion-card-header>
-
       <ion-card-content>
-        <ion-grid>
+        <ion-grid *ngIf="stuff.activities">
           <ion-row *ngFor="let actvitiestuff of stuff.activities; let i = index">
             <ion-col size="8">
               {{ actvitiestuff.description }}

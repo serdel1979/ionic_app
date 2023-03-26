@@ -50,7 +50,7 @@ export class LoadObservationsPage {
 
   ionViewWillEnter() {
     this.myParameterObservation = this.navParams.get('observation');
-    this.edition = this.myParameterObservation = this.navParams.get('edition');
+    this.edition = this.navParams.get('edition');
   }
 
   cancel() {

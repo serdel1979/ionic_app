@@ -1,6 +1,7 @@
 export interface Stuff {
   id: string,
   name: string,
+  surname: string,
   responsability: string,
   date_start: string,
   date_end: string,

@@ -502,6 +502,21 @@ export class ProjectPage implements OnInit, OnChanges {
     await modal.onDidDismiss().then(() => {
       this.loadObservations();
     })
+  }
+
+  async editStuff(stuff: Stuff) {
+    const modal = await this.modalCtrl.create({
+      component: LoadStuffPage,
+      componentProps: {
+        stuff: stuff,
+        edition: true
+      }
+    });
+    modal.present();
+
+    await modal.onDidDismiss().then(() => {
+      this.refresh();
+    })
 
   }
 

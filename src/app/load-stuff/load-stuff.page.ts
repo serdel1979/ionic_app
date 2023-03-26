@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, ModalController, LoadingController, IonInfiniteScroll} from '@ionic/angular';
+import { AlertController, ModalController, LoadingController, IonInfiniteScroll, NavParams} from '@ionic/angular';
 import { Developed_activity, Stuff } from '../interfaces/reg.interface';
 import { User } from '../interfaces/users.interface';
 import { IndexDBService } from '../services/index-db.service';
@@ -11,7 +11,7 @@ import { uuId } from '../utils/uuid.function';
   templateUrl: './load-stuff.page.html',
   styleUrls: ['./load-stuff.page.scss'],
 })
-export class LoadStuffPage implements OnInit {
+export class LoadStuffPage{
 
 
 
@@ -21,11 +21,14 @@ export class LoadStuffPage implements OnInit {
   public textFind = '';
   public activities : Developed_activity[] = [];
 
+  edition: boolean = false;
+
   public userSelect!: User;
 
   public stuff : Stuff = {
     id: '',
     name: '',
+    surname: '',
     responsability :'',
     date_start: '',
     date_end: '',
@@ -38,15 +41,37 @@ export class LoadStuffPage implements OnInit {
 
   public horaEntrada: string = '08:00';
   public horaSalida: string = '16:00';
-  constructor(private modalCtrl: ModalController, private stuffs: StuffService,
-    private alertController: AlertController, public loadingController: LoadingController, private indexDbService: IndexDBService) { }
+  constructor(
+        private modalCtrl: ModalController, 
+        private stuffs: StuffService,
+        private alertController: AlertController, 
+        public loadingController: LoadingController, 
+        private indexDbService: IndexDBService,
+        private navParams: NavParams) { }
 
-  ngOnInit() {
-    this.getUsers();
-    this.indexDbService.getActivities().then(activities=>{
-      this.activities = activities;
-      console.log('actividades cargadas',activities);
-    })
+  ionViewWillEnter() {
+      this.edition = this.navParams.get('edition');
+      if(!this.edition){
+          this.getUsers();
+          this.indexDbService.getActivities().then(activities=>{
+            this.activities = activities;
+          })
+      }else{
+        this.stuff = this.navParams.get('stuff');
+        this.horaEntrada = this.stuff.date_start;
+        this.horaSalida = this.stuff.date_end;
+        this.userSelect = {
+          name : this.stuff.name,
+          surname : this.stuff.surname,
+          email : this.stuff.id,
+          dni : 0,
+          responsability : this.stuff.responsability,
+          leader : false
+        }
+        this.indexDbService.getActivities().then(activities=>{
+          this.activities = activities.filter(el=>!this.stuff.activities.some(act=>act.id === el.id));
+        })
+      }
   }
 
 
@@ -141,18 +166,29 @@ export class LoadStuffPage implements OnInit {
 
   confirm(){
     this.stuff.id = this.userSelect.email;
-    this.stuff.name = this.userSelect.surname;
+    this.stuff.name = this.userSelect.name;
+    this.stuff.surname = this.userSelect.surname;
     this.stuff.responsability = this.userSelect.responsability;
     this.stuff.date_start = this.horaEntrada;
     this.stuff.date_end = this.horaSalida;
- 
-    this.indexDbService.addStuff(this.stuff).then(async ()=>{
-      for(let activity of this.stuff.activities){
-        await this.indexDbService.addStuffToActivity(activity,this.stuff)
-      }
-    }).then(()=>{
-      return this.modalCtrl.dismiss();
-    })
+    console.log(this.stuff);
+    if(!this.edition){
+        this.indexDbService.addStuff(this.stuff).then(async ()=>{
+          for(let activity of this.stuff.activities){
+            await this.indexDbService.addStuffToActivity(activity,this.stuff)
+          }
+        }).then(()=>{
+          return this.modalCtrl.dismiss();
+        })
+    }else{
+      this.indexDbService.updateStuff(this.stuff).then(async ()=>{
+        for(let activity of this.stuff.activities){
+          await this.indexDbService.addStuffToActivity(activity,this.stuff)
+        }
+      }).then(()=>{
+        return this.modalCtrl.dismiss();
+      })
+    }
   }
 
   addActivity(activitie: Developed_activity, i: number){
