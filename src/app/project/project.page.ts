@@ -66,9 +66,7 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
   ionViewWillEnter() {
-    this.loadObservations();
-    this.loadUsersAfectados();
-    this.loadActivitiesDeveloped();
+    this.refresh();
   }
 
 
@@ -154,15 +152,18 @@ export class ProjectPage implements OnInit, OnChanges {
         {
           text: 'OK',
           role: 'confirm',
-          handler: () => {
+          handler: async () => {
             let msg: any;
+            for(let act of stuff.activities){
+              await this.indexDBService.deletStuffFromActivity(act,stuff);
+            }
             this.indexDBService.deletStuff(stuff)
-              .then(() => {
-                this.ionViewWillEnter();
+              .then(async () => {
+                await this.ionViewWillEnter();
               })
-              .catch((e: any) => {
+              .catch(async (e: any) => {
                 msg = e;
-                this.ionViewWillEnter();
+                await this.ionViewWillEnter();
               });
             this.handlerMessage = 'Alert confirmed';
           },
