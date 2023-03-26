@@ -32,6 +32,14 @@ const routes: Routes = [
   {
     path: 'load-stuff',
     loadChildren: () => import('./load-stuff/load-stuff.module').then( m => m.LoadStuffPageModule)
+  },
+  {
+    path: 'detail-stuff',
+    loadChildren: () => import('./detail-stuff/detail-stuff.module').then( m => m.DetailStuffPageModule)
+  },
+  {
+    path: 'detail-activity-developed',
+    loadChildren: () => import('./detail-activity-developed/detail-activity-developed.module').then( m => m.DetailActivityDevelopedPageModule)
   }
 
 

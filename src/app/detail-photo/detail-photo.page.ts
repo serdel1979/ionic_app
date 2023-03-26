@@ -21,14 +21,10 @@ export class DetailPhotoPage{
   ionViewWillEnter() {
     this.description = this.navParams.get('description');
     this.photo = this.navParams.get('photo');
-    console.log(this.description);
-    console.log(this.photo);
   }
 
 
   confirm() {
-
-
     return this.modalCtrl.dismiss('return', 'return');
   }
 

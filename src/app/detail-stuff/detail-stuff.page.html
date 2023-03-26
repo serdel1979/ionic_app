@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="confirm()">Volver</ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" slot="content">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalle</ion-card-title>
+      <ion-card-subtitle>Detalle del personal seleccionado</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Nombre</ion-col>
+          <ion-col><span style="font-weight:bold;">{{ stuff.name }}</span></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Apellido</ion-col>
+          <ion-col><span style="font-weight:bold;">{{ stuff.surname }}</span></ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>Hora de entrada</ion-col>
+          <ion-col>{{ stuff.date_start }}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Hora de salida</ion-col>
+            <ion-col>{{ stuff.date_end }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="stuff.activities.length > 0">
+    <ion-card-header>
+      <ion-card-title>Actividades asignadas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let act of stuff.activities">
+            {{ act.description }}
+          </ion-item>
+        </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="stuff.activities.length == 0">
+    <ion-card-header>
+      <ion-card-title>Sin actividades asignadas</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

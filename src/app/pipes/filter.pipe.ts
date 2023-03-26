@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
         .includes(text) || item.surname.toLowerCase()
         .includes(text);
       
-    })
+    }).sort((a, b) => (a.surname > b.surname ? 1 : -1));
   }
 
 }

@@ -91,7 +91,7 @@ export class LoadStuffPage{
     //     this.totalUsers = users.length;
     //     this.hideLoading();
     // })
-    this.users = this.stuffs.getUsers();
+    this.users = this.stuffs.getUsers().sort((a, b) => (a.surname > b.surname ? 1 : -1));
     this.totalUsers = this.users.length;
     this.hideLoading();
   }

@@ -6,6 +6,8 @@ import { LoadObservationsPage } from '../load-observations/load-observations.pag
 import { uuId } from '../utils/uuid.function';
 import { DetailPhotoPage } from '../detail-photo/detail-photo.page';
 import { LoadStuffPage } from '../load-stuff/load-stuff.page';
+import { DetailStuffPage } from '../detail-stuff/detail-stuff.page';
+import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail-activity-developed.page';
 
 
 
@@ -529,11 +531,9 @@ export class ProjectPage implements OnInit, OnChanges {
       }
     });
     modal.present();
-
     await modal.onDidDismiss().then(() => {
       this.loadObservations();
     })
-
   }
 
   async editNeed(needNextDay: NeedNextDay) {
@@ -587,18 +587,32 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
   async seeActDev(actDev: Developed_activity){
-    console.log(actDev);
-    let stuffas = '. Personal asignado: ';
-    for(let stuff of actDev.stuffs){
-      stuffas = stuffas +', '+ stuff.name;
-    }
-    const alert = await this.alertController.create({
-      header: 'Tareas',
-      subHeader: 'Tareas desarrolladas el día de hoy',
-      message: actDev.description+stuffas,
-      buttons: ['OK'],
+    const modal = await this.modalCtrl.create({
+      component: DetailActivityDevelopedPage,
+      componentProps: {
+        activity: actDev,
+      }
     });
-    await alert.present();
+    modal.present();
+    await modal.onDidDismiss().then(() => {
+      this.refresh();
+    })
   }
+
+
+  async seeDetaiStuff(stuff: Stuff){
+    const modal = await this.modalCtrl.create({
+      component: DetailStuffPage,
+      componentProps: {
+        stuff: stuff,
+      }
+    });
+    modal.present();
+    await modal.onDidDismiss().then(() => {
+      this.refresh();
+    })
+  }
+
+
 
 }
