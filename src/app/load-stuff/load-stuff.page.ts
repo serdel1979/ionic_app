@@ -45,6 +45,7 @@ export class LoadStuffPage implements OnInit {
     this.getUsers();
     this.indexDbService.getActivities().then(activities=>{
       this.activities = activities;
+      console.log('actividades cargadas',activities);
     })
   }
 
@@ -145,10 +146,11 @@ export class LoadStuffPage implements OnInit {
     this.stuff.date_start = this.horaEntrada;
     this.stuff.date_end = this.horaSalida;
  
-    this.indexDbService.addStuff(this.stuff).then(()=>{
+    this.indexDbService.addStuff(this.stuff).then(async ()=>{
       for(let activity of this.stuff.activities){
-        this.indexDbService.addStuffToActivity(activity,this.stuff);
+        await this.indexDbService.addStuffToActivity(activity,this.stuff)
       }
+    }).then(()=>{
       return this.modalCtrl.dismiss();
     })
   }

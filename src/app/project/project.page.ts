@@ -129,6 +129,7 @@ export class ProjectPage implements OnInit, OnChanges {
   async loadActivitiesDeveloped() {
     this.indexDBService.getActivities().then(activities => {
       this.activitiesDeveloped = activities;
+      console.log(activities);
     })
   }
 
