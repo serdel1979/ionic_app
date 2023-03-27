@@ -233,7 +233,7 @@ export class IndexDBService {
     return this.updateActivities(activity);
   }
 
-  deletStuffFromActivity(activity: Developed_activity, stuff: Stuff):Promise<any>{
+  async deletStuffFromActivity(activity: Developed_activity, stuff: Stuff):Promise<any>{
       let newStuffs: Stuff[] = [];
       for (let i of activity.stuffs) {
         if (i.id !== stuff.id) {
@@ -241,7 +241,7 @@ export class IndexDBService {
         } 
       }
       activity.stuffs = newStuffs;
-    return this.updateActivities(activity);
+    return await this.updateActivities(activity);
   }
 
 
