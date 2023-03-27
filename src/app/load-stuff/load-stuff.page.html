@@ -58,7 +58,6 @@
       <ion-card>
         <ion-card-header>
           <ion-card-title>Trabajador</ion-card-title>
-          <ion-card-subtitle>Trabajador seleccionado</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <ion-row>
@@ -95,46 +94,56 @@
 
     <ion-card *ngIf="horaEntrada !== '' && horaSalida !== '' && userSelect ">
       <ion-card-header>
-        <ion-card-title>Selección de tareas</ion-card-title>
-        <ion-card-subtitle>Asigna tareas a personal</ion-card-subtitle>
+        <ion-card-title>Tareas</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
-        <ion-grid>
-          <ion-row *ngFor="let actvitie of activities; let i = index">
-            <ion-col size="8">
-              {{ actvitie.description }}
-            </ion-col>
-            <ion-col size="4">
-              <ion-button size="small" (click)="addActivity(actvitie,i)">
-                <ion-icon name="add-circle"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-accordion-group>
+          <ion-accordion value="first">
+            <ion-item slot="header" color="light">
+              <ion-label>Tareas asignadas</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-grid *ngIf="stuff.activities">
+                <ion-row *ngFor="let actvitiestuff of stuff.activities; let i = index">
+                  <ion-col size="8">
+                    {{ actvitiestuff.description }}
+                  </ion-col>
+                  <ion-col size="4">
+                    <ion-button size="small" (click)="removeActivitie(actvitiestuff,i)">
+                      <ion-icon name="remove"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-accordion>
+          <ion-accordion value="second">
+            <ion-item slot="header" color="light">
+              <ion-label>Tareas disponibles</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-grid>
+                <ion-row *ngFor="let actvitie of activities; let i = index">
+                  <ion-col size="8">
+                    {{ actvitie.description }}
+                  </ion-col>
+                  <ion-col size="4">
+                    <ion-button size="small" (click)="addActivity(actvitie,i)">
+                      <ion-icon name="add-circle"></ion-icon>
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
       </ion-card-content>
     </ion-card>
 
-    <ion-card *ngIf="horaEntrada !== '' && horaSalida !== '' && userSelect">
-      <ion-card-header>
-        <ion-card-title>Tareas asignadas</ion-card-title>
-        <ion-card-subtitle>Tareas seleccionadas para el trabajador</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-grid *ngIf="stuff.activities">
-          <ion-row *ngFor="let actvitiestuff of stuff.activities; let i = index">
-            <ion-col size="8">
-              {{ actvitiestuff.description }}
-            </ion-col>
-            <ion-col size="4">
-              <ion-button size="small" (click)="removeActivitie(actvitiestuff,i)">
-                <ion-icon name="remove"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+ 
+
+
 
   </ion-grid>
 
