@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, ModalController, LoadingController, IonInfiniteScroll, NavParams} from '@ionic/angular';
+import { AlertController, ModalController, LoadingController, IonInfiniteScroll, NavParams } from '@ionic/angular';
 import { Developed_activity, Stuff } from '../interfaces/reg.interface';
 import { User } from '../interfaces/users.interface';
 import { IndexDBService } from '../services/index-db.service';
@@ -11,28 +11,28 @@ import { uuId } from '../utils/uuid.function';
   templateUrl: './load-stuff.page.html',
   styleUrls: ['./load-stuff.page.scss'],
 })
-export class LoadStuffPage{
+export class LoadStuffPage {
 
 
 
   @ViewChild(IonInfiniteScroll) infiniteScroll!: IonInfiniteScroll;
 
-  public users : User[] = [];
+  public users: User[] = [];
   public textFind = '';
-  public activities : Developed_activity[] = [];
+  public activities: Developed_activity[] = [];
 
   edition: boolean = false;
 
   public userSelect!: User;
 
-  public stuff : Stuff = {
+  public stuff: Stuff = {
     id: '',
     name: '',
     surname: '',
-    responsability :'',
+    responsability: '',
     date_start: '',
     date_end: '',
-    activities : []
+    activities: []
   }
 
   totalUsers = 0;
@@ -42,42 +42,42 @@ export class LoadStuffPage{
   public horaEntrada: string = '08:00';
   public horaSalida: string = '16:00';
   constructor(
-        private modalCtrl: ModalController, 
-        private stuffs: StuffService,
-        private alertController: AlertController, 
-        public loadingController: LoadingController, 
-        private indexDbService: IndexDBService,
-        private navParams: NavParams) { }
+    private modalCtrl: ModalController,
+    private stuffs: StuffService,
+    private alertController: AlertController,
+    public loadingController: LoadingController,
+    private indexDbService: IndexDBService,
+    private navParams: NavParams) { }
 
   ionViewWillEnter() {
-      this.edition = this.navParams.get('edition');
-      if(!this.edition){
-          this.getUsers();
-          this.indexDbService.getActivities().then(activities=>{
-            this.activities = activities;
-          })
-      }else{
-        this.stuff = this.navParams.get('stuff');
-        this.horaEntrada = this.stuff.date_start;
-        this.horaSalida = this.stuff.date_end;
-        this.userSelect = {
-          name : this.stuff.name,
-          surname : this.stuff.surname,
-          email : this.stuff.id,
-          dni : 0,
-          responsability : this.stuff.responsability,
-          leader : false
-        }
-        this.indexDbService.getActivities().then(activities=>{
-          this.activities = activities.filter(el=>!this.stuff.activities.some(act=>act.id === el.id));
-        })
+    this.edition = this.navParams.get('edition');
+    if (!this.edition) {
+      this.getUsers();
+      this.indexDbService.getActivities().then(activities => {
+        this.activities = activities;
+      })
+    } else {
+      this.stuff = this.navParams.get('stuff');
+      this.horaEntrada = this.stuff.date_start;
+      this.horaSalida = this.stuff.date_end;
+      this.userSelect = {
+        name: this.stuff.name,
+        surname: this.stuff.surname,
+        email: this.stuff.id,
+        dni: 0,
+        responsability: this.stuff.responsability,
+        leader: false
       }
+      this.indexDbService.getActivities().then(activities => {
+        this.activities = activities.filter(el => !this.stuff.activities.some(act => act.id === el.id));
+      })
+    }
   }
 
 
 
 
-  async getUsers(){
+  async getUsers() {
 
     this.loading = await this.loadingController.create({
       message: 'Espere...',
@@ -114,7 +114,7 @@ export class LoadStuffPage{
   }
   //
 
-  filterList(event:any){
+  filterList(event: any) {
     this.textFind = event.target.value;
   }
 
@@ -130,76 +130,81 @@ export class LoadStuffPage{
 
 
 
-  volver(){
+  volver() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  // add(){
-  //   let ionDatetime = this.horaEntrada; 
-  //   //Obtener la fecha desde el string 
-  //   let dateObj = new Date(ionDatetime); 
-  //   //Obtener solo la hora desde el objeto Date 
-  //   let hour = dateObj.getHours();
-  //   let minuts = dateObj.getMinutes();
-  //   console.log(`${hour}:${minuts}`);
-  // }
-
-  select(user: User){
+  select(user: User) {
     //busco por email para ver si el usuario ya lo tengo agregado
-    this.indexDbService.getStuff(user.email).then(async st=>{
-      if(st){
-          const alert = await this.alertController.create({
-            header: 'Error',
-            subHeader: 'Selección erronea',
-            message: `El personal ${user.name} ${user.surname} ya está asignado`,
-            buttons: ['OK'],
-          });
-          await alert.present();
-      }else{
+    this.indexDbService.getStuff(user.email).then(async st => {
+      if (st) {
+        const alert = await this.alertController.create({
+          header: 'Error',
+          subHeader: 'Selección erronea',
+          message: `El personal ${user.name} ${user.surname} ya está asignado`,
+          buttons: ['OK'],
+        });
+        await alert.present();
+      } else {
         this.userSelect = user;
       }
-    });    
+    });
   }
- 
 
 
 
-  confirm(){
+
+  confirm() {
     this.stuff.id = this.userSelect.email;
     this.stuff.name = this.userSelect.name;
     this.stuff.surname = this.userSelect.surname;
     this.stuff.responsability = this.userSelect.responsability;
     this.stuff.date_start = this.horaEntrada;
     this.stuff.date_end = this.horaSalida;
-    console.log(this.stuff);
-    if(!this.edition){
-        this.indexDbService.addStuff(this.stuff).then(async ()=>{
-          for(let activity of this.stuff.activities){
-            await this.indexDbService.addStuffToActivity(activity,this.stuff)
-          }
-        }).then(()=>{
-          return this.modalCtrl.dismiss();
-        })
-    }else{
-      this.indexDbService.updateStuff(this.stuff).then(async ()=>{
-        for(let activity of this.stuff.activities){
-          await this.indexDbService.addStuffToActivity(activity,this.stuff)
+    if (!this.edition) {
+      this.indexDbService.addStuff(this.stuff).then(async () => {
+        for (let activity of this.stuff.activities) {
+          await this.indexDbService.addStuffToActivity(activity, this.stuff)
         }
-      }).then(()=>{
+        //falta eliminar usuarios de las actividades
+        let activitiesCurrent = [];
+        this.indexDbService.getActivities().then(async activities => {
+          activitiesCurrent = activities.filter(el => !this.stuff.activities.some(act => act.id === el.id));
+          for (let activityCurrent of activitiesCurrent) {
+            await this.indexDbService.deletStuffFromActivity(activityCurrent, this.stuff)
+          }
+        })
+      }).then(() => {
+        return this.modalCtrl.dismiss();
+      })
+    } else {
+      this.indexDbService.updateStuff(this.stuff).then(async () => {
+        for (let activity of this.stuff.activities) {
+          await this.indexDbService.addStuffToActivity(activity, this.stuff)
+        }
+        //falta eliminar usuarios de las actividades
+        let activitiesCurrent = [];
+        this.indexDbService.getActivities().then(async activities => {
+          activitiesCurrent = activities.filter(el => !this.stuff.activities.some(act => act.id === el.id));
+          for (let activityCurrent of activitiesCurrent) {
+            await this.indexDbService.deletStuffFromActivity(activityCurrent, this.stuff)
+          }
+        })
+      }).then(() => {
         return this.modalCtrl.dismiss();
       })
     }
   }
 
-  addActivity(activitie: Developed_activity, i: number){
+  addActivity(activitie: Developed_activity, i: number) {
     this.stuff.activities.push(activitie);
-    this.activities.splice(i,1);
+    this.activities.splice(i, 1);
   }
 
 
-  removeActivitie(activitie: Developed_activity,i: number){
+  removeActivitie(activitie: Developed_activity, i: number) {
     this.activities.push(activitie);
-    this.stuff.activities.splice(i,1);
+    this.stuff.activities.splice(i, 1);
   }
 
 }

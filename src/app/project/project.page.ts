@@ -129,7 +129,6 @@ export class ProjectPage implements OnInit, OnChanges {
   async loadActivitiesDeveloped() {
     this.indexDBService.getActivities().then(activities => {
       this.activitiesDeveloped = activities;
-      console.log(activities);
     })
   }
 
@@ -156,6 +155,7 @@ export class ProjectPage implements OnInit, OnChanges {
           role: 'confirm',
           handler: async () => {
             let msg: any;
+            let i = 0;
             for(let act of stuff.activities){
               await this.indexDBService.deletStuffFromActivity(act,stuff);
             }
