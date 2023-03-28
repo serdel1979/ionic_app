@@ -280,9 +280,9 @@ export class IndexDBService {
   }
 
 
-  deletStuff(stuff: Stuff): Promise<Stuff> {
+  async deletStuff(stuff: Stuff): Promise<Stuff> {
     for(let act of stuff.activities){
-      this.deletStuffFromActivity(act,stuff);
+      await this.deletStuffFromActivity(act,stuff);
     }
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
       if (!stuffs || stuffs.length === 0) {
