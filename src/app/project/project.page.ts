@@ -155,10 +155,6 @@ export class ProjectPage implements OnInit, OnChanges {
           role: 'confirm',
           handler: async () => {
             let msg: any;
-            let i = 0;
-            for(let act of stuff.activities){
-              await this.indexDBService.deletStuffFromActivity(act,stuff);
-            }
             this.indexDBService.deletStuff(stuff)
               .then(async () => {
                 await this.ionViewWillEnter();
