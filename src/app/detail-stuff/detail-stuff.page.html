@@ -41,14 +41,14 @@
     <ion-card-content>
         <ion-list>
           <ion-item *ngFor="let act of stuff.activities">
-            {{ act.description }}
+            {{ act.description | uppercase }}
           </ion-item>
         </ion-list>
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="stuff.activities.length == 0">
     <ion-card-header>
-      <ion-card-title>Sin actividades asignadas</ion-card-title>
+      <ion-card-content><span style="font-weight:bold;">Sin actividades asignadas</span></ion-card-content>
     </ion-card-header>
   </ion-card>
 </ion-content>

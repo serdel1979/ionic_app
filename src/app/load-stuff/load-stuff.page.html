@@ -104,10 +104,10 @@
               <ion-label>Tareas asignadas</ion-label>
             </ion-item>
             <div class="ion-padding" slot="content">
-              <ion-grid *ngIf="stuff.activities">
+              <ion-grid *ngIf="stuff.activities.length > 0">
                 <ion-row *ngFor="let actvitiestuff of stuff.activities; let i = index">
                   <ion-col size="8">
-                    {{ actvitiestuff.description }}
+                    <span style="font-weight:bold;">{{ actvitiestuff.description | uppercase}}</span>
                   </ion-col>
                   <ion-col size="4">
                     <ion-button size="small" (click)="removeActivitie(actvitiestuff,i)">
@@ -116,6 +116,7 @@
                   </ion-col>
                 </ion-row>
               </ion-grid>
+              <span *ngIf="stuff.activities.length == 0" style="font-weight:bold;">Sin actividades</span>
             </div>
           </ion-accordion>
           <ion-accordion value="second">
@@ -123,10 +124,10 @@
               <ion-label>Tareas disponibles</ion-label>
             </ion-item>
             <div class="ion-padding" slot="content">
-              <ion-grid>
+              <ion-grid *ngIf="activities.length > 0">
                 <ion-row *ngFor="let actvitie of activities; let i = index">
                   <ion-col size="8">
-                    {{ actvitie.description }}
+                    <span style="font-weight:bold;">{{ actvitie.description | uppercase }}</span> 
                   </ion-col>
                   <ion-col size="4">
                     <ion-button size="small" (click)="addActivity(actvitie,i)">
@@ -135,6 +136,7 @@
                   </ion-col>
                 </ion-row>
               </ion-grid>
+              <span style="font-weight:bold;" *ngIf="activities.length == 0">No hay actividades para asignar</span>
             </div>
           </ion-accordion>
         </ion-accordion-group>

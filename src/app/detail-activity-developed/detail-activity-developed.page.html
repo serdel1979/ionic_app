@@ -16,7 +16,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>Descripción</ion-col>
-          <ion-col><span style="font-weight:bold;">{{ activity.description }}</span></ion-col>
+          <ion-col><span style="font-weight:bold;">{{ activity.description | uppercase}}</span></ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
@@ -34,8 +34,8 @@
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="activity.stuffs.length == 0">
-    <ion-card-header>
-      <ion-card-title>Sin personal asignado aún</ion-card-title>
-    </ion-card-header>
+      <ion-card-content>
+        <span style="font-weight:bold;">Sin personal asignado aún</span>
+      </ion-card-content>
   </ion-card>
 </ion-content>
