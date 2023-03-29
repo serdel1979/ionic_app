@@ -140,6 +140,10 @@ export class ProjectPage implements OnInit, OnChanges {
 
 
   async stuffDelete(stuff: Stuff) {
+    if (stuff.activities.length > 0){
+      this.seeDetail("No puede eliminar un personal con actividades","Error","")
+      return;
+    }
     const alert = await this.alertController.create({
       header: `¿Está seguro de borrar a ${stuff.name}?`,
       buttons: [
@@ -262,10 +266,10 @@ export class ProjectPage implements OnInit, OnChanges {
 
   async deletActivityDev(activityDev: Developed_activity) {
 
-    // if(activityDev.stuffs.length > 0){
-    //   this.seeDetail('No puede eliminar una actividad con personal asignado','Error','');
-    //   return;
-    // }
+    if(activityDev.stuffs.length > 0){
+      this.seeDetail('No puede eliminar una actividad con personal asignado','Error','');
+      return;
+    }
     const alert = await this.alertController.create({
       header: `Está por eliminar una actividad desarrollada!!!`,
       buttons: [
