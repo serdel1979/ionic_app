@@ -16,10 +16,11 @@ export class Interceptor implements HttpInterceptor {
     
     let token = localStorage.getItem('token');
     let clm = localStorage.getItem('clm');
+    let clmr = localStorage.getItem('clmr');
     let req = request;
     if(token){
         req = request.clone({
-          setHeaders: {"x-google-token":`${token}`,"clm":`${clm}`}
+          setHeaders: {"x-google-token":`${token}`,"clm":`${clm}`,"clmr":`${clmr}`}
         });
     }   
     console.log(req);

@@ -4,12 +4,15 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-
+  
+const urlUser = 'https://localhost:7071';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+
 
 
   user: any = null;
@@ -26,12 +29,15 @@ export class AuthService {
 
 
 
-  // validar(idToken: string):Observable<any>{
-  //   const token = {
-  //     idToken
-  //   }
-  //   return this.http.post(`${environment.url}/auth/validar`,token);
-  // }
+  getData(email:string){
+    let body={
+      email 
+    }
+    return this.http.post<any>(`${urlUser}/users/login`,body);
+  }
+  
+
+
 
   get getUserName(){
     if(this.isLogued){
@@ -47,6 +53,15 @@ export class AuthService {
   get isLogued(){
     let token = localStorage.getItem('token');
     return token != null;
+  }
+
+  get isAdmin(){
+    let clmr = localStorage.getItem('clmr');
+    let val = ''
+    if(clmr){
+      val =  atob(clmr); 
+    }
+    return val == "isadmin";
   }
 
 

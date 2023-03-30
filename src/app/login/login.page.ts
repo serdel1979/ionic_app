@@ -31,11 +31,13 @@ export class LoginPage{
 
   async signIn(){
     this.authService.signIn().then(()=>{
-      this.router.navigateByUrl('/project');
+      this.authService.getData("sdlbsso@gmail.com").subscribe((resp)=>{     
+        localStorage.setItem('clmr', resp.role);
+        this.router.navigateByUrl('/project');
+      })
     }).catch((err)=>{
-      this.seeError(err);
+      this.seeError(err.error);
     });
-
   }
 
 

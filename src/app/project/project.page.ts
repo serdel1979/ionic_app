@@ -8,6 +8,7 @@ import { DetailPhotoPage } from '../detail-photo/detail-photo.page';
 import { LoadStuffPage } from '../load-stuff/load-stuff.page';
 import { DetailStuffPage } from '../detail-stuff/detail-stuff.page';
 import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail-activity-developed.page';
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -42,7 +43,8 @@ export class ProjectPage implements OnInit, OnChanges {
   constructor(
     private alertController: AlertController,
     private indexDBService: IndexDBService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private authService: AuthService
   ) { }
 
 
@@ -619,5 +621,8 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
 
+  isAdmin(){
+    return this.authService.isAdmin;
+  }
 
 }
