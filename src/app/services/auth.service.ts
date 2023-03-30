@@ -20,8 +20,11 @@ export class AuthService {
     this.user = await GoogleAuth.signIn();
     let idToken = this.user.authentication.idToken;
     localStorage.setItem('token', idToken);
-    localStorage.setItem('user', this.user.email);
+    let clm =  btoa(this.user.email);
+    localStorage.setItem('clm', clm);
   }
+
+
 
   // validar(idToken: string):Observable<any>{
   //   const token = {

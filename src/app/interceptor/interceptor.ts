@@ -15,11 +15,11 @@ export class Interceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
     let token = localStorage.getItem('token');
+    let clm = localStorage.getItem('clm');
     let req = request;
     if(token){
         req = request.clone({
-          setHeaders: {"x-google-token":`${token}`}
-          //setHeaders: {"x-google-token":`asd1321asdasd321`}
+          setHeaders: {"x-google-token":`${token}`,"clm":`${clm}`}
         });
     }   
     console.log(req);
