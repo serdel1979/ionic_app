@@ -9,6 +9,7 @@ import { LoadStuffPage } from '../load-stuff/load-stuff.page';
 import { DetailStuffPage } from '../detail-stuff/detail-stuff.page';
 import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail-activity-developed.page';
 import { AuthService } from '../services/auth.service';
+import { ModalComponent } from '../modal/modal.component';
 
 
 
@@ -625,13 +626,20 @@ export class ProjectPage implements OnInit, OnChanges {
     return this.authService.isAdmin;
   }
 
-  prueba(){
+  async prueba(){
+    const loading = await this.modalCtrl.create({
+      component: ModalComponent
+    });
+
+    loading.present();
     this.authService.getUser().subscribe(resp=>{
       console.log(resp);
+      loading.dismiss();
     })
   }
 
-  doAdmin(){
+  async doAdmin(){
+
     this.authService.doAdmin().subscribe(resp=>{
       console.log(resp);
     })
