@@ -631,4 +631,10 @@ export class ProjectPage implements OnInit, OnChanges {
     })
   }
 
+  doAdmin(){
+    this.authService.doAdmin().subscribe(resp=>{
+      console.log(resp);
+    })
+  }
+
 }

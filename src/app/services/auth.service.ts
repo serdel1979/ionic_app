@@ -36,9 +36,15 @@ export class AuthService {
   
 
   getUser(){
-    return this.http.get<any>(`${urlUser}/users/getuser/9ce75591-787a-4cfa-847b-9246bbdd6e13`);
+    return this.http.get<any>(`${urlUser}/users/getuser/05b3db6f-b14c-472d-90e7-97f29699c485`);
   }
 
+  doAdmin(){
+    let body={
+      Email : 'sdlbsso@gmail.com' 
+    }
+    return this.http.post<any>(`${urlUser}/users/doadmin`,body);
+  }
 
   get getUserName(){
     if(this.isLogued){
