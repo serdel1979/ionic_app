@@ -31,8 +31,10 @@ export class LoginPage{
 
   async signIn(){
     this.authService.signIn().then(()=>{
-      this.authService.getData("sdlbsso@gmail.com").subscribe((resp)=>{     
-        localStorage.setItem('clmr', resp.role);
+      this.authService.getData("sdlbsso@gmail.com").subscribe((resp)=>{   
+        console.log(resp);  
+        localStorage.setItem('token', resp.token);
+        localStorage.setItem('usr', resp.email);
         this.router.navigateByUrl('/project');
       })
     }).catch((err)=>{

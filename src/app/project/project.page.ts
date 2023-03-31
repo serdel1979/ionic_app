@@ -625,4 +625,10 @@ export class ProjectPage implements OnInit, OnChanges {
     return this.authService.isAdmin;
   }
 
+  prueba(){
+    this.authService.getUser().subscribe(resp=>{
+      console.log(resp);
+    })
+  }
+
 }

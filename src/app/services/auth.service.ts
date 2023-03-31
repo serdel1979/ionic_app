@@ -22,9 +22,7 @@ export class AuthService {
   async signIn(){
     this.user = await GoogleAuth.signIn();
     let idToken = this.user.authentication.idToken;
-    localStorage.setItem('token', idToken);
-    let clm =  btoa(this.user.email);
-    localStorage.setItem('clm', clm);
+    localStorage.setItem('token-g', idToken);
   }
 
 
@@ -37,6 +35,9 @@ export class AuthService {
   }
   
 
+  getUser(){
+    return this.http.get<any>(`${urlUser}/users/getuser/9ce75591-787a-4cfa-847b-9246bbdd6e13`);
+  }
 
 
   get getUserName(){
@@ -51,7 +52,7 @@ export class AuthService {
   }
 
   get isLogued(){
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('token-g');
     return token != null;
   }
 
@@ -75,6 +76,7 @@ export class AuthService {
   async logout(){
     await GoogleAuth.signOut();
     localStorage.removeItem('token');
+    localStorage.removeItem('token-g');
     localStorage.removeItem('user');
     localStorage.clear();
     this.user = null;
