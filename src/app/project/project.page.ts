@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { IndexDBService } from '../services/index-db.service';
 import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff, TPhoto } from '../interfaces/reg.interface';
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
@@ -45,7 +45,8 @@ export class ProjectPage implements OnInit, OnChanges {
     private alertController: AlertController,
     private indexDBService: IndexDBService,
     private modalCtrl: ModalController,
-    private authService: AuthService
+    private authService: AuthService,
+    private loadingCtrl: LoadingController
   ) { }
 
 
@@ -627,22 +628,33 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
   async prueba(){
-    const loading = await this.modalCtrl.create({
-      component: ModalComponent
-    });
-
-    loading.present();
-    this.authService.getUser().subscribe(resp=>{
-      console.log(resp);
-      loading.dismiss();
+    this.showLoading();
+    this.authService.getUser().subscribe(
+      res=>{
+        this.loadingCtrl.dismiss();
+        console.log(res);
+    },
+    error=>{
+      this.loadingCtrl.dismiss();
+      console.log(error)
     })
   }
 
   async doAdmin(){
 
-    this.authService.doAdmin().subscribe(resp=>{
-      console.log(resp);
+    this.authService.doAdmin().subscribe(res=>{
+      console.log(res);
+    },
+    error=>{
+      console.log(error);
     })
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando...',
+    });
+    return await loading.present();
   }
 
 }

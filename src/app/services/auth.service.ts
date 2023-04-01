@@ -21,7 +21,14 @@ export class AuthService {
 
   async signIn(){
     this.user = await GoogleAuth.signIn();
+    console.log(this.user);
     let idToken = this.user.authentication.idToken;
+    if(this.user){
+      if(this.user.email){
+        localStorage.setItem('user-log',this.user.email);
+      }
+    }
+   
     localStorage.setItem('token-g', idToken);
   }
 
@@ -48,7 +55,7 @@ export class AuthService {
 
   get getUserName(){
     if(this.isLogued){
-      let user = localStorage.getItem('user');
+      let user = localStorage.getItem('user-log');
       if(user){
         return user;
       }
@@ -58,17 +65,12 @@ export class AuthService {
   }
 
   get isLogued(){
-    let token = localStorage.getItem('token-g');
+    let token = localStorage.getItem('token');
     return token != null;
   }
 
   get isAdmin(){
-    let clmr = localStorage.getItem('clmr');
-    let val = ''
-    if(clmr){
-      val =  atob(clmr); 
-    }
-    return val == "isadmin";
+   return false;
   }
 
 
@@ -83,7 +85,7 @@ export class AuthService {
     await GoogleAuth.signOut();
     localStorage.removeItem('token');
     localStorage.removeItem('token-g');
-    localStorage.removeItem('user');
+    localStorage.removeItem('user-log');
     localStorage.clear();
     this.user = null;
   }

@@ -31,13 +31,25 @@ export class LoginPage{
 
   async signIn(){
     this.authService.signIn().then(()=>{
-      this.authService.getData("sdlbsso@gmail.com").subscribe((resp)=>{   
+      this.showLoading();
+      let usrlog = localStorage.getItem('user-log');
+      if(!usrlog)usrlog='';
+      this.authService.getData(usrlog).subscribe((resp)=>{   
         console.log(resp);  
         localStorage.setItem('token', resp.token);
-        localStorage.setItem('usr', resp.email);
+        this.loadingCtl.dismiss();
         this.router.navigateByUrl('/project');
+      },
+      error=>{
+        this.loadingCtl.dismiss();
+        localStorage.removeItem('token-g');
+        localStorage.removeItem('user-log');
+        this.seeError(error.error);
       })
     }).catch((err)=>{
+      localStorage.removeItem('token-g');
+      localStorage.removeItem('user-log');
+      this.loadingCtl.dismiss();
       this.seeError(err.error);
     });
   }
@@ -46,7 +58,6 @@ export class LoginPage{
   async seeError(error: string) {
     const alert = await this.alertController.create({
       header: 'Error',
-      subHeader: 'Falla en el login',
       message: error,
       buttons: ['OK'],
     });
@@ -64,6 +75,12 @@ export class LoginPage{
     this.menuCtrl.close();
   }
 
+  async showLoading() {
+    const loading = await this.loadingCtl.create({
+      message: 'Verificando acceso...',
+    });
+    return await loading.present();
+  }
 
 
 }
