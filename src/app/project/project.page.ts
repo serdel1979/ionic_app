@@ -37,6 +37,7 @@ export class ProjectPage implements OnInit, OnChanges {
   public resultsCount = 3;
   public totalPages = 1;
 
+  private loading!: any;
 
 
   constructor(
@@ -626,41 +627,55 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
   async prueba(){
-    this.showLoading();
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando...'
+    });
+    await loading.present();
     this.authService.getUser().subscribe(
-      res=>{
-        this.loadingCtrl.dismiss();
+      async res=>{
+        loading.dismiss();
         console.log(res);
-    },
-    error=>{
-      this.loadingCtrl.dismiss();
-      console.log(error)
-    })
+      },
+      error =>{
+        loading.dismiss();
+        console.log(error);
+      })
   }
 
   async doAdmin(){
-    this.authService.doAdmin().subscribe(res=>{
+    const loading = await this.loadingCtrl.create({
+      message: 'Cargando...'
+    });
+    await loading.present();
+    this.authService.doAdmin().subscribe(async res=>{
+      loading.dismiss();
       console.log(res);
     },
-    error=>{
+    async error=>{
+      loading.dismiss();
       console.log(error);
     })
   }
 
   async deleteAdmin(){
-    this.authService.deleteAdmin().subscribe(res=>{
-      console.log(res);
+    await this.showLoading();
+    this.authService.deleteAdmin().subscribe(async res=>{
+      await this.finishLoading();
     },
-    error=>{
-      console.log(error);
+    async error=>{
+      await this.finishLoading();
     })
   }
 
   async showLoading() {
-    const loading = await this.loadingCtrl.create({
+    this.loading = await this.loadingCtrl.create({
       message: 'Cargando...',
     });
-    return await loading.present();
+   await this.loading.present();
+  }
+
+  async finishLoading() {
+    await this.loading.dismiss();
   }
 
 }

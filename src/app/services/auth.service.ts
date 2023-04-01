@@ -81,7 +81,7 @@ export class AuthService {
    let token = localStorage.getItem('token');
    if(!token)token='';
    let deco = this.getDecodedAccessToken(token);
-   if(!deco.esAdmin)return false
+   if(!deco || !deco.esAdmin)return false
    else
    return (true);
   }
