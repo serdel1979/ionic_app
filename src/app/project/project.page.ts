@@ -9,8 +9,6 @@ import { LoadStuffPage } from '../load-stuff/load-stuff.page';
 import { DetailStuffPage } from '../detail-stuff/detail-stuff.page';
 import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail-activity-developed.page';
 import { AuthService } from '../services/auth.service';
-import { ModalComponent } from '../modal/modal.component';
-
 
 
 @Component({
@@ -641,8 +639,16 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
   async doAdmin(){
-
     this.authService.doAdmin().subscribe(res=>{
+      console.log(res);
+    },
+    error=>{
+      console.log(error);
+    })
+  }
+
+  async deleteAdmin(){
+    this.authService.deleteAdmin().subscribe(res=>{
       console.log(res);
     },
     error=>{

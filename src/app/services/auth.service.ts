@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import jwt_decode from 'jwt-decode';
 
   
 const urlUser = 'https://localhost:7071';
@@ -53,6 +54,13 @@ export class AuthService {
     return this.http.post<any>(`${urlUser}/users/doadmin`,body);
   }
 
+  deleteAdmin(){
+    let body={
+      Email : 'sdlbsso@gmail.com' 
+    }
+    return this.http.post<any>(`${urlUser}/users/deleteadmin`,body);
+  }
+
   get getUserName(){
     if(this.isLogued){
       let user = localStorage.getItem('user-log');
@@ -70,11 +78,22 @@ export class AuthService {
   }
 
   get isAdmin(){
-   return false;
+   let token = localStorage.getItem('token');
+   if(!token)token='';
+   let deco = this.getDecodedAccessToken(token);
+   if(!deco.esAdmin)return false
+   else
+   return (true);
   }
 
 
-
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
 
   async refresh(){
     const authCode = await GoogleAuth.refresh();
