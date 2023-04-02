@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { AlertController, InfiniteScrollCustomEvent, isPlatform, LoadingController, MenuController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
+import { IndexDBService } from '../services/index-db.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class LoginPage{
   constructor(private loadingCtl: LoadingController, private authService: AuthService,
     private alertController: AlertController,
     private router: Router,
-    private menuCtrl: MenuController) {
+    private menuCtrl: MenuController,
+    private indexDB: IndexDBService) {
     if(!isPlatform('capacitor')){
       GoogleAuth.initialize();
     };
@@ -34,13 +36,15 @@ export class LoginPage{
       this.showLoading();
       let usrlog = localStorage.getItem('user-log');
       if(!usrlog)usrlog='';
-      this.authService.getData(usrlog).subscribe((resp)=>{   
-        console.log(resp);  
+      this.authService.getData(usrlog).subscribe((resp)=>{  
+        this.indexDB.addProject(resp.project).then(p=>{
+          console.log(`projecto guardado ${p}`);
+        })
         localStorage.setItem('token', resp.token);
         this.loadingCtl.dismiss();
         this.router.navigateByUrl('/project');
       },
-      error=>{
+        ( error)=>{
         this.loadingCtl.dismiss();
         localStorage.removeItem('token-g');
         localStorage.removeItem('user-log');

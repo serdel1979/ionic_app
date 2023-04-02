@@ -39,6 +39,7 @@ export class ProjectPage implements OnInit, OnChanges {
 
   private loading!: any;
 
+  public dataProject: any;
 
   constructor(
     private alertController: AlertController,
@@ -60,6 +61,10 @@ export class ProjectPage implements OnInit, OnChanges {
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
     this.loadObservations();
+    let id = this.authService.getId();
+    this.indexDBService.getProject(id).then(data=>{
+      this.dataProject = data;
+    })
   }
 
   refresh() {

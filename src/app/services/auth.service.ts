@@ -18,11 +18,12 @@ export class AuthService {
 
   user: any = null;
 
+  dataProject: any = null;
+
   constructor(private http: HttpClient) { }
 
   async signIn(){
     this.user = await GoogleAuth.signIn();
-    console.log(this.user);
     let idToken = this.user.authentication.idToken;
     if(this.user){
       if(this.user.email){
@@ -35,7 +36,7 @@ export class AuthService {
 
 
 
-  getData(email:string){
+   getData(email:string){
     let body={
       email 
     }
@@ -59,6 +60,10 @@ export class AuthService {
       Email : 'sdlbsso@gmail.com' 
     }
     return this.http.post<any>(`${urlUser}/users/deleteadmin`,body);
+  }
+
+  get getProject(){
+    return this.dataProject;
   }
 
   get getUserName(){
@@ -93,6 +98,15 @@ export class AuthService {
     } catch(Error) {
       return null;
     }
+  }
+
+  getId(){
+    let token = localStorage.getItem('token');
+    let jwt:any;
+    if(token){
+      jwt = jwt_decode(token);
+    }
+    return jwt.user;  
   }
 
   async refresh(){

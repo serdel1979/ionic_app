@@ -43,6 +43,16 @@ export interface TPhoto {
   urlPhoto: string
 }
 
+export interface Project {
+  id: number,
+  name: string,
+  client: string,
+  supervisor: string,
+  reference: string,
+  leaderId: string
+}
+
+
 export interface PhotoBase64 {
   id: string,
   description: string,

@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { rejects } from 'assert';
 import { resolve } from 'dns';
-import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff } from '../interfaces/reg.interface';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Project, Stuff } from '../interfaces/reg.interface';
 
 
+const PROJECTS_KEYS = 'my-projects';
 const NEED_KEYS = 'my-needs';
 const STUFF_KEYS = 'my-stuffs';
 const ACT_DEV_KEYS = 'my-activity-dev';
@@ -21,10 +22,31 @@ export class IndexDBService {
 
   constructor(private storage: Storage) {}
 
+///////projects
 
+addProject(project: Project): Promise<any> {
+  return this.storage.get(PROJECTS_KEYS).then((projects: Project[]) => {
+    if (projects) {
+      projects.push(project);
+      return this.storage.set(PROJECTS_KEYS, projects);
+    } else {
+      return this.storage.set(PROJECTS_KEYS, [project]);
+    }
+  });
+}
 
+getProject(id: string): Promise<any> {
+  return this.storage.get(PROJECTS_KEYS).then((projects: any[]) => {
+    for (let i of projects) {
+      if (i.leader.id == id) {
+        return i;
+      }
+    }
+    return null;
+  });
+}
 
-
+///////////////////////////
 
   addObservation(observ: Observation): Promise<any> {
     return this.storage.get(OBSERVATIONS_KEYS).then((observations: Observation[]) => {

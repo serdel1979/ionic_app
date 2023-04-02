@@ -3,7 +3,7 @@ import { AuthService } from './services/auth.service';
 
 import { Storage } from '@ionic/storage-angular';
 
-
+const PROJECTS_KEYS = 'my-projects';
 const NEED_KEYS = 'my-needs';
 const STUFF_KEYS = 'my-stuffs';
 const ACT_DEV_KEYS = 'my-activity-dev';
@@ -32,6 +32,8 @@ export class AppComponent implements OnInit{
 
     this.storage.keys().then(async c => {
       console.log(c);
+      
+      (this.f(c, PROJECTS_KEYS))?console.log(`${PROJECTS_KEYS} ya existía`):await this.storage.set(PROJECTS_KEYS,[]);
       (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):await this.storage.set(NEED_KEYS,[]);
       (this.f(c, STUFF_KEYS))?console.log(`${STUFF_KEYS} ya existía`):await this.storage.set(STUFF_KEYS,[]);
       (this.f(c, ACT_DEV_KEYS))?console.log(`${ACT_DEV_KEYS} ya existía`):await this.storage.set(ACT_DEV_KEYS,[]);
