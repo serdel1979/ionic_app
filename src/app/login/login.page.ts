@@ -37,10 +37,8 @@ export class LoginPage{
       let usrlog = localStorage.getItem('user-log');
       if(!usrlog)usrlog='';
       this.authService.getData(usrlog).subscribe((resp)=>{  
-        this.indexDB.addProject(resp.project).then(p=>{
-          console.log(`projecto guardado ${p}`);
-        })
         localStorage.setItem('token', resp.token);
+        localStorage.setItem('proj',JSON.stringify(resp.project));
         this.loadingCtl.dismiss();
         this.router.navigateByUrl('/project');
       },

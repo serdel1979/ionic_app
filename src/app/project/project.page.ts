@@ -61,10 +61,9 @@ export class ProjectPage implements OnInit, OnChanges {
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
     this.loadObservations();
-    let id = this.authService.getId();
-    this.indexDBService.getProject(id).then(data=>{
-      this.dataProject = data;
-    })
+    let proj =  localStorage.getItem('proj');
+    if(proj) this.dataProject = JSON.parse(proj);
+    console.log(this.dataProject);
   }
 
   refresh() {

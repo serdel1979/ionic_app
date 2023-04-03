@@ -11,7 +11,7 @@
 
 
     <ion-card-title>Parte Diario de Actividades</ion-card-title>
-    <ion-card-subtitle>Proyecto ET 25 de Mayo</ion-card-subtitle>
+    <ion-card-subtitle>{{ dataProject.name }}</ion-card-subtitle>
 
 
     <ion-grid class="text-gr">
@@ -20,7 +20,7 @@
           Cliente
         </ion-col>
         <ion-col size="6">
-          TEYMA ABENGOA
+          {{ dataProject.client }}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -28,7 +28,7 @@
           Tarea
         </ion-col>
         <ion-col size="6">
-          Ensayos - Puesta en Servicio
+          {{ dataProject.job.description }}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -36,7 +36,7 @@
           Referencia
         </ion-col>
         <ion-col size="6">
-          ST22-1286
+          {{ dataProject.reference }}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -44,7 +44,7 @@
           Jefe de obra
         </ion-col>
         <ion-col size="6">
-          Hernan Crespo
+          {{ dataProject.supervisor }}
         </ion-col>
       </ion-row>
     </ion-grid>
