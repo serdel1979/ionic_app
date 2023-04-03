@@ -6,8 +6,8 @@ import { Weather } from '../interfaces/temp.interface';
 
 
 
-//const urlApi = environment.api;
-const urlApi = 'https://localhost:7071/climate';
+const urlApi = environment.api;
+//const urlApi = 'https://localhost:7071/climate';
 
 @Injectable({
   providedIn: 'root'

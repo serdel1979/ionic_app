@@ -100,7 +100,7 @@ export class StuffService {
 
   
   getWorkers(){
-    return this.http.get<User[]>('https://localhost:7071/users/getworkers');
+    return this.http.get<User[]>('https://apiapp-production.up.railway.app/users/getworkers');
   }
 
 }

@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
 
   
-const urlUser = 'https://localhost:7071';
+//const urlUser = 'https://localhost:7071';
+const urlUser = 'https://apiapp-production.up.railway.app';
 
 @Injectable({
   providedIn: 'root'
