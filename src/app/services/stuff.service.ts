@@ -97,4 +97,10 @@ export class StuffService {
   }
 
 
+
+  
+  getWorkers(){
+    return this.http.get<User[]>('https://localhost:7071/users/getworkers');
+  }
+
 }
