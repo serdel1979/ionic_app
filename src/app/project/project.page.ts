@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { IndexDBService } from '../services/index-db.service';
-import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Stuff, TPhoto } from '../interfaces/reg.interface';
+import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Project, Stuff, TPhoto } from '../interfaces/reg.interface';
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
 import { uuId } from '../utils/uuid.function';
 import { DetailPhotoPage } from '../detail-photo/detail-photo.page';
@@ -9,6 +9,7 @@ import { LoadStuffPage } from '../load-stuff/load-stuff.page';
 import { DetailStuffPage } from '../detail-stuff/detail-stuff.page';
 import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail-activity-developed.page';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -39,14 +40,15 @@ export class ProjectPage implements OnInit, OnChanges {
 
   private loading!: any;
 
-  public dataProject: any;
+  public dataProject!: Project;
 
   constructor(
     private alertController: AlertController,
     private indexDBService: IndexDBService,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) { }
 
 
@@ -61,9 +63,14 @@ export class ProjectPage implements OnInit, OnChanges {
     this.loadActivitiesDeveloped();
     this.loadActivitiesToDev();
     this.loadObservations();
-    let proj =  localStorage.getItem('proj');
-    if(proj) this.dataProject = JSON.parse(proj);
-    console.log(this.dataProject);
+    let proj = localStorage.getItem('proj');
+    if(proj){
+      this.dataProject = JSON.parse(proj);
+    } 
+    else{
+      this.authService.logout();
+      this.router.navigateByUrl('/login');
+    } 
   }
 
   refresh() {
@@ -75,6 +82,14 @@ export class ProjectPage implements OnInit, OnChanges {
   }
 
   ionViewWillEnter() {
+    let proj = localStorage.getItem('proj');
+    if(proj){
+      this.dataProject = JSON.parse(proj);
+    } 
+    else{
+      this.authService.logout();
+      this.router.navigateByUrl('/login');
+    } 
     this.refresh();
   }
 

@@ -44,12 +44,46 @@ export interface TPhoto {
 }
 
 export interface Project {
-  id: number,
-  name: string,
-  client: string,
-  supervisor: string,
-  reference: string,
-  leaderId: string
+  id:                   number;
+  name:                 string;
+  client:               string;
+  job:                  Job;
+  dateStart:            Date;
+  dateEnd:              Date;
+  construction_manager: string;
+  supervisor:           string;
+  reference:            string;
+  leader:               Leader;
+}
+
+export interface Job {
+  id:          number;
+  description: string;
+}
+
+export interface Leader {
+  name:                 string;
+  surname:              string;
+  dni:                  number;
+  responsability:       null;
+  responsabilityId:     number;
+  isAdmin:              boolean;
+  leader:               boolean;
+  id:                   string;
+  userName:             string;
+  normalizedUserName:   string;
+  email:                string;
+  normalizedEmail:      string;
+  emailConfirmed:       boolean;
+  passwordHash:         null;
+  securityStamp:        string;
+  concurrencyStamp:     string;
+  phoneNumber:          null;
+  phoneNumberConfirmed: boolean;
+  twoFactorEnabled:     boolean;
+  lockoutEnd:           null;
+  lockoutEnabled:       boolean;
+  accessFailedCount:    number;
 }
 
 

@@ -11,10 +11,10 @@
 
 
     <ion-card-title>Parte Diario de Actividades</ion-card-title>
-    <ion-card-subtitle>{{ dataProject.name }}</ion-card-subtitle>
+    <ion-card-subtitle *ngIf="dataProject">{{ dataProject.name }}</ion-card-subtitle>
 
 
-    <ion-grid class="text-gr">
+    <ion-grid *ngIf="dataProject" class="text-gr">
       <ion-row>
         <ion-col size="6">
           Cliente

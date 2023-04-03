@@ -32,26 +32,29 @@ export class LoginPage{
 
 
   async signIn(){
-    this.authService.signIn().then(()=>{
-      this.showLoading();
+    const loading = await this.loadingCtl.create({
+      message: 'Verificando acceso...',
+    });
+    this.authService.signIn().then(async ()=>{
+      await loading.present();
       let usrlog = localStorage.getItem('user-log');
       if(!usrlog)usrlog='';
       this.authService.getData(usrlog).subscribe((resp)=>{  
         localStorage.setItem('token', resp.token);
         localStorage.setItem('proj',JSON.stringify(resp.project));
-        this.loadingCtl.dismiss();
+        loading.dismiss();
         this.router.navigateByUrl('/project');
       },
         ( error)=>{
-        this.loadingCtl.dismiss();
         localStorage.removeItem('token-g');
         localStorage.removeItem('user-log');
+        loading.dismiss();
         this.seeError(error.error);
       })
     }).catch((err)=>{
       localStorage.removeItem('token-g');
       localStorage.removeItem('user-log');
-      this.loadingCtl.dismiss();
+      loading.dismiss();
       this.seeError(err.error);
     });
   }
