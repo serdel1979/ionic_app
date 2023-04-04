@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { File, RegistroDTO } from '../interfaces/registro.interface';
-import { Developed_activity, Stuff } from '../interfaces/reg.interface';
+import { Developed_activity, Stuff, Activities_to_develop, NeedNextDay, Observation } from '../interfaces/reg.interface';
 
 
 
@@ -20,7 +20,13 @@ export class DataService {
 
 
 
-  sendReport(stuffs: Stuff[], act_developed: Developed_activity[],idProject: number){
+  sendReport(stuffs: Stuff[], 
+    act_developed: Developed_activity[],
+    observations: Observation[],
+    act_to_dev: Activities_to_develop[],
+    needs: NeedNextDay[],
+    idProject: number){
+
     let detail : any[] = [];
     for(let stuff of stuffs){
       detail.push({
@@ -37,12 +43,27 @@ export class DataService {
         Description: actdev.description
       })
     }
+    let act_to_developed: any[]=[];
+    for(let acttodev of act_to_dev){
+      act_to_developed.push({
+        Description: acttodev.description
+      })
+    }
+    let need_next_day: any[]=[];
+    for(let need of needs){
+      need_next_day.push({
+        Description: need.description
+      })
+    }
     let body={
       "projectId": idProject,
       "detail": detail,
       "Activities_developed": activity_developed,
+      "Activity_to_Dev": act_to_developed,
+      "Need_next_day":need_next_day,
       "report":"Estos fueron los trabajadores" 
     }
+    console.log('Observations: ',observations);
     return this.http.post<any>(`https://localhost:7071/project/report`,body);
   }
 

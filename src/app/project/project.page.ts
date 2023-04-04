@@ -654,6 +654,9 @@ export class ProjectPage implements OnInit, OnChanges {
     await loading.present();
     this.dataService.sendReport(this.stuffs,
       this.activitiesDeveloped,
+      this.observations,
+      this.activitiesToDev,
+      this.needsNextDay,
       this.dataProject.id).subscribe(
       async res=>{
         loading.dismiss();
