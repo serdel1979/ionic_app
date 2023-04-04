@@ -649,10 +649,12 @@ export class ProjectPage implements OnInit, OnChanges {
 
   async sendReport(){
     const loading = await this.loadingCtrl.create({
-      message: 'Cargando...'
+      message: 'Enviando reporte...'
     });
     await loading.present();
-    this.dataService.sendReport(this.stuffs,this.dataProject.id).subscribe(
+    this.dataService.sendReport(this.stuffs,
+      this.activitiesDeveloped,
+      this.dataProject.id).subscribe(
       async res=>{
         loading.dismiss();
         console.log(res);

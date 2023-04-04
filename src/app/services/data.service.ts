@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { File, RegistroDTO } from '../interfaces/registro.interface';
-import { Stuff } from '../interfaces/reg.interface';
+import { Developed_activity, Stuff } from '../interfaces/reg.interface';
 
 
 
@@ -20,7 +20,7 @@ export class DataService {
 
 
 
-  sendReport(stuffs: Stuff[],idProject: number){
+  sendReport(stuffs: Stuff[], act_developed: Developed_activity[],idProject: number){
     let detail : any[] = [];
     for(let stuff of stuffs){
       detail.push({
@@ -31,9 +31,16 @@ export class DataService {
         departure_time: stuff.departure_time
       })
     }
+    let activity_developed : any[] = [];
+    for(let actdev of act_developed){
+      activity_developed.push({
+        Description: actdev.description
+      })
+    }
     let body={
       "projectId": idProject,
       "detail": detail,
+      "Activities_developed": activity_developed,
       "report":"Estos fueron los trabajadores" 
     }
     return this.http.post<any>(`https://localhost:7071/project/report`,body);

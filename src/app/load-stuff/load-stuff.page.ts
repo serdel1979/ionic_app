@@ -143,7 +143,7 @@ export class LoadStuffPage {
 
   select(user: User) {
     //busco por email para ver si el usuario ya lo tengo agregado
-    this.indexDbService.getStuff(user.email).then(async st => {
+    this.indexDbService.getStuff(user.id).then(async st => {
       if (st) {
         const alert = await this.alertController.create({
           header: 'Error',

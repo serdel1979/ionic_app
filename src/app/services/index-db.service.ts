@@ -320,13 +320,13 @@ getProject(id: string): Promise<any> {
     });
   }
 
-  getStuff(email: string): Promise<Stuff | null>{
+  getStuff(id: string): Promise<Stuff | null>{
     return this.storage.get(STUFF_KEYS).then((stuffs: Stuff[]) => {
       if (!stuffs || stuffs.length === 0) {
         return null;
       }
       for (let i of stuffs) {
-        if (i.id === email) {
+        if (i.id === id) {
           return i;
         }
       }
