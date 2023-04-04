@@ -2,9 +2,10 @@ export interface Stuff {
   id: string,
   name: string,
   surname: string,
+  email : string,
   responsability: string,
-  date_start: string,
-  date_end: string,
+  entry_time: string,
+  departure_time: string,
   activities: Developed_activity[]
 }
 

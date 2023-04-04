@@ -30,8 +30,9 @@ export class LoadStuffPage {
     name: '',
     surname: '',
     responsability: '',
-    date_start: '',
-    date_end: '',
+    email: '',
+    entry_time: '',
+    departure_time: '',
     activities: []
   }
 
@@ -58,12 +59,13 @@ export class LoadStuffPage {
       })
     } else {
       this.stuff = this.navParams.get('stuff');
-      this.horaEntrada = this.stuff.date_start;
-      this.horaSalida = this.stuff.date_end;
+      this.horaEntrada = this.stuff.entry_time;
+      this.horaSalida = this.stuff.departure_time;
       this.userSelect = {
+        id: this.stuff.id,
         name: this.stuff.name,
         surname: this.stuff.surname,
-        email: this.stuff.id,
+        email: this.stuff.email,
         dni: 0,
         responsability: this.stuff.responsability,
         leader: false
@@ -160,12 +162,13 @@ export class LoadStuffPage {
 
 
   confirm() {
-    this.stuff.id = this.userSelect.email;
+    this.stuff.id = this.userSelect.id;
+    this.stuff.email = this.userSelect.email;
     this.stuff.name = this.userSelect.name;
     this.stuff.surname = this.userSelect.surname;
     this.stuff.responsability = this.userSelect.responsability;
-    this.stuff.date_start = this.horaEntrada;
-    this.stuff.date_end = this.horaSalida;
+    this.stuff.entry_time = this.horaEntrada;
+    this.stuff.departure_time = this.horaSalida;
     if (!this.edition) {
       //estoy agregando un nuevo stuff, hay que agregar el stuff a las actividades asignadas
       this.indexDbService.addStuff(this.stuff).then(async () => {

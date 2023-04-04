@@ -17,7 +17,7 @@ export class ClimaService {
   constructor(private http: HttpClient) { }
 
   getData(lat:number,long:number){
-    return this.http.get<Weather>(`${urlApi}/${lat}/${long}`);
+    return this.http.get<Weather>(`${urlApi}/climate/${lat}/${long}`);
   }
 
 

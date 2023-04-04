@@ -45,9 +45,7 @@ export class AuthService {
   }
   
 
-  getUser(){
-    return this.http.get<any>(`${urlUser}/users/getuser/05b3db6f-b14c-472d-90e7-97f29699c485`);
-  }
+  
 
   doAdmin(){
     let body={

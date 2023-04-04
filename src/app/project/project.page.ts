@@ -10,6 +10,7 @@ import { DetailStuffPage } from '../detail-stuff/detail-stuff.page';
 import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail-activity-developed.page';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class ProjectPage implements OnInit, OnChanges {
     private indexDBService: IndexDBService,
     private modalCtrl: ModalController,
     private authService: AuthService,
+    private dataService: DataService,
     private loadingCtrl: LoadingController,
     private router: Router
   ) { }
@@ -208,8 +210,8 @@ export class ProjectPage implements OnInit, OnChanges {
       subHeader: 'Datos del trabajador seleccionado',
       message: `Nombre: ${stuff.name}\n
       Responsabilidad: ${stuff.responsability}
-      Entrada: ${stuff.date_start}\n
-      Salida: ${stuff.date_end}\n
+      Entrada: ${stuff.entry_time}\n
+      Salida: ${stuff.departure_time}\n
       `,
       buttons: ['OK'],
     });
@@ -645,12 +647,12 @@ export class ProjectPage implements OnInit, OnChanges {
     return this.authService.isAdmin;
   }
 
-  async prueba(){
+  async sendReport(){
     const loading = await this.loadingCtrl.create({
       message: 'Cargando...'
     });
     await loading.present();
-    this.authService.getUser().subscribe(
+    this.dataService.sendReport(this.stuffs,this.dataProject.id).subscribe(
       async res=>{
         loading.dismiss();
         console.log(res);
