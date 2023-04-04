@@ -36,7 +36,6 @@ export class DataService {
       "detail": detail,
       "report":"Estos fueron los trabajadores" 
     }
-    console.log(body);
     return this.http.post<any>(`https://localhost:7071/project/report`,body);
   }
 
