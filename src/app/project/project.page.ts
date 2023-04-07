@@ -652,11 +652,13 @@ export class ProjectPage implements OnInit, OnChanges {
       message: 'Enviando reporte...'
     });
     await loading.present();
+    let myId = this.authService.getId();
     this.dataService.sendReport(this.stuffs,
       this.activitiesDeveloped,
       this.observations,
       this.activitiesToDev,
       this.needsNextDay,
+      myId,
       this.dataProject.id).subscribe(
       async res=>{
         loading.dismiss();

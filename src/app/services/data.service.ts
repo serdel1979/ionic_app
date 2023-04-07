@@ -6,8 +6,7 @@ import { File, RegistroDTO } from '../interfaces/registro.interface';
 import { Developed_activity, Stuff, Activities_to_develop, NeedNextDay, Observation } from '../interfaces/reg.interface';
 
 
-
-//const LAN = 'http://localhost:5240/pruebas';
+const urlLocal = environment.url;
 const urlApi = environment.api;
 
 
@@ -25,6 +24,7 @@ export class DataService {
     observations: Observation[],
     act_to_dev: Activities_to_develop[],
     needs: NeedNextDay[],
+    userId: string,
     idProject: number){
 
     let detail : any[] = [];
@@ -55,22 +55,38 @@ export class DataService {
         Description: need.description
       })
     }
+    let observ: any[]=[];
+    for(let obs of observations){
+      let phots: any[]=[];
+      for(let ph of obs.photos){
+        phots.push({
+          Description: ph.description,
+          ObservationId: 1,
+          image: ph.urlPhoto
+        })
+      }
+      observ.push({
+        photos: phots,
+        Description: obs.description,
+        Report_detailId: 1,
+      })
+    }
     let body={
       "projectId": idProject,
+      "UserId": userId,
       "detail": detail,
       "Activities_developed": activity_developed,
       "Activity_to_Dev": act_to_developed,
       "Need_next_day":need_next_day,
-      "report":"Estos fueron los trabajadores" 
+      "Observations": observ,
+      "reported":"Estos fueron los trabajadores" 
     }
-    console.log('Observations: ',observations);
-    return this.http.post<any>(`https://localhost:7071/project/report`,body);
+    return this.http.post<any>(`${urlLocal}/project/report`,body);
   }
 
 
   async enviarDatos(data: RegistroDTO):Promise<Observable<any>>{
     const formData = this.ConstruirFormData(data); 
-    console.log('Enviando datos ->',data);
     return await this.http.post<any>(`${urlApi}/pruebas`,formData);
   }
 
