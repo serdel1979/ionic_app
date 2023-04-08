@@ -5,7 +5,7 @@ import { User } from '../interfaces/users.interface';
 import { environment } from '../../environments/environment.prod';
 
 
-const FAKEAPI = "http://localhost:3000/users";
+const urlLocal = environment.url;
 const urlApi = environment.api;
 
 @Injectable({
@@ -24,7 +24,7 @@ export class StuffService {
 
   
   getWorkers(){
-    return this.http.get<User[]>(`${urlApi}/users/getworkers`);
+    return this.http.get<User[]>(`${urlLocal}/users/getworkers`);
   }
 
 }

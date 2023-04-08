@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
 
   
-//const urlUser = 'https://localhost:7071';
-const urlUser = 'https://apiapp-production.up.railway.app';
+const urlUser = 'https://localhost:7071';
+//const urlApi = 'https://apiapp-production.up.railway.app';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +78,12 @@ export class AuthService {
 
   get isLogued(){
     let token = localStorage.getItem('token');
+    // if(token != null){
+    //   let exp = this.getExpireToken();
+    //   let fechaExpira = new Date(exp * 1000);
+    //   let currentDate = new Date();
+    //   if (currentDate > fechaExpira) return false;
+    // }
     return token != null;
   }
 
@@ -106,6 +112,15 @@ export class AuthService {
       jwt = jwt_decode(token);
     }
     return jwt.user;  
+  }
+
+  getExpireToken(){
+    let token = localStorage.getItem('token');
+    let jwt:any;
+    if(token){
+      jwt = jwt_decode(token);
+    }
+    return jwt.exp;  
   }
 
   async refresh(){
