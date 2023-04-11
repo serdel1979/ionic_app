@@ -50,7 +50,7 @@
     </ion-grid>
 
     <ion-accordion-group class="text-gr">
-      <ion-accordion value="first">
+      <ion-accordion *ngIf="isAdmin()" value="first">
         <ion-item slot="header" color="light">
           <ion-label>Personal afectado</ion-label>
         </ion-item>
@@ -85,10 +85,12 @@
               </ion-col>
             </ion-row>
           </div>
-
+          <ion-button expand="full">
+            Confirmar personal
+          </ion-button>
         </div>
       </ion-accordion>
-      <ion-accordion value="second">
+      <ion-accordion  *ngIf="isAdmin()" value="second">
         <ion-item slot="header" color="light">
           <ion-label>Actividades desarrolladas</ion-label>
         </ion-item>
@@ -168,7 +170,7 @@
           </div>
         </div>
       </ion-accordion>
-      <ion-accordion value="fourth">
+      <ion-accordion  *ngIf="isAdmin()" value="fourth">
         <ion-item slot="header" color="light">
           <ion-label>Actividades a desarrollar</ion-label>
         </ion-item>
@@ -201,7 +203,7 @@
           </div>
         </div>
       </ion-accordion>
-      <ion-accordion value="fifth">
+      <ion-accordion  *ngIf="isAdmin()" value="fifth">
         <ion-item slot="header" color="light">
           <ion-label>Necesidades</ion-label>
         </ion-item>
@@ -235,10 +237,15 @@
       </ion-accordion>
     </ion-accordion-group>
 
-    <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendReport()">
-      Enviar
-    </ion-button>
-
-
+    <div *ngIf="isAdmin()">
+      <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendReport()">
+        Enviar
+      </ion-button>
+    </div>
+    <div *ngIf="!isAdmin()">
+      <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendObservations()">
+        Enviar
+      </ion-button>
+    </div>
   </ion-content>
 </div>

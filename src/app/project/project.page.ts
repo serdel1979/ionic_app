@@ -670,6 +670,10 @@ export class ProjectPage implements OnInit, OnChanges {
       })
   }
 
+  sendObservations(){
+    console.log("Enviar ",this.observations);
+  }
+
   async doAdmin(){
     const loading = await this.loadingCtrl.create({
       message: 'Cargando...'

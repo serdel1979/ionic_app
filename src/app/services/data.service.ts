@@ -84,6 +84,22 @@ export class DataService {
     return this.http.post<any>(`${urlLocal}/project/report`,body);
   }
 
+  confirmStaff(stuffs: Stuff[],
+    idProject: number){
+
+    let staff : any[] = [];
+    for(let stuff of stuffs){
+      staff.push({
+        userId: stuff.id,
+      })
+    }
+    
+    let body={
+      "projectId": idProject,
+      "Staff": staff 
+    }
+    return this.http.post<any>(`${urlLocal}/project/confirmstaff`,body);
+  }
 
   async enviarDatos(data: RegistroDTO):Promise<Observable<any>>{
     const formData = this.ConstruirFormData(data); 
