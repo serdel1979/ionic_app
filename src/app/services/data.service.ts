@@ -85,17 +85,25 @@ export class DataService {
   }
 
   confirmStaff(stuffs: Stuff[],
-    idProject: number){
+    idProject: number, userId: number){
 
     let staff : any[] = [];
     for(let stuff of stuffs){
+      let act = []
+      for(let activity of stuff.activities){
+        act.push({
+          description: activity.description
+        })
+      }
       staff.push({
         userId: stuff.id,
+        activities: act
       })
     }
     
     let body={
       "projectId": idProject,
+      "userId": userId,
       "Staff": staff 
     }
     return this.http.post<any>(`${urlLocal}/project/confirmstaff`,body);

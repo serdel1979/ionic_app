@@ -31,7 +31,6 @@ export class AppComponent implements OnInit{
     // await this.storage.set(OBSERVATIONS_KEYS,[]);
 
     this.storage.keys().then(async c => {
-      console.log(c);
       
       (this.f(c, PROJECTS_KEYS))?console.log(`${PROJECTS_KEYS} ya existía`):await this.storage.set(PROJECTS_KEYS,[]);
       (this.f(c, NEED_KEYS))?console.log(`${NEED_KEYS} ya existía`):await this.storage.set(NEED_KEYS,[]);

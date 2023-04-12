@@ -670,6 +670,20 @@ export class ProjectPage implements OnInit, OnChanges {
       })
   }
 
+  async confirmStaff(){
+    for(let staff of this.stuffs){
+      if(staff.activities.length == 0){
+        this.seeDetail("Todo el personal debe tener tareas asignadas","Error","");
+        return;
+      }
+    }
+    console.log('enviar...');
+    let myId = this.authService.getId();
+    this.dataService.confirmStaff(this.stuffs,this.dataProject.id,myId).subscribe(resp=>{
+      console.log(resp);
+    })
+  }
+
   sendObservations(){
     console.log("Enviar ",this.observations);
   }
