@@ -97,6 +97,8 @@ export class DataService {
       }
       staff.push({
         userId: stuff.id,
+        Entry_time: stuff.entry_time,
+        Departure_time: stuff.departure_time,
         activities: act
       })
     }
