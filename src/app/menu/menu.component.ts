@@ -68,7 +68,6 @@ export class MenuComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/login');
-    console.log("logout");
     this.menuCtrl.close();
   }
 

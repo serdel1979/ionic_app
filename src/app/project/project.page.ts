@@ -94,6 +94,10 @@ export class ProjectPage implements OnInit, OnChanges {
     let proj = localStorage.getItem('proj');
     if(proj){
       this.dataProject = JSON.parse(proj);
+      let idUser = this.authService.getId();
+      this.staffService.getMeActivities(idUser,this.dataProject.id).subscribe(resp=>{
+        this.myActivities = resp;
+      })
     } 
     else{
       this.authService.logout();
@@ -684,10 +688,18 @@ export class ProjectPage implements OnInit, OnChanges {
         return;
       }
     }
-    console.log('enviar...');
+    const loading = await this.loadingCtrl.create({
+      message: 'Confirmando personal afectado...'
+    });
+    await loading.present();
     let myId = this.authService.getId();
     this.dataService.confirmStaff(this.stuffs,this.dataProject.id,myId).subscribe(resp=>{
-      console.log(resp);
+      loading.dismiss();
+      this.seeDetail("El personal afectado quedó registrado en la base de datos!!!","","");
+    },
+    error=>{
+      loading.dismiss();
+      this.seeDetail("Error desconocido","","");
     })
   }
 

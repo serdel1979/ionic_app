@@ -50,7 +50,7 @@
     </ion-grid>
 
     <ion-card *ngIf="!isAdmin() && myActivities.length == 0">
-      <ion-label>No tiene tareas asignadas</ion-label>
+      <ion-card-title>No tiene tareas asignadas</ion-card-title>
     </ion-card>
     <ion-card *ngIf="!isAdmin() && myActivities.length > 0">
       <ion-card-title>Tareas asignadas</ion-card-title>
