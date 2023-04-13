@@ -22,9 +22,13 @@ export class StuffService {
 
 
 
-  
   getWorkers(){
     return this.http.get<User[]>(`${urlLocal}/users/getworkers`);
+  }
+
+  
+  getMeActivities(userId: string, projectId: number){
+    return  this.http.get<any>(`${urlLocal}/users/assigned_activities/${userId}/${projectId}`);
   }
 
 }

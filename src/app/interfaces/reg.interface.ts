@@ -94,3 +94,7 @@ export interface PhotoBase64 {
   photo?: string;
   render: boolean;
 }
+
+export interface Activity_Assign{
+  description: string
+}

@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { IndexDBService } from '../services/index-db.service';
-import { Activities_to_develop, Developed_activity, NeedNextDay, Observation, Project, Stuff, TPhoto } from '../interfaces/reg.interface';
+import { Activities_to_develop, Activity_Assign, Developed_activity, NeedNextDay, Observation, Project, Stuff, TPhoto } from '../interfaces/reg.interface';
 import { LoadObservationsPage } from '../load-observations/load-observations.page';
 import { uuId } from '../utils/uuid.function';
 import { DetailPhotoPage } from '../detail-photo/detail-photo.page';
@@ -11,6 +11,7 @@ import { DetailActivityDevelopedPage } from '../detail-activity-developed/detail
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { StuffService } from '../services/stuff.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class ProjectPage implements OnInit, OnChanges {
   public needsNextDay: NeedNextDay[] = [];
   public observations: Observation[] = [];
 
+  public myActivities: Activity_Assign[] = [];
   public page = 1;
   public resultsCount = 3;
   public totalPages = 1;
@@ -50,6 +52,7 @@ export class ProjectPage implements OnInit, OnChanges {
     private authService: AuthService,
     private dataService: DataService,
     private loadingCtrl: LoadingController,
+    private staffService: StuffService,
     private router: Router
   ) { }
 
@@ -68,6 +71,10 @@ export class ProjectPage implements OnInit, OnChanges {
     let proj = localStorage.getItem('proj');
     if(proj){
       this.dataProject = JSON.parse(proj);
+      let idUser = this.authService.getId();
+      this.staffService.getMeActivities(idUser,this.dataProject.id).subscribe(resp=>{
+        this.myActivities = resp;
+      })
     } 
     else{
       this.authService.logout();

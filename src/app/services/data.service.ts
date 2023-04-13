@@ -111,6 +111,13 @@ export class DataService {
     return this.http.post<any>(`${urlLocal}/project/confirmstaff`,body);
   }
 
+
+
+
+
+
+
+
   async enviarDatos(data: RegistroDTO):Promise<Observable<any>>{
     const formData = this.ConstruirFormData(data); 
     return await this.http.post<any>(`${urlApi}/pruebas`,formData);
