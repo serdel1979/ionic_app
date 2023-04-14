@@ -689,7 +689,7 @@ export class ProjectPage implements OnInit, OnChanges {
       }
     }
     const loading = await this.loadingCtrl.create({
-      message: 'Confirmando personal afectado...'
+      message: 'Confirmando personal...'
     });
     await loading.present();
     let myId = this.authService.getId();
