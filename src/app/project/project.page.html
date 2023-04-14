@@ -60,7 +60,7 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let activity of myActivities">
+          <ion-item (click)="seeDetail(activity.description,'Actividad asignada','')" *ngFor="let activity of myActivities">
             <ion-label>{{ activity.description }}</ion-label>
           </ion-item>
         </ion-list>
@@ -137,7 +137,7 @@
           </div>
         </div>
       </ion-accordion>
-      <ion-accordion value="third">
+      <ion-accordion *ngIf="(!isAdmin() && myActivities.length > 0) || isAdmin()" value="third">
         <ion-item slot="header" color="light">
           <ion-label>Observaciones</ion-label>
         </ion-item>
