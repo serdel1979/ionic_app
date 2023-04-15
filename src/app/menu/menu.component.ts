@@ -50,7 +50,7 @@ export class MenuComponent implements OnInit {
     this.climaService.getData(this.climCurrent.coordenadas[0], this.climCurrent.coordenadas[1]).subscribe(async (result) => {
       // manejar resultado exitoso
       //await this.presentAlert('Enviado','Enviado a base de datos','El registro se envió a la base de datos remota');
-      console.log(result);
+
       this.climCurrent.climaActual = result;
       this.climCurrent.descripcionClima = result.weather;
       this.climCurrent.descripcionActual = this.climCurrent.descripcionClima[0].description;

@@ -6,7 +6,6 @@ import { File, RegistroDTO } from '../interfaces/registro.interface';
 import { Developed_activity, Stuff, Activities_to_develop, NeedNextDay, Observation } from '../interfaces/reg.interface';
 
 
-const urlLocal = environment.url;
 const urlApi = environment.api;
 
 
@@ -81,7 +80,7 @@ export class DataService {
       "Observations": observ,
       "reported":"Estos fueron los trabajadores" 
     }
-    return this.http.post<any>(`${urlLocal}/project/report`,body);
+    return this.http.post<any>(`${urlApi}/project/report`,body);
   }
 
   confirmStaff(stuffs: Stuff[],
@@ -108,7 +107,7 @@ export class DataService {
       "userId": userId,
       "Staff": staff 
     }
-    return this.http.post<any>(`${urlLocal}/project/confirmstaff`,body);
+    return this.http.post<any>(`${urlApi}/project/confirmstaff`,body);
   }
 
 

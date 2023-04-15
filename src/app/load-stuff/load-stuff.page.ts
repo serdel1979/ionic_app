@@ -183,12 +183,9 @@ export class LoadStuffPage {
         for (let activity of this.stuff.activities) {
           await this.indexDbService.addStuffToActivity(activity, this.stuff)
         }
-        console.log('nuevas actividades de usuario ',this.stuff.activities);
-        //falta eliminar usuarios de las actividades
         let activitiesCurrent = [];
         this.indexDbService.getActivities().then(async activities => {
           activitiesCurrent = activities.filter(el => !this.stuff.activities.some(act => act.id === el.id));
-          console.log('actividades actuales donde hay que eliminar usuario ',activitiesCurrent);
           for (let activityCurrent of activitiesCurrent) {
             await this.indexDbService.deletStuffFromActivity(activityCurrent, this.stuff)
           }

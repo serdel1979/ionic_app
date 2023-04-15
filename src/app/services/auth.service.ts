@@ -6,8 +6,7 @@ import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
 
   
-const urlUser = 'https://localhost:7071';
-//const urlApi = 'https://apiapp-production.up.railway.app';
+const urlApi = 'https://apiapp-production.up.railway.app';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +40,7 @@ export class AuthService {
     let body={
       email 
     }
-    return this.http.post<any>(`${urlUser}/users/signin`,body);
+    return this.http.post<any>(`${urlApi}/users/signin`,body);
   }
   
 
@@ -51,14 +50,14 @@ export class AuthService {
     let body={
       Email : 'sdlbsso@gmail.com' 
     }
-    return this.http.post<any>(`${urlUser}/users/doadmin`,body);
+    return this.http.post<any>(`${urlApi}/users/doadmin`,body);
   }
 
   deleteAdmin(){
     let body={
       Email : 'sdlbsso@gmail.com' 
     }
-    return this.http.post<any>(`${urlUser}/users/deleteadmin`,body);
+    return this.http.post<any>(`${urlApi}/users/deleteadmin`,body);
   }
 
   get getProject(){
@@ -125,7 +124,6 @@ export class AuthService {
 
   async refresh(){
     const authCode = await GoogleAuth.refresh();
-    console.log('refresh ',authCode);
   }
 
   async logout(){

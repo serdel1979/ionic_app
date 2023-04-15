@@ -5,7 +5,6 @@ import { User } from '../interfaces/users.interface';
 import { environment } from '../../environments/environment.prod';
 
 
-const urlLocal = environment.url;
 const urlApi = environment.api;
 
 @Injectable({
@@ -23,12 +22,12 @@ export class StuffService {
 
 
   getWorkers(){
-    return this.http.get<User[]>(`${urlLocal}/users/getworkers`);
+    return this.http.get<User[]>(`${urlApi}/users/getworkers`);
   }
 
   
   getMeActivities(userId: string, projectId: number){
-    return  this.http.get<any>(`${urlLocal}/users/assigned_activities/${userId}/${projectId}`);
+    return  this.http.get<any>(`${urlApi}/users/assigned_activities/${userId}/${projectId}`);
   }
 
 }
