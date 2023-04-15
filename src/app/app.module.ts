@@ -18,6 +18,7 @@ import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@ang
 
 import localeEsAr from '@angular/common/locales/es-AR';
 import { PipesModule } from './pipes/pipes.module';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -46,8 +47,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
       useClass: Interceptor,
       multi: true
     },
+    { provide: 'API_URL', useValue: environment.api },
     { provide: LOCALE_ID, useValue: 'es-Ar' },
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   exports:[MenuComponent],
   bootstrap: [AppComponent]

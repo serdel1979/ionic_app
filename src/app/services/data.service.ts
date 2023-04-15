@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { File, RegistroDTO } from '../interfaces/registro.interface';
 import { Developed_activity, Stuff, Activities_to_develop, NeedNextDay, Observation } from '../interfaces/reg.interface';
 
 
-const urlApi = environment.api;
+//const urlApi = environment.api;
 
 
 @Injectable({
@@ -14,7 +14,7 @@ const urlApi = environment.api;
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(@Inject('API_URL') private urlApi: string, private http: HttpClient) { }
 
 
 
@@ -80,7 +80,7 @@ export class DataService {
       "Observations": observ,
       "reported":"Estos fueron los trabajadores" 
     }
-    return this.http.post<any>(`${urlApi}/project/report`,body);
+    return this.http.post<any>(`${this.urlApi}/project/report`,body);
   }
 
   confirmStaff(stuffs: Stuff[],
@@ -107,7 +107,7 @@ export class DataService {
       "userId": userId,
       "Staff": staff 
     }
-    return this.http.post<any>(`${urlApi}/project/confirmstaff`,body);
+    return this.http.post<any>(`${this.urlApi}/project/confirmstaff`,body);
   }
 
 
@@ -119,7 +119,7 @@ export class DataService {
 
   async enviarDatos(data: RegistroDTO):Promise<Observable<any>>{
     const formData = this.ConstruirFormData(data); 
-    return await this.http.post<any>(`${urlApi}/pruebas`,formData);
+    return await this.http.post<any>(`${this.urlApi}/pruebas`,formData);
   }
 
 

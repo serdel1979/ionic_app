@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
 
   
-const urlApi = 'https://apiapp-production.up.railway.app';
+//const urlApi = 'https://apiapp-production.up.railway.app';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthService {
 
   dataProject: any = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject('API_URL') private urlApi: string) { }
 
   async signIn(){
     this.user = await GoogleAuth.signIn();
@@ -40,7 +40,7 @@ export class AuthService {
     let body={
       email 
     }
-    return this.http.post<any>(`${urlApi}/users/signin`,body);
+    return this.http.post<any>(`${this.urlApi}/users/signin`,body);
   }
   
 
@@ -50,14 +50,14 @@ export class AuthService {
     let body={
       Email : 'sdlbsso@gmail.com' 
     }
-    return this.http.post<any>(`${urlApi}/users/doadmin`,body);
+    return this.http.post<any>(`${this.urlApi}/users/doadmin`,body);
   }
 
   deleteAdmin(){
     let body={
       Email : 'sdlbsso@gmail.com' 
     }
-    return this.http.post<any>(`${urlApi}/users/deleteadmin`,body);
+    return this.http.post<any>(`${this.urlApi}/users/deleteadmin`,body);
   }
 
   get getProject(){
