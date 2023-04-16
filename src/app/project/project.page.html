@@ -259,7 +259,7 @@
         Enviar
       </ion-button>
     </div>
-    <div *ngIf="!isAdmin()">
+    <div *ngIf="!isAdmin() && observations.length > 0">
       <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendObservations()">
         Enviar
       </ion-button>

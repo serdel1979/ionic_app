@@ -18,16 +18,16 @@ export class DataService {
 
 
 
-  sendReport(stuffs: Stuff[], 
+  sendReport(stuffs: Stuff[],
     act_developed: Developed_activity[],
     observations: Observation[],
     act_to_dev: Activities_to_develop[],
     needs: NeedNextDay[],
     userId: string,
-    idProject: number){
+    idProject: number) {
 
-    let detail : any[] = [];
-    for(let stuff of stuffs){
+    let detail: any[] = [];
+    for (let stuff of stuffs) {
       detail.push({
         description: "a description",
         userId: stuff.id,
@@ -36,28 +36,28 @@ export class DataService {
         departure_time: stuff.departure_time
       })
     }
-    let activity_developed : any[] = [];
-    for(let actdev of act_developed){
+    let activity_developed: any[] = [];
+    for (let actdev of act_developed) {
       activity_developed.push({
         Description: actdev.description
       })
     }
-    let act_to_developed: any[]=[];
-    for(let acttodev of act_to_dev){
+    let act_to_developed: any[] = [];
+    for (let acttodev of act_to_dev) {
       act_to_developed.push({
         Description: acttodev.description
       })
     }
-    let need_next_day: any[]=[];
-    for(let need of needs){
+    let need_next_day: any[] = [];
+    for (let need of needs) {
       need_next_day.push({
         Description: need.description
       })
     }
-    let observ: any[]=[];
-    for(let obs of observations){
-      let phots: any[]=[];
-      for(let ph of obs.photos){
+    let observ: any[] = [];
+    for (let obs of observations) {
+      let phots: any[] = [];
+      for (let ph of obs.photos) {
         phots.push({
           Description: ph.description,
           ObservationId: 1,
@@ -70,26 +70,57 @@ export class DataService {
         Report_detailId: 1,
       })
     }
-    let body={
+    let body = {
       "projectId": idProject,
       "UserId": userId,
       "detail": detail,
       "Activities_developed": activity_developed,
       "Activity_to_Dev": act_to_developed,
-      "Need_next_day":need_next_day,
+      "Need_next_day": need_next_day,
       "Observations": observ,
-      "reported":"Estos fueron los trabajadores" 
+      "reported": "Estos fueron los trabajadores"
     }
-    return this.http.post<any>(`${this.urlApi}/project/report`,body);
+    return this.http.post<any>(`${this.urlApi}/project/report`, body);
   }
 
-  confirmStaff(stuffs: Stuff[],
-    idProject: number, userId: number){
 
-    let staff : any[] = [];
-    for(let stuff of stuffs){
+
+  confirmObservations(
+    idProject: number, userId: number,
+    observations: Observation[]) {
+    let observ: any[] = [];
+    for (let obs of observations) {
+      let phots: any[] = [];
+      for (let ph of obs.photos) {
+        phots.push({
+          Description: ph.description,
+          ObservationId: 1,
+          image: ph.urlPhoto
+        })
+      }
+      observ.push({
+        photos: phots,
+        Description: obs.description,
+        Report_detailId: 1,
+      })
+    }
+    let body = {
+      "projectId": idProject,
+      "UserId": userId,
+      "Observations": observ,
+    }
+    return this.http.post<any>(`${this.urlApi}/project/confirmObservations`, body);
+  }
+
+
+
+  confirmStaff(stuffs: Stuff[],
+    idProject: number, userId: number) {
+
+    let staff: any[] = [];
+    for (let stuff of stuffs) {
       let act = []
-      for(let activity of stuff.activities){
+      for (let activity of stuff.activities) {
         act.push({
           description: activity.description
         })
@@ -101,13 +132,13 @@ export class DataService {
         activities: act
       })
     }
-    
-    let body={
+
+    let body = {
       "projectId": idProject,
       "userId": userId,
-      "Staff": staff 
+      "Staff": staff
     }
-    return this.http.post<any>(`${this.urlApi}/project/confirmstaff`,body);
+    return this.http.post<any>(`${this.urlApi}/project/confirmstaff`, body);
   }
 
 
@@ -117,14 +148,14 @@ export class DataService {
 
 
 
-  async enviarDatos(data: RegistroDTO):Promise<Observable<any>>{
-    const formData = this.ConstruirFormData(data); 
-    return await this.http.post<any>(`${this.urlApi}/pruebas`,formData);
+  async enviarDatos(data: RegistroDTO): Promise<Observable<any>> {
+    const formData = this.ConstruirFormData(data);
+    return await this.http.post<any>(`${this.urlApi}/pruebas`, formData);
   }
 
 
   private ConstruirFormData(registroFoto: RegistroDTO): FormData {
-    const formData =  new FormData();
+    const formData = new FormData();
 
     formData.append('Latitud', JSON.stringify(registroFoto.Latitud));
     formData.append('Longitud', JSON.stringify(registroFoto.Longitude));

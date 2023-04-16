@@ -703,8 +703,27 @@ export class ProjectPage implements OnInit, OnChanges {
     })
   }
 
-  sendObservations(){
-    console.log("Enviar ",this.observations);
+  async sendObservations(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Enviando observaciones...'
+    });
+    await loading.present();
+    let myId = this.authService.getId();
+    this.dataService.confirmObservations(
+      this.dataProject.id,
+      myId,
+      this.observations
+      ).subscribe(
+      async res=>{
+        loading.dismiss();
+        this.seeDetail("Observaciones registradas","Envío OK","");
+        console.log(res);
+      },
+      error =>{
+        loading.dismiss();
+        console.log(error);
+        this.seeDetail(error.error,"Envío OK","");
+      })
   }
 
   async doAdmin(){
