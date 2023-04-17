@@ -147,10 +147,10 @@ export class LoadObservationsPage {
         return;
     }
     if (this.edition) {
-      this.indexDbService.editObservation(this.observation).then(c => console.log('editado ', c));
+      this.indexDbService.editObservation(this.observation).then(c => console.log('editado '));
       this.edition = false;
     } else {
-      this.indexDbService.addObservation(this.observation).then(c => console.log('agregado ', c));
+      this.indexDbService.addObservation(this.observation).then(c => console.log('agregado '));
     }
 
     return this.modalCtrl.dismiss(this.name, 'confirm');
