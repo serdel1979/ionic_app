@@ -255,12 +255,12 @@
     </ion-accordion-group>
 
     <div *ngIf="isAdmin()">
-      <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendReport()">
+      <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendReportQuestion()">
         Enviar
       </ion-button>
     </div>
     <div *ngIf="!isAdmin() && observations.length > 0">
-      <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendObservations()">
+      <ion-button *ngIf="puedeEnviar()" style="margin-top: 10px;" (click)="sendObservationQuestion()">
         Enviar
       </ion-button>
     </div>

@@ -673,12 +673,39 @@ export class ProjectPage implements OnInit, OnChanges {
       this.dataProject.id).subscribe(
       async res=>{
         loading.dismiss();
-        console.log(res);
+        this.seeDetail("Reporte enviado!!!","Envío exitoso","");
       },
       error =>{
         loading.dismiss();
-        console.log(error);
+        this.seeDetail("Hubo un error al anviar el reporte","Error","");
       })
+  }
+
+  async sendReportQuestion() {
+    const alert = await this.alertController.create({
+      header: `Al enviar el reporte del día a la base de datos se eliminarán los datos del dispositivo!!!`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: async () => {
+            let msg: any;
+            await this.sendReport();
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
   }
 
   async confirmStaff(){
@@ -724,6 +751,33 @@ export class ProjectPage implements OnInit, OnChanges {
         console.log(error);
         this.seeDetail(error.error,"Envío OK","");
       })
+  }
+
+  async sendObservationQuestion() {
+    const alert = await this.alertController.create({
+      header: `Al enviar las observaciones registradas a la base de datos se eliminarán del dispositivo!!!`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.handlerMessage = 'Alert canceled';
+          },
+        },
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: async () => {
+            let msg: any;
+            await this.sendObservations();
+            this.handlerMessage = 'Alert confirmed';
+          },
+        },
+      ],
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    this.roleMessage = `Dismissed with role: ${role}`;
   }
 
   async doAdmin(){
