@@ -44,6 +44,7 @@ export class ProjectPage implements OnInit, OnChanges {
   private loading!: any;
 
   public dataProject!: Project;
+  private myInterval: any;
 
   constructor(
     private alertController: AlertController,
@@ -90,6 +91,19 @@ export class ProjectPage implements OnInit, OnChanges {
     this.loadObservations();
   }
 
+
+  ionViewDidEnter() {
+    this.myInterval = setInterval(() => {
+      this.myTask();
+    }, 1000);
+  }
+
+
+  async myTask() {
+    console.log("");
+  }
+
+
   ionViewWillEnter() {
     let proj = localStorage.getItem('proj');
     if(proj){
@@ -105,6 +119,12 @@ export class ProjectPage implements OnInit, OnChanges {
     } 
     this.refresh();
   }
+
+
+  ionViewWillLeave() {
+    clearInterval(this.myInterval);
+  }
+
 
 
   async deletObservation(observation: Observation) {

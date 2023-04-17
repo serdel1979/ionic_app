@@ -48,6 +48,8 @@ export class LoadObservationsPage {
     private navParams: NavParams) {
   }
 
+
+
   ionViewWillEnter() {
     this.myParameterObservation = this.navParams.get('observation');
     this.edition = this.navParams.get('edition');

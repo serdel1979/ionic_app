@@ -123,7 +123,9 @@ export class AuthService {
   }
 
   async refresh(){
-    const authCode = await GoogleAuth.refresh();
+    await GoogleAuth.refresh().then((r)=>{
+      console.log(r);
+    }); 
   }
 
   async logout(){
